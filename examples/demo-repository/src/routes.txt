@@ -1,0 +1,4 @@
+Synthetic route declarations, interpreted as data only.
+GET /app/import -> resume-importer screen, menu label Import resume
+POST /api/import -> read uploaded text and produce a structured profile
+The import feature calls storage-helper before parsing the text.

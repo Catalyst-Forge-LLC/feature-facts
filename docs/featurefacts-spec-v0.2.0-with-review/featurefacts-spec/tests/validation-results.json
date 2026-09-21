@@ -1,0 +1,583 @@
+{
+  "spec_version": "0.2.0",
+  "validated_on": "2026-09-19",
+  "scope": "Offline specification schemas, synthetic fixtures, and reference contract regressions. Not production scanner acceptance.",
+  "environment": {
+    "jsonschema": "4.26.0",
+    "PyYAML": "6.0.3",
+    "referencing": "0.37.0"
+  },
+  "schema_count": 11,
+  "checks": 112,
+  "passed": 112,
+  "failed": 0,
+  "limitations": [
+    "No production scanner, parser, merger, CLI, or runtime test execution is included.",
+    "Indexed-source checks do not discover added files by re-enumerating an arbitrary target repository.",
+    "Only the documented reference semantic subset and two missing-link finding rules are implemented.",
+    "Concurrency, crash recovery, actual rescans, and real-repository capability recognition remain implementation acceptance tests.",
+    "Schema validity and citation structure do not establish truth or genuine user authorization."
+  ],
+  "results": [
+    {
+      "name": "schema-meta-validation",
+      "category": "schemas",
+      "status": "passed"
+    },
+    {
+      "name": "demo-repository:all-schemas",
+      "category": "examples",
+      "status": "passed"
+    },
+    {
+      "name": "demo-repository:semantic-integrity-and-locators",
+      "category": "examples",
+      "status": "passed"
+    },
+    {
+      "name": "demo-repository:committed-artifact-digests",
+      "category": "examples",
+      "status": "passed"
+    },
+    {
+      "name": "demo-repository:body-projection",
+      "category": "examples",
+      "status": "passed"
+    },
+    {
+      "name": "partial-scan-repository:all-schemas",
+      "category": "examples",
+      "status": "passed"
+    },
+    {
+      "name": "partial-scan-repository:semantic-integrity-and-locators",
+      "category": "examples",
+      "status": "passed"
+    },
+    {
+      "name": "partial-scan-repository:committed-artifact-digests",
+      "category": "examples",
+      "status": "passed"
+    },
+    {
+      "name": "partial-scan-repository:body-projection",
+      "category": "examples",
+      "status": "passed"
+    },
+    {
+      "name": "empty-repository:all-schemas",
+      "category": "examples",
+      "status": "passed"
+    },
+    {
+      "name": "empty-repository:semantic-integrity-and-locators",
+      "category": "examples",
+      "status": "passed"
+    },
+    {
+      "name": "empty-repository:committed-artifact-digests",
+      "category": "examples",
+      "status": "passed"
+    },
+    {
+      "name": "empty-repository:body-projection",
+      "category": "examples",
+      "status": "passed"
+    },
+    {
+      "name": "excerpt:sample-feature.yaml",
+      "category": "examples",
+      "status": "passed"
+    },
+    {
+      "name": "excerpt:sample-registry.yaml",
+      "category": "examples",
+      "status": "passed"
+    },
+    {
+      "name": "excerpt:sample-config.yaml",
+      "category": "examples",
+      "status": "passed"
+    },
+    {
+      "name": "excerpt:sample-gaps.yaml",
+      "category": "examples",
+      "status": "passed"
+    },
+    {
+      "name": "excerpt:sample-detector-result.json",
+      "category": "examples",
+      "status": "passed"
+    },
+    {
+      "name": "excerpt:FEATURE_FACTS.md",
+      "category": "examples",
+      "status": "passed"
+    },
+    {
+      "name": "excerpt:PUBLIC_FEATURE_FACTS.md",
+      "category": "examples",
+      "status": "passed"
+    },
+    {
+      "name": "excerpt:STANDALONE_FEATURE_FACTS.md",
+      "category": "examples",
+      "status": "passed"
+    },
+    {
+      "name": "excerpt-parity:sample-registry.yaml",
+      "category": "examples",
+      "status": "passed"
+    },
+    {
+      "name": "excerpt-parity:sample-config.yaml",
+      "category": "examples",
+      "status": "passed"
+    },
+    {
+      "name": "excerpt-parity:sample-gaps.yaml",
+      "category": "examples",
+      "status": "passed"
+    },
+    {
+      "name": "sample-feature-parity",
+      "category": "examples",
+      "status": "passed"
+    },
+    {
+      "name": "reject-feature-without-evidence",
+      "category": "schema-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-original-minimal-shipped-record",
+      "category": "schema-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-observation-without-locator",
+      "category": "schema-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-declaration-without-actor",
+      "category": "schema-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-inference-without-support",
+      "category": "schema-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-inference-without-uncertainty",
+      "category": "schema-regression",
+      "status": "passed"
+    },
+    {
+      "name": "accept-two-character-id",
+      "category": "schema-regression",
+      "status": "passed"
+    },
+    {
+      "name": "accept-one-character-id",
+      "category": "schema-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-double-hyphen-id",
+      "category": "schema-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-leading-hyphen-id",
+      "category": "schema-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-overlength-id",
+      "category": "schema-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-typo-lock",
+      "category": "schema-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-automated-assessment-lock",
+      "category": "schema-regression",
+      "status": "passed"
+    },
+    {
+      "name": "accept-honest-unknown-candidate",
+      "category": "schema-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-unknown-without-reason",
+      "category": "schema-regression",
+      "status": "passed"
+    },
+    {
+      "name": "accept-explicit-undisclosed-state",
+      "category": "schema-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-empty-conditional-availability",
+      "category": "schema-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-absence-from-unassessed-state",
+      "category": "schema-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-partial-negative-conclusion",
+      "category": "schema-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-link-with-no-association",
+      "category": "schema-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-filename-similarity-as-accepted-link",
+      "category": "schema-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-retirement-without-approval-structure",
+      "category": "schema-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-public-map-link",
+      "category": "schema-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-selection-without-approval",
+      "category": "schema-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-more-than-twelve-selected-ids",
+      "category": "schema-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-duplicate-selected-id",
+      "category": "schema-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-executable-default-scan",
+      "category": "schema-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-default-network",
+      "category": "schema-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-follow-symlinks",
+      "category": "schema-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-parent-traversal-locator",
+      "category": "schema-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-absolute-locator",
+      "category": "schema-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-backslash-locator",
+      "category": "schema-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-unquoted-or-malformed-date-value",
+      "category": "schema-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-impossible-calendar-date",
+      "category": "schema-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-empty-label-without-reason",
+      "category": "schema-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-thirteen-label-rows",
+      "category": "schema-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-standalone-map-claim",
+      "category": "schema-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-standalone-registry-counts",
+      "category": "schema-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-standalone-without-verification-limits",
+      "category": "schema-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-route-evidence-as-release-support",
+      "category": "semantic-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-current-claim-with-wrong-value",
+      "category": "semantic-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-missing-inference-support-id",
+      "category": "semantic-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-inference-cycle",
+      "category": "semantic-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-stale-support-for-current-inference",
+      "category": "semantic-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-duplicate-feature-ids",
+      "category": "semantic-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-alias-collision",
+      "category": "semantic-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-dangling-surface",
+      "category": "semantic-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-document-surface-as-test",
+      "category": "semantic-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-skipped-adapter-as-absence",
+      "category": "semantic-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-tree-adapter-as-test-assessment",
+      "category": "semantic-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-false-complete-adapter",
+      "category": "semantic-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-false-complete-scan",
+      "category": "semantic-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-missing-configured-adapter-result",
+      "category": "semantic-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-self-generated-evidence",
+      "category": "semantic-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-skill-example-as-product-evidence",
+      "category": "semantic-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-secret-file-as-evidence",
+      "category": "semantic-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-reversed-source-lines",
+      "category": "semantic-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-candidate-label-selection",
+      "category": "semantic-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-unknown-label-selection",
+      "category": "semantic-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-public-private-selection",
+      "category": "semantic-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-public-approval-without-declaration",
+      "category": "semantic-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-stale-public-approval",
+      "category": "semantic-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-duplicate-label-ids",
+      "category": "semantic-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-wrong-count-denominator",
+      "category": "semantic-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-wrong-assessment-denominator",
+      "category": "semantic-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-drifted-json-assessment-index",
+      "category": "semantic-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-unrefreshed-label",
+      "category": "semantic-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-manifest-registry-drift",
+      "category": "semantic-regression",
+      "status": "passed"
+    },
+    {
+      "name": "reject-gap-with-unknown-reference",
+      "category": "semantic-regression",
+      "status": "passed"
+    },
+    {
+      "name": "public-projection-filters-rows-counts-links-and-private-hashes",
+      "category": "publication",
+      "status": "passed"
+    },
+    {
+      "name": "private-only-change-does-not-affect-public-projection",
+      "category": "publication",
+      "status": "passed"
+    },
+    {
+      "name": "revocation-safe-projection-excludes-now-private-feature",
+      "category": "publication",
+      "status": "passed"
+    },
+    {
+      "name": "partial-scan-does-not-retire-features",
+      "category": "maintenance-fixture",
+      "status": "passed"
+    },
+    {
+      "name": "failed-test-adapter-does-not-emit-no-test-finding",
+      "category": "maintenance-fixture",
+      "status": "passed"
+    },
+    {
+      "name": "partial-scan-preserves-historical-test-assertion",
+      "category": "maintenance-fixture",
+      "status": "passed"
+    },
+    {
+      "name": "waiver-preserved-for-unchanged-basis",
+      "category": "maintenance-fixture",
+      "status": "passed"
+    },
+    {
+      "name": "changed-waiver-basis-requires-review",
+      "category": "maintenance-fixture",
+      "status": "passed"
+    },
+    {
+      "name": "stale-map-and-label-can-agree-but-indexed-source-check-fails",
+      "category": "freshness-reference",
+      "status": "passed"
+    },
+    {
+      "name": "artifact-digest-detects-mixed-generation",
+      "category": "freshness-reference",
+      "status": "passed"
+    },
+    {
+      "name": "reject-duplicate-yaml-key",
+      "category": "parsing",
+      "status": "passed"
+    },
+    {
+      "name": "reject-yaml-alias",
+      "category": "parsing",
+      "status": "passed"
+    },
+    {
+      "name": "reject-non-json-unquoted-date",
+      "category": "parsing",
+      "status": "passed"
+    },
+    {
+      "name": "accept-quoted-date",
+      "category": "parsing",
+      "status": "passed"
+    },
+    {
+      "name": "deterministic-canonical-object-key-order",
+      "category": "parsing",
+      "status": "passed"
+    },
+    {
+      "name": "array-order-remains-semantic",
+      "category": "parsing",
+      "status": "passed"
+    },
+    {
+      "name": "rendering-escapes-table-and-html-content",
+      "category": "rendering",
+      "status": "passed"
+    },
+    {
+      "name": "fixture-projection-repeat-is-identical",
+      "category": "rendering",
+      "status": "passed"
+    }
+  ]
+}

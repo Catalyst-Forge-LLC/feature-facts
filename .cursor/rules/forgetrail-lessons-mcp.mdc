@@ -1,0 +1,16 @@
+---
+description: Implementation detail — ForgeTrail MCP searchLessons + getAntiPatterns
+globs: src/**,site/**,schemas/**
+alwaysApply: false
+---
+
+# ForgeTrail lessons + anti-patterns (MCP)
+
+**Workflow:** **`forgetrail-lessons-gate.mdc`** defines when to run tools. This file adds density when editing app code.
+
+For CLI, schema, publication, or site copy work:
+
+1. **`searchLessons`** — short keyword queries (`empty state copy`, `schema drift`, `filesystem safety`).
+2. **`getAntiPatterns`** — skim for vague errors, schema drift, untested refactors.
+
+**When to skip:** trivial one-line edits or an explicit request not to broaden scope.

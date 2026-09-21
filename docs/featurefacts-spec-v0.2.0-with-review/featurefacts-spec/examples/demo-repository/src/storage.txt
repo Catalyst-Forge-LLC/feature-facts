@@ -1,0 +1,3 @@
+Synthetic implementation descriptor, not executable code.
+store-upload(bytes) -> write uploaded bytes to local storage
+This helper alone is not a maintainer-confirmed product capability.

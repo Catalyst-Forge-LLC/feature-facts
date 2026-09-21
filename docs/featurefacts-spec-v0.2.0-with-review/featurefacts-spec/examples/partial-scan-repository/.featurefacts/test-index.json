@@ -1,0 +1,43 @@
+{
+  "schemaVersion": "0.2.0",
+  "scan_id": "demo-scan-2",
+  "kind": "tests",
+  "assessments": [
+    {
+      "feature_id": "resume-importer",
+      "assessment": {
+        "state": "unassessed",
+        "result": "unknown",
+        "adapter_ids": [
+          "fixture-test"
+        ],
+        "links": [],
+        "reason": "The test adapter failed. Prior test surfaces are retained as stale, not evidence of absence."
+      }
+    },
+    {
+      "feature_id": "admin-export",
+      "assessment": {
+        "state": "unassessed",
+        "result": "unknown",
+        "adapter_ids": [
+          "fixture-test"
+        ],
+        "links": [],
+        "reason": "The test adapter failed. Prior test surfaces are retained as stale, not evidence of absence."
+      }
+    },
+    {
+      "feature_id": "storage-helper",
+      "assessment": {
+        "state": "unassessed",
+        "result": "unknown",
+        "adapter_ids": [
+          "fixture-test"
+        ],
+        "links": [],
+        "reason": "The test adapter failed. Prior test surfaces are retained as stale, not evidence of absence."
+      }
+    }
+  ]
+}

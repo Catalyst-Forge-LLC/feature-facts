@@ -1,0 +1,206 @@
+{
+  "project": {
+    "name": "FeatureFacts",
+    "created": "2026-09-21",
+    "description": "xFacts Terrain label: curated FEATURE_FACTS.md plus an evidence-backed .featurefacts/ register for TypeScript/Node products.",
+    "archetype": "product",
+    "status": "active"
+  },
+  "currentPhase": "2-scaffolding",
+  "phases": {
+    "1-architecture": {
+      "status": "completed",
+      "startedAt": "2026-09-21",
+      "completedAt": "2026-09-21",
+      "exitCriteriaMet": [
+        "Tech choices confirmed",
+        "Folder structure confirmed",
+        "Data model shape confirmed",
+        "First feature batch defined",
+        "Claude's understanding verified by user",
+        "PHASE_1_BRIEF.md created, complete, and locked (docs/)",
+        "Major decisions recorded in workflow_tracking.json decisions[]"
+      ],
+      "exitCriteriaRemaining": [],
+      "notes": [
+        "Owner approved full Phase 1 slice: brief + sibling site chrome + LocalHelm/LocalSlip + TypeScript scanner.",
+        "Stack: pnpm + TypeScript + ESM. First ecosystem: TypeScript/Node. Site: Worker + static site/, not FilePress."
+      ]
+    },
+    "2-scaffolding": {
+      "status": "in_progress",
+      "startedAt": "2026-09-21",
+      "completedAt": null,
+      "exitCriteriaMet": [
+        "CLI init/scan/report/show/check runs locally",
+        "Register artifacts and empty label render",
+        "CONTEXT_PROMPT.md created and populated by merging PHASE_1_BRIEF.md",
+        "README.md created",
+        "TODO.md created",
+        "IDEAS.md created",
+        "Runnable verify script in package.json passing cleanly",
+        "Phase 2 doc scope only per WORKFLOW §1a"
+      ],
+      "exitCriteriaRemaining": [],
+      "notes": [
+        "App-centric exit rows (CRUD, pnpm dev screen) pruned: this is a local CLI + static label site, not a hosted web app."
+      ]
+    },
+    "3-stabilization": {
+      "status": "not_started",
+      "startedAt": null,
+      "completedAt": null,
+      "exitCriteriaMet": [],
+      "exitCriteriaRemaining": [
+        "Core workflow completes without infrastructure errors",
+        "Error messages are human-readable",
+        "Check exit codes distinguish contract, freshness, and operational failure"
+      ],
+      "notes": []
+    },
+    "4-feature-iteration": {
+      "status": "not_started",
+      "startedAt": null,
+      "completedAt": null,
+      "exitCriteriaMet": [],
+      "exitCriteriaRemaining": [
+        "Core value proposition delivered",
+        "Hero flow works with real data including edge cases",
+        "Features tested beyond happy path"
+      ],
+      "notes": [],
+      "iterations": []
+    },
+    "5-refactoring": {
+      "status": "not_started",
+      "startedAt": null,
+      "completedAt": null,
+      "exitCriteriaMet": [],
+      "exitCriteriaRemaining": [
+        "No file exceeds ~500 lines without justification",
+        "Shared utilities extracted",
+        "No duplicated patterns",
+        "Build passes after each refactor"
+      ],
+      "notes": []
+    },
+    "6-strategic-review": {
+      "status": "not_started",
+      "startedAt": null,
+      "completedAt": null,
+      "exitCriteriaMet": [],
+      "exitCriteriaRemaining": [
+        "BRAND_AND_PRODUCT.md created",
+        "TODO reorganized by brand value pillars",
+        "Features mapped to brand pillars",
+        "Gap between brand promise and product identified",
+        "IDEAS.md processed into TODO",
+        "Build order decided"
+      ],
+      "notes": []
+    },
+    "7-hardening": {
+      "status": "not_started",
+      "startedAt": null,
+      "completedAt": null,
+      "exitCriteriaMet": [],
+      "exitCriteriaRemaining": [
+        "CODE_QUALITY.md produced and critical findings fixed",
+        "BLACK_HAT_REPORT.md produced and critical/high findings fixed",
+        "All findings triaged into TODO.md",
+        "No silent failures in core workflows",
+        "DEPLOYMENT.md created",
+        "TEST_PLAN.md complete or extended",
+        "TECHNICAL_REFERENCE.md complete and current"
+      ],
+      "notes": []
+    }
+  },
+  "decisions": [
+    {
+      "id": "D1",
+      "timestamp": "2026-09-21",
+      "phase": "1-architecture",
+      "decision": "Production stack is pnpm + TypeScript + ESM.",
+      "rationale": "Owner selected ts_family. Spec Python helpers remain contract tests only.",
+      "alternatives_considered": ["Python production CLI", "mixed stack"]
+    },
+    {
+      "id": "D2",
+      "timestamp": "2026-09-21",
+      "phase": "1-architecture",
+      "decision": "First supported ecosystem is TypeScript/Node.",
+      "rationale": "Owner selected ts_node. Other ecosystems wait until the first is useful.",
+      "alternatives_considered": ["Python first", "multi-ecosystem v1"]
+    },
+    {
+      "id": "D3",
+      "timestamp": "2026-09-21",
+      "phase": "1-architecture",
+      "decision": "Public site is a Cloudflare Worker with static site/, not FilePress.",
+      "rationale": "Owner correction: FeatureFacts follows toolfacts.dev / agentfacts.dev.",
+      "alternatives_considered": ["FilePress marketing site"]
+    },
+    {
+      "id": "D4",
+      "timestamp": "2026-09-21",
+      "phase": "1-architecture",
+      "decision": "Default scan never executes target code, uses the network, or calls a model.",
+      "rationale": "0.2.0 publication and safety contract.",
+      "alternatives_considered": ["optional network plugins in v1"]
+    },
+    {
+      "id": "D5",
+      "timestamp": "2026-09-21",
+      "phase": "1-architecture",
+      "decision": "Init starts with an empty label selection. Scanner proposes candidates only.",
+      "rationale": "Confirmation and curation require attributed maintainer approval.",
+      "alternatives_considered": ["auto-curate top 12 surfaces"]
+    },
+    {
+      "id": "D6",
+      "timestamp": "2026-09-21",
+      "phase": "1-architecture",
+      "decision": "Unknown is not undisclosed. Candidates are excluded from confirmed counts.",
+      "rationale": "0.2.0 field definitions.",
+      "alternatives_considered": ["collapse unknown into undisclosed"]
+    },
+    {
+      "id": "D7",
+      "timestamp": "2026-09-21",
+      "phase": "1-architecture",
+      "decision": "Update xFacts hub family chrome when the label site exists; do not claim live DNS.",
+      "rationale": "User named FeatureFacts a family member; DNS remains owner work.",
+      "alternatives_considered": ["defer hub until featurefacts.dev resolves"]
+    },
+    {
+      "id": "D8",
+      "timestamp": "2026-09-21",
+      "phase": "1-architecture",
+      "decision": "First real-repo dogfood inventory stays private.",
+      "rationale": "BUILD.md Phase 1 exit. Do not publish it in fixtures.",
+      "alternatives_considered": ["publish self-scan as a public exemplar"]
+    },
+    {
+      "id": "D9",
+      "timestamp": "2026-09-21",
+      "phase": "2-scaffolding",
+      "decision": "Prune web-app exit criteria (CRUD, PocketBase, on-screen data) from Phase 2.",
+      "rationale": "CLI + static label site archetype, not a hosted web app.",
+      "alternatives_considered": ["force SvelteKit wrapper"]
+    }
+  ],
+  "gotchas": [],
+  "sessions": [
+    {
+      "date": "2026-09-21",
+      "phase": "1-architecture",
+      "summary": "Locked Phase 1 brief from owner answers and 0.2.0 spec. Started sibling stand-up."
+    },
+    {
+      "date": "2026-09-21",
+      "phase": "2-scaffolding",
+      "summary": "Scaffolded CLI, Worker site, LocalHelm plugin, LocalSlip preview claim, hub family row, and private self-scan."
+    }
+  ]
+}

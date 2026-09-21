@@ -1,0 +1,26 @@
+# FeatureFacts
+
+> xFacts label for product capabilities. Prefer structured YAML/JSON over marketing HTML.
+
+## Primary
+
+- Label schema: https://featurefacts.dev/schema/feature-facts-label.schema.json
+- Register schemas: https://featurefacts.dev/schema/
+- Site: https://featurefacts.dev/
+- Root label: FEATURE_FACTS.md
+- Register: .featurefacts/
+
+## How to use a feature label
+
+1. Read FEATURE_FACTS.md frontmatter: mode, selection_state, features[], basis, generated.projection_fingerprint.
+2. A map-backed label is generated from .featurefacts/. Do not hand-edit factual rows.
+3. Zero rows is valid when curation is unapproved or nothing is eligible.
+4. Candidates are not confirmed capabilities and do not occupy public counts.
+5. Unknown is not undisclosed. A skipped adapter is not evidence of absence.
+6. Default scan does not execute target code, use the network, or call a model.
+
+FeatureFacts answers “What can this product do?” It is not an AppFacts field, a test runner, or a coverage certificate.
+
+## Spec (git)
+
+- https://github.com/Catalyst-Forge-LLC/feature-facts/blob/main/SPEC.md

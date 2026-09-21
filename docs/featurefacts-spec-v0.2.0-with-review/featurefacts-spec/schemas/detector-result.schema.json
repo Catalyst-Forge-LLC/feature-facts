@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://featurefacts.dev/schema/v0.2.0/detector-result.schema.json",
+  "title": "FeatureFacts detector-result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "scan_id",
+    "adapter",
+    "surfaces"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "0.2.0"
+    },
+    "scan_id": {
+      "$ref": "common.schema.json#/$defs/id"
+    },
+    "adapter": {
+      "$ref": "common.schema.json#/$defs/adapter"
+    },
+    "surfaces": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/surface"
+      },
+      "minItems": 0
+    }
+  }
+}

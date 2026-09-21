@@ -1,0 +1,91 @@
+{
+  "schemaVersion": "0.2.0",
+  "scan_id": "demo-scan-1",
+  "adapter": {
+    "id": "fixture-surface",
+    "version": "0.2.0",
+    "kind": "surface",
+    "state": "completed",
+    "eligible_files": [
+      "internal/admin.txt",
+      "src/routes.txt",
+      "src/storage.txt"
+    ],
+    "inspected_files": [
+      "internal/admin.txt",
+      "src/routes.txt",
+      "src/storage.txt"
+    ],
+    "diagnostics": []
+  },
+  "surfaces": [
+    {
+      "id": "import-route",
+      "kind": "route",
+      "ref": "GET /app/import",
+      "locator": {
+        "path": "src/routes.txt",
+        "content_sha256": "3dfdcb9f263bc348088a1e2c2db874b75f8a10134104ac482420889d101823a8",
+        "start_line": 2
+      },
+      "provenance": {
+        "adapter_id": "fixture-surface",
+        "adapter_version": "0.2.0",
+        "origin": "deterministic",
+        "method": "explicit-fixture-descriptor"
+      },
+      "state": "current"
+    },
+    {
+      "id": "import-api",
+      "kind": "api",
+      "ref": "POST /api/import",
+      "locator": {
+        "path": "src/routes.txt",
+        "content_sha256": "3dfdcb9f263bc348088a1e2c2db874b75f8a10134104ac482420889d101823a8",
+        "start_line": 3
+      },
+      "provenance": {
+        "adapter_id": "fixture-surface",
+        "adapter_version": "0.2.0",
+        "origin": "deterministic",
+        "method": "explicit-fixture-descriptor"
+      },
+      "state": "current"
+    },
+    {
+      "id": "admin-command",
+      "kind": "command",
+      "ref": "export-audit",
+      "locator": {
+        "path": "internal/admin.txt",
+        "content_sha256": "0e56409fa88724591403e13e6a4a4140bfa6b6e88cba627b58337ff8389ed48a",
+        "start_line": 2
+      },
+      "provenance": {
+        "adapter_id": "fixture-surface",
+        "adapter_version": "0.2.0",
+        "origin": "deterministic",
+        "method": "explicit-fixture-descriptor"
+      },
+      "state": "current"
+    },
+    {
+      "id": "storage-symbol",
+      "kind": "symbol",
+      "ref": "store-upload",
+      "locator": {
+        "path": "src/storage.txt",
+        "content_sha256": "c9a0c79fb9535dee06f746b0ec81a088414585d455af3a7d8cd2ecc244c81352",
+        "start_line": 2
+      },
+      "provenance": {
+        "adapter_id": "fixture-surface",
+        "adapter_version": "0.2.0",
+        "origin": "deterministic",
+        "method": "explicit-fixture-descriptor"
+      },
+      "state": "current"
+    }
+  ]
+}

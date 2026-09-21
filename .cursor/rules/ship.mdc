@@ -1,0 +1,10 @@
+---
+description: Deploy the static site with pnpm ship
+alwaysApply: true
+---
+
+# Deploy
+
+featurefacts.dev is a **git-connected Worker** (not a Pages project) once DNS is connected. A push to `origin/main` should deploy `site/` automatically.
+
+`pnpm ship` is the optional direct upload (`wrangler deploy --config site/wrangler.jsonc`). Use it to publish the working tree without a GitHub push. Do not use `wrangler pages deploy`. Do not use FilePress.

@@ -1,0 +1,233 @@
+{
+  "schemaVersion": "0.2.0",
+  "scan_id": "scan-ffdeb569d843",
+  "surfaces": [
+    {
+      "id": "ann-a-package-json",
+      "kind": "other",
+      "ref": "a",
+      "title": "a",
+      "locator": {
+        "path": "package.json",
+        "content_sha256": "5592a7d8e76dadf5b459d71a0f64a2ce63e455d39a01c2a54b01d82291f878f5",
+        "start_line": 6,
+        "end_line": 6
+      },
+      "provenance": {
+        "adapter_id": "typescript-node-surface",
+        "adapter_version": "0.2.0",
+        "origin": "deterministic",
+        "method": "explicit-annotation"
+      },
+      "state": "current"
+    },
+    {
+      "id": "cmd-featurefacts",
+      "kind": "command",
+      "ref": "bin featurefacts",
+      "title": "featurefacts",
+      "locator": {
+        "path": "package.json",
+        "content_sha256": "5592a7d8e76dadf5b459d71a0f64a2ce63e455d39a01c2a54b01d82291f878f5",
+        "symbol": "bin.featurefacts"
+      },
+      "provenance": {
+        "adapter_id": "typescript-node-surface",
+        "adapter_version": "0.2.0",
+        "origin": "deterministic",
+        "method": "package-json-bin"
+      },
+      "state": "current"
+    },
+    {
+      "id": "doc-docs-contract",
+      "kind": "document",
+      "ref": "docs/CONTRACT.md",
+      "title": "docs/CONTRACT.md",
+      "locator": {
+        "path": "docs/CONTRACT.md",
+        "content_sha256": "83909771dfa1bfb13148e58229076e3c7db7f63fab822f0be25d0a9de701d3f2"
+      },
+      "provenance": {
+        "adapter_id": "markdown-document",
+        "adapter_version": "0.2.0",
+        "origin": "deterministic",
+        "method": "document-file"
+      },
+      "state": "current"
+    },
+    {
+      "id": "doc-docs-decisions",
+      "kind": "document",
+      "ref": "docs/DECISIONS.md",
+      "title": "docs/DECISIONS.md",
+      "locator": {
+        "path": "docs/DECISIONS.md",
+        "content_sha256": "f8d79ead4e4bc95d2d93053c0bff5f6a344c429af04a03f2680594db1a8bb48a"
+      },
+      "provenance": {
+        "adapter_id": "markdown-document",
+        "adapter_version": "0.2.0",
+        "origin": "deterministic",
+        "method": "document-file"
+      },
+      "state": "current"
+    },
+    {
+      "id": "doc-docs-detectors",
+      "kind": "document",
+      "ref": "docs/DETECTORS.md",
+      "title": "docs/DETECTORS.md",
+      "locator": {
+        "path": "docs/DETECTORS.md",
+        "content_sha256": "e48d4213493999c7bc2b4fb1a9823e82cc77b1debb177d5a013f9012885f9573"
+      },
+      "provenance": {
+        "adapter_id": "markdown-document",
+        "adapter_version": "0.2.0",
+        "origin": "deterministic",
+        "method": "document-file"
+      },
+      "state": "current"
+    },
+    {
+      "id": "doc-docs-genesis",
+      "kind": "document",
+      "ref": "docs/GENESIS.md",
+      "title": "docs/GENESIS.md",
+      "locator": {
+        "path": "docs/GENESIS.md",
+        "content_sha256": "429d8b13cd317dd342c98c2a9409c0f196be63f92231803236ac454fb11f424f"
+      },
+      "provenance": {
+        "adapter_id": "markdown-document",
+        "adapter_version": "0.2.0",
+        "origin": "deterministic",
+        "method": "document-file"
+      },
+      "state": "current"
+    },
+    {
+      "id": "doc-docs-label",
+      "kind": "document",
+      "ref": "docs/LABEL.md",
+      "title": "docs/LABEL.md",
+      "locator": {
+        "path": "docs/LABEL.md",
+        "content_sha256": "112c5acc67c8b434a096f9a7367f63652edd682227148709557f17542187c7b0"
+      },
+      "provenance": {
+        "adapter_id": "markdown-document",
+        "adapter_version": "0.2.0",
+        "origin": "deterministic",
+        "method": "document-file"
+      },
+      "state": "current"
+    },
+    {
+      "id": "doc-docs-merge-and-check",
+      "kind": "document",
+      "ref": "docs/MERGE_AND_CHECK.md",
+      "title": "docs/MERGE_AND_CHECK.md",
+      "locator": {
+        "path": "docs/MERGE_AND_CHECK.md",
+        "content_sha256": "382c1d68aae3380db9abde2c660af57c9cabd152c76c5ef1db03652d3861a067"
+      },
+      "provenance": {
+        "adapter_id": "markdown-document",
+        "adapter_version": "0.2.0",
+        "origin": "deterministic",
+        "method": "document-file"
+      },
+      "state": "current"
+    },
+    {
+      "id": "doc-docs-phase-1-brief",
+      "kind": "document",
+      "ref": "docs/PHASE_1_BRIEF.md",
+      "title": "docs/PHASE_1_BRIEF.md",
+      "locator": {
+        "path": "docs/PHASE_1_BRIEF.md",
+        "content_sha256": "539ca9603acfd06b82edd857c5c8c3d1dc7186b7b196893ee6c045661354694b"
+      },
+      "provenance": {
+        "adapter_id": "markdown-document",
+        "adapter_version": "0.2.0",
+        "origin": "deterministic",
+        "method": "document-file"
+      },
+      "state": "current"
+    },
+    {
+      "id": "doc-docs-publication-and-safety",
+      "kind": "document",
+      "ref": "docs/PUBLICATION_AND_SAFETY.md",
+      "title": "docs/PUBLICATION_AND_SAFETY.md",
+      "locator": {
+        "path": "docs/PUBLICATION_AND_SAFETY.md",
+        "content_sha256": "bcc1adc58a6790033f60c9e0123a80ed4eb17cf30745e8a3e7bc47f1b43abd64"
+      },
+      "provenance": {
+        "adapter_id": "markdown-document",
+        "adapter_version": "0.2.0",
+        "origin": "deterministic",
+        "method": "document-file"
+      },
+      "state": "current"
+    },
+    {
+      "id": "doc-readme",
+      "kind": "document",
+      "ref": "README.md",
+      "title": "README.md",
+      "locator": {
+        "path": "README.md",
+        "content_sha256": "814b08e472460b67280f081195000f429ced66738a622ea1290f17cef41e205b"
+      },
+      "provenance": {
+        "adapter_id": "markdown-document",
+        "adapter_version": "0.2.0",
+        "origin": "deterministic",
+        "method": "document-file"
+      },
+      "state": "current"
+    },
+    {
+      "id": "route-get-package-json",
+      "kind": "route",
+      "ref": "GET package.json",
+      "title": "GET package.json",
+      "locator": {
+        "path": "src/commands/scan.ts",
+        "content_sha256": "bdc5e1e1beedc21735977a090f8df19385c44cf8f1fecf3650e5831ea50b165d",
+        "start_line": 44,
+        "end_line": 44,
+        "symbol": "GET package.json"
+      },
+      "provenance": {
+        "adapter_id": "typescript-node-surface",
+        "adapter_version": "0.2.0",
+        "origin": "deterministic",
+        "method": "static-route-call"
+      },
+      "state": "current"
+    },
+    {
+      "id": "test-tests-cli-test",
+      "kind": "test",
+      "ref": "tests/cli.test.ts",
+      "title": "tests/cli.test.ts",
+      "locator": {
+        "path": "tests/cli.test.ts",
+        "content_sha256": "9646f5c1102d96b7686f48d602a240d52688321d46467ca07a517da2022ca131"
+      },
+      "provenance": {
+        "adapter_id": "typescript-test",
+        "adapter_version": "0.2.0",
+        "origin": "deterministic",
+        "method": "test-filename"
+      },
+      "state": "current"
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+schemaVersion: 0.2.0
+include:
+- README.md
+- CHANGELOG.md
+- package.json
+- index.*
+- app/**
+- src/**
+- docs/**
+- tests/**
+- public/**
+- internal/**
+- decisions/**
+exclude:
+- '**/node_modules/**'
+- '**/dist/**'
+- '**/build/**'
+- '**/.git/**'
+- '**/.env'
+- '**/.env.*'
+- '**/*.pem'
+- '**/*.key'
+- .featurefacts/**
+- FEATURE_FACTS.md
+adapters:
+- id: fixture-tree
+  kind: tree
+  enabled: true
+- id: fixture-surface
+  kind: surface
+  enabled: true
+- id: fixture-document
+  kind: document
+  enabled: true
+- id: fixture-test
+  kind: test
+  enabled: true
+externals: []
+curation:
+  selected_ids:
+  - resume-importer
+  overrides: {}
+  approval:
+    actor: Fixture Maintainer
+    source: Synthetic package fixture selection
+    recorded_at: '2026-09-19T20:00:00Z'
+publication:
+  target: internal
+  include_counts: true
+  include_assessments: true
+  map_link: .featurefacts/FEATURES.md
+policy:
+  enabled: false
+  rules:
+  - id: released-test-links
+    level: fail
+  - id: locked-locators-resolve
+    level: warn
+  unassessed: warn
+waivers:
+- feature_id: admin-export
+  rule_id: docs-linked-evidence
+  basis_fingerprint: e8c6978815f952d69bcd39ff2c964208ded614dae6b2b7bec2cfa44b51539a9f
+  reason: The fixture owner accepts no linked operator guide for this demonstration.
+  approved_by: Fixture Maintainer
+  recorded_at: '2026-09-19T20:00:00Z'
+safety:
+  max_file_bytes: 1048576
+  follow_symlinks: false
+  network: false
+  execute_target_code: false

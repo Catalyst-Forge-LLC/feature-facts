@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://featurefacts.dev/schema/v0.2.0/gaps.schema.json",
+  "title": "FeatureFacts gaps",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "scan_id",
+    "gaps"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "0.2.0"
+    },
+    "scan_id": {
+      "$ref": "common.schema.json#/$defs/id"
+    },
+    "gaps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "feature_id",
+          "rule_id",
+          "rule_version",
+          "kind",
+          "severity",
+          "applicability",
+          "reason",
+          "evidence_ids",
+          "adapter_ids",
+          "text",
+          "suggested_action",
+          "basis_fingerprint",
+          "disposition"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "common.schema.json#/$defs/id"
+          },
+          "feature_id": {
+            "$ref": "common.schema.json#/$defs/id"
+          },
+          "rule_id": {
+            "$ref": "common.schema.json#/$defs/id"
+          },
+          "rule_version": {
+            "type": "string",
+            "minLength": 1
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "no-linked-docs",
+              "no-linked-tests",
+              "assessment-unavailable",
+              "evidence-stale",
+              "identity-conflict",
+              "publication-conflict",
+              "selection-conflict",
+              "other"
+            ]
+          },
+          "severity": {
+            "type": "string",
+            "enum": [
+              "info",
+              "warn",
+              "fail"
+            ]
+          },
+          "applicability": {
+            "type": "string",
+            "enum": [
+              "applicable",
+              "needs-review"
+            ]
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "evidence_ids": {
+            "type": "array",
+            "items": {
+              "$ref": "common.schema.json#/$defs/id"
+            },
+            "minItems": 0,
+            "uniqueItems": true
+          },
+          "adapter_ids": {
+            "type": "array",
+            "items": {
+              "$ref": "common.schema.json#/$defs/id"
+            },
+            "minItems": 0,
+            "uniqueItems": true
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1
+          },
+          "suggested_action": {
+            "type": "string",
+            "minLength": 1
+          },
+          "basis_fingerprint": {
+            "$ref": "common.schema.json#/$defs/hash"
+          },
+          "disposition": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "state",
+              "reason"
+            ],
+            "properties": {
+              "state": {
+                "type": "string",
+                "enum": [
+                  "open",
+                  "waived",
+                  "needs-review"
+                ]
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      },
+      "minItems": 0
+    }
+  }
+}

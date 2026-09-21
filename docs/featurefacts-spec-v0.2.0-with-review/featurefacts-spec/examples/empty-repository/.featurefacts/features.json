@@ -1,0 +1,11 @@
+{
+  "schemaVersion": "0.2.0",
+  "scan_id": "empty-scan-1",
+  "product": {
+    "name": "Empty Demo",
+    "type": "synthetic fixture",
+    "status": "unknown"
+  },
+  "features": [],
+  "redirects": []
+}

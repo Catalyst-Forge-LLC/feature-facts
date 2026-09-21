@@ -1,0 +1,157 @@
+{
+  "schemaVersion": "0.2.0",
+  "scan_id": "empty-scan-1",
+  "tool": "featurefacts",
+  "tool_version": "0.2.0",
+  "generated_at": "2026-09-19T20:00:00Z",
+  "root": ".",
+  "status": "unsupported",
+  "scope": {
+    "include": [
+      "README.md",
+      "CHANGELOG.md",
+      "package.json",
+      "index.*",
+      "app/**",
+      "src/**",
+      "docs/**",
+      "tests/**",
+      "public/**",
+      "internal/**",
+      "decisions/**"
+    ],
+    "exclude": [
+      "**/node_modules/**",
+      "**/dist/**",
+      "**/build/**",
+      "**/.git/**",
+      "**/.env",
+      "**/.env.*",
+      "**/*.pem",
+      "**/*.key",
+      ".featurefacts/**",
+      "FEATURE_FACTS.md"
+    ],
+    "supported_ecosystems": [
+      "synthetic-text-fixture"
+    ],
+    "files": [
+      {
+        "path": "README.md",
+        "sha256": "e97d0458c125503baa687649eb94c8f4db0c279e83929470be9e24e8e495f99a",
+        "bytes": 102,
+        "eligible_adapter_ids": [
+          "fixture-tree",
+          "fixture-document"
+        ],
+        "inspected_by": [
+          "fixture-tree",
+          "fixture-document"
+        ]
+      }
+    ],
+    "exclusions": []
+  },
+  "adapters": [
+    {
+      "id": "fixture-tree",
+      "version": "0.2.0",
+      "kind": "tree",
+      "state": "completed",
+      "eligible_files": [
+        "README.md"
+      ],
+      "inspected_files": [
+        "README.md"
+      ],
+      "diagnostics": []
+    },
+    {
+      "id": "fixture-surface",
+      "version": "0.2.0",
+      "kind": "surface",
+      "state": "unsupported",
+      "eligible_files": [],
+      "inspected_files": [],
+      "diagnostics": [
+        {
+          "code": "no-supported-inputs",
+          "severity": "info",
+          "message": "No supported product or test inputs were present."
+        }
+      ]
+    },
+    {
+      "id": "fixture-document",
+      "version": "0.2.0",
+      "kind": "document",
+      "state": "completed",
+      "eligible_files": [
+        "README.md"
+      ],
+      "inspected_files": [
+        "README.md"
+      ],
+      "diagnostics": []
+    },
+    {
+      "id": "fixture-test",
+      "version": "0.2.0",
+      "kind": "test",
+      "state": "unsupported",
+      "eligible_files": [],
+      "inspected_files": [],
+      "diagnostics": [
+        {
+          "code": "no-supported-inputs",
+          "severity": "info",
+          "message": "No supported product or test inputs were present."
+        }
+      ]
+    }
+  ],
+  "rules_version": "0.2.0",
+  "fingerprints": {
+    "source": "6d5ffc8401d823ec589807ce2b8a98f412565a2ad5afd7f0eb4b3038b27dbe3c",
+    "config": "5185035d979a494c7b1f39129988070df31124bf56a73c4543885d387d6da879",
+    "adapters": "2b612385132c8b534bd9eb0f79286b537be8aa9a11ecbaa417b3012c24eb89b2",
+    "rules": "c7f728a22bf07a27d20f2b0ba60c59d2528cf27f6b218a22272fcbbe465f8971",
+    "registry": "0535b1ef4691ec580315c37a190e8b97fb14f655ad400e4332296de1ec98ef90",
+    "projection": "ba92d6503ef0373f177a61b426aa54d30136029623ac67c87e7fb0cfde885bcb"
+  },
+  "artifacts": [
+    {
+      "path": "FEATURE_FACTS.md",
+      "sha256": "9a2918c7579a555025a5ceec4a71b9ccabe2e3f5afa9f52614af826ed2600826"
+    },
+    {
+      "path": ".featurefacts/features.yaml",
+      "sha256": "2b11681a35c35dd5fac9bf79f96586e1d8422c2ac735b09d65cb9e4f888b1f98"
+    },
+    {
+      "path": ".featurefacts/features.json",
+      "sha256": "2130a341bf01dda6fc08d778229cb6db0694d59957bb8e5a50cd4fe839901cf3"
+    },
+    {
+      "path": ".featurefacts/surfaces.json",
+      "sha256": "a156e5a353fcb0f6f4784f02ddc9d9212d944cd123b28e5292a0b2bc67d69559"
+    },
+    {
+      "path": ".featurefacts/gaps.yaml",
+      "sha256": "11603fa3921f724e17cbb03310d81672e0b9b012d779b093faf4dcf925222573"
+    },
+    {
+      "path": ".featurefacts/docs-index.json",
+      "sha256": "d938e3b5914c078121e311ebd5975c07af6c9887362332a656e6ee3bcc2f24b7"
+    },
+    {
+      "path": ".featurefacts/test-index.json",
+      "sha256": "8ca26ce55e0f67cb39e2be507d6054402fea517b7a68aa379e0149328bf5bfb9"
+    },
+    {
+      "path": ".featurefacts/FEATURES.md",
+      "sha256": "c40069df75052193b47c837f805dc6ef092d8e86866ae49051415514d0686c9c"
+    }
+  ],
+  "diagnostics": []
+}

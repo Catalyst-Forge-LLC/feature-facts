@@ -1,0 +1,3 @@
+Synthetic operator implementation descriptor.
+COMMAND export-audit -> export administrative audit events
+The fixture does not provide a documentation or test association for this command.

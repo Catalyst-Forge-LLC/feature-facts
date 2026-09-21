@@ -1,0 +1,89 @@
+{
+  "schemaVersion": "0.2.0",
+  "scan_id": "scan-ffdeb569d843",
+  "kind": "docs",
+  "assessments": [
+    {
+      "feature_id": "a",
+      "assessment": {
+        "state": "unassessed",
+        "result": "unknown",
+        "adapter_ids": [
+          "markdown-document"
+        ],
+        "links": [],
+        "reason": "No explicit documentation association. Filename resemblance is not an accepted link."
+      }
+    },
+    {
+      "feature_id": "admin-export",
+      "assessment": {
+        "state": "unassessed",
+        "result": "unknown",
+        "adapter_ids": [
+          "markdown-document"
+        ],
+        "links": [],
+        "reason": "No explicit documentation association. Filename resemblance is not an accepted link."
+      }
+    },
+    {
+      "feature_id": "resume-importer",
+      "assessment": {
+        "state": "assessed",
+        "result": "linked-evidence",
+        "adapter_ids": [
+          "markdown-document"
+        ],
+        "links": [
+          {
+            "surface_id": "doc-resume-importer",
+            "association": "explicit-annotation"
+          }
+        ],
+        "reason": "An explicit FeatureFacts annotation was found in documentation."
+      }
+    },
+    {
+      "feature_id": "route-get-package-json",
+      "assessment": {
+        "state": "unassessed",
+        "result": "unknown",
+        "adapter_ids": [
+          "markdown-document"
+        ],
+        "links": [],
+        "reason": "No explicit documentation association. Filename resemblance is not an accepted link."
+      }
+    },
+    {
+      "feature_id": "tests-fixtures-workshop-tests-import-test-ts",
+      "assessment": {
+        "state": "unassessed",
+        "result": "unknown",
+        "adapter_ids": [
+          "markdown-document"
+        ],
+        "links": [],
+        "reason": "No explicit documentation association. Filename resemblance is not an accepted link."
+      }
+    },
+    {
+      "feature_id": "uniqueness",
+      "assessment": {
+        "state": "assessed",
+        "result": "linked-evidence",
+        "adapter_ids": [
+          "markdown-document"
+        ],
+        "links": [
+          {
+            "surface_id": "doc-uniqueness",
+            "association": "explicit-annotation"
+          }
+        ],
+        "reason": "An explicit FeatureFacts annotation was found in documentation."
+      }
+    }
+  ]
+}

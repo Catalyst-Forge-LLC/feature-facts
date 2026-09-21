@@ -1,0 +1,226 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://featurefacts.dev/schema/v0.2.0/manifest.schema.json",
+  "title": "FeatureFacts manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "scan_id",
+    "tool",
+    "tool_version",
+    "generated_at",
+    "root",
+    "status",
+    "scope",
+    "adapters",
+    "rules_version",
+    "fingerprints",
+    "artifacts",
+    "diagnostics"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "0.2.0"
+    },
+    "scan_id": {
+      "$ref": "common.schema.json#/$defs/id"
+    },
+    "tool": {
+      "const": "featurefacts"
+    },
+    "tool_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "generated_at": {
+      "$ref": "common.schema.json#/$defs/datetime"
+    },
+    "root": {
+      "const": "."
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "complete",
+        "partial",
+        "unsupported",
+        "failed"
+      ]
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "include",
+        "exclude",
+        "supported_ecosystems",
+        "files",
+        "exclusions"
+      ],
+      "properties": {
+        "include": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "exclude": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "supported_ecosystems": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "path",
+              "sha256",
+              "bytes",
+              "eligible_adapter_ids",
+              "inspected_by"
+            ],
+            "properties": {
+              "path": {
+                "$ref": "common.schema.json#/$defs/path"
+              },
+              "sha256": {
+                "$ref": "common.schema.json#/$defs/hash"
+              },
+              "bytes": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "eligible_adapter_ids": {
+                "type": "array",
+                "items": {
+                  "$ref": "common.schema.json#/$defs/id"
+                },
+                "minItems": 0,
+                "uniqueItems": true
+              },
+              "inspected_by": {
+                "type": "array",
+                "items": {
+                  "$ref": "common.schema.json#/$defs/id"
+                },
+                "minItems": 0,
+                "uniqueItems": true
+              }
+            }
+          },
+          "minItems": 0
+        },
+        "exclusions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "path",
+              "reason"
+            ],
+            "properties": {
+              "path": {
+                "$ref": "common.schema.json#/$defs/path"
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "minItems": 0
+        }
+      }
+    },
+    "adapters": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/adapter"
+      },
+      "minItems": 1
+    },
+    "rules_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "fingerprints": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source",
+        "config",
+        "adapters",
+        "rules",
+        "registry",
+        "projection"
+      ],
+      "properties": {
+        "source": {
+          "$ref": "common.schema.json#/$defs/hash"
+        },
+        "config": {
+          "$ref": "common.schema.json#/$defs/hash"
+        },
+        "adapters": {
+          "$ref": "common.schema.json#/$defs/hash"
+        },
+        "rules": {
+          "$ref": "common.schema.json#/$defs/hash"
+        },
+        "registry": {
+          "$ref": "common.schema.json#/$defs/hash"
+        },
+        "projection": {
+          "$ref": "common.schema.json#/$defs/hash"
+        }
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "sha256"
+        ],
+        "properties": {
+          "path": {
+            "$ref": "common.schema.json#/$defs/path"
+          },
+          "sha256": {
+            "$ref": "common.schema.json#/$defs/hash"
+          }
+        }
+      },
+      "minItems": 1
+    },
+    "diagnostics": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/diagnostic"
+      },
+      "minItems": 0
+    }
+  }
+}

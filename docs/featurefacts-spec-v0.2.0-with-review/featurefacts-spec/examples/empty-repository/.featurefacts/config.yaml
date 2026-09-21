@@ -1,0 +1,60 @@
+schemaVersion: 0.2.0
+include:
+- README.md
+- CHANGELOG.md
+- package.json
+- index.*
+- app/**
+- src/**
+- docs/**
+- tests/**
+- public/**
+- internal/**
+- decisions/**
+exclude:
+- '**/node_modules/**'
+- '**/dist/**'
+- '**/build/**'
+- '**/.git/**'
+- '**/.env'
+- '**/.env.*'
+- '**/*.pem'
+- '**/*.key'
+- .featurefacts/**
+- FEATURE_FACTS.md
+adapters:
+- id: fixture-tree
+  kind: tree
+  enabled: true
+- id: fixture-surface
+  kind: surface
+  enabled: true
+- id: fixture-document
+  kind: document
+  enabled: true
+- id: fixture-test
+  kind: test
+  enabled: true
+externals: []
+curation:
+  selected_ids: []
+  overrides: {}
+publication:
+  target: internal
+  include_counts: true
+  include_assessments: true
+  map_link: .featurefacts/FEATURES.md
+policy:
+  enabled: false
+  rules:
+  - id: released-test-links
+    level: fail
+  - id: locked-locators-resolve
+    level: warn
+  unassessed: warn
+waivers: []
+safety:
+  max_file_bytes: 1048576
+  follow_symlinks: false
+  network: false
+  execute_target_code: false

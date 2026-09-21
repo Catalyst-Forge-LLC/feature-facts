@@ -1,0 +1,4 @@
+Synthetic test association, not an executed test.
+feature: resume-importer
+case: text upload yields a draft profile
+No statement in this fixture establishes that a runner passes this test.

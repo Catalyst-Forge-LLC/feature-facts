@@ -1,0 +1,271 @@
+{
+  "schemaVersion": "0.2.0",
+  "scan_id": "demo-scan-2",
+  "tool": "featurefacts",
+  "tool_version": "0.2.0",
+  "generated_at": "2026-09-19T20:00:00Z",
+  "root": ".",
+  "status": "partial",
+  "scope": {
+    "include": [
+      "README.md",
+      "CHANGELOG.md",
+      "package.json",
+      "index.*",
+      "app/**",
+      "src/**",
+      "docs/**",
+      "tests/**",
+      "public/**",
+      "internal/**",
+      "decisions/**"
+    ],
+    "exclude": [
+      "**/node_modules/**",
+      "**/dist/**",
+      "**/build/**",
+      "**/.git/**",
+      "**/.env",
+      "**/.env.*",
+      "**/*.pem",
+      "**/*.key",
+      ".featurefacts/**",
+      "FEATURE_FACTS.md"
+    ],
+    "supported_ecosystems": [
+      "synthetic-text-fixture"
+    ],
+    "files": [
+      {
+        "path": "README.md",
+        "sha256": "55a9e9c990e427365389591d623e2168378c71f9c3e0fe3f6b4bedaf627602d4",
+        "bytes": 250,
+        "eligible_adapter_ids": [
+          "fixture-tree",
+          "fixture-document"
+        ],
+        "inspected_by": [
+          "fixture-tree",
+          "fixture-document"
+        ]
+      },
+      {
+        "path": "decisions/features.md",
+        "sha256": "993477816b8756831bb28721faf688007fc64af24ad8aa9b4572a6bf54b1dc77",
+        "bytes": 731,
+        "eligible_adapter_ids": [
+          "fixture-tree",
+          "fixture-document"
+        ],
+        "inspected_by": [
+          "fixture-tree",
+          "fixture-document"
+        ]
+      },
+      {
+        "path": "docs/import.md",
+        "sha256": "05d12dd323c03a5ddf6f58c4a1705cd45d13fbc52f91c459868b5214886b4bcb",
+        "bytes": 204,
+        "eligible_adapter_ids": [
+          "fixture-tree",
+          "fixture-document"
+        ],
+        "inspected_by": [
+          "fixture-tree",
+          "fixture-document"
+        ]
+      },
+      {
+        "path": "internal/admin.txt",
+        "sha256": "0e56409fa88724591403e13e6a4a4140bfa6b6e88cba627b58337ff8389ed48a",
+        "bytes": 188,
+        "eligible_adapter_ids": [
+          "fixture-tree",
+          "fixture-surface"
+        ],
+        "inspected_by": [
+          "fixture-tree",
+          "fixture-surface"
+        ]
+      },
+      {
+        "path": "public/index.html",
+        "sha256": "0cf938f741c3c71d36f12e1bba173682bba742e06e011999c55508f599b5df9a",
+        "bytes": 123,
+        "eligible_adapter_ids": [
+          "fixture-tree",
+          "fixture-document"
+        ],
+        "inspected_by": [
+          "fixture-tree",
+          "fixture-document"
+        ]
+      },
+      {
+        "path": "src/routes.txt",
+        "sha256": "3dfdcb9f263bc348088a1e2c2db874b75f8a10134104ac482420889d101823a8",
+        "bytes": 261,
+        "eligible_adapter_ids": [
+          "fixture-tree",
+          "fixture-surface"
+        ],
+        "inspected_by": [
+          "fixture-tree",
+          "fixture-surface"
+        ]
+      },
+      {
+        "path": "src/storage.txt",
+        "sha256": "c9a0c79fb9535dee06f746b0ec81a088414585d455af3a7d8cd2ecc244c81352",
+        "bytes": 187,
+        "eligible_adapter_ids": [
+          "fixture-tree",
+          "fixture-surface"
+        ],
+        "inspected_by": [
+          "fixture-tree",
+          "fixture-surface"
+        ]
+      },
+      {
+        "path": "tests/import.test.txt",
+        "sha256": "1e024965fc157b958a39cec5f06ddd074d868166e3a2b3810da454d59593f8d7",
+        "bytes": 189,
+        "eligible_adapter_ids": [
+          "fixture-tree",
+          "fixture-test"
+        ],
+        "inspected_by": [
+          "fixture-tree"
+        ]
+      }
+    ],
+    "exclusions": []
+  },
+  "adapters": [
+    {
+      "id": "fixture-tree",
+      "version": "0.2.0",
+      "kind": "tree",
+      "state": "completed",
+      "eligible_files": [
+        "README.md",
+        "decisions/features.md",
+        "docs/import.md",
+        "internal/admin.txt",
+        "public/index.html",
+        "src/routes.txt",
+        "src/storage.txt",
+        "tests/import.test.txt"
+      ],
+      "inspected_files": [
+        "README.md",
+        "decisions/features.md",
+        "docs/import.md",
+        "internal/admin.txt",
+        "public/index.html",
+        "src/routes.txt",
+        "src/storage.txt",
+        "tests/import.test.txt"
+      ],
+      "diagnostics": []
+    },
+    {
+      "id": "fixture-surface",
+      "version": "0.2.0",
+      "kind": "surface",
+      "state": "completed",
+      "eligible_files": [
+        "internal/admin.txt",
+        "src/routes.txt",
+        "src/storage.txt"
+      ],
+      "inspected_files": [
+        "internal/admin.txt",
+        "src/routes.txt",
+        "src/storage.txt"
+      ],
+      "diagnostics": []
+    },
+    {
+      "id": "fixture-document",
+      "version": "0.2.0",
+      "kind": "document",
+      "state": "completed",
+      "eligible_files": [
+        "README.md",
+        "decisions/features.md",
+        "docs/import.md",
+        "public/index.html"
+      ],
+      "inspected_files": [
+        "README.md",
+        "decisions/features.md",
+        "docs/import.md",
+        "public/index.html"
+      ],
+      "diagnostics": []
+    },
+    {
+      "id": "fixture-test",
+      "version": "0.2.0",
+      "kind": "test",
+      "state": "failed",
+      "eligible_files": [
+        "tests/import.test.txt"
+      ],
+      "inspected_files": [],
+      "diagnostics": [
+        {
+          "code": "fixture-parser-failure",
+          "severity": "error",
+          "message": "Simulated test parser failure. No absence conclusion is justified."
+        }
+      ]
+    }
+  ],
+  "rules_version": "0.2.0",
+  "fingerprints": {
+    "source": "d13491fe77feb3dafa34ed0c558dee308f2fc843cf8e6a8bcf7b0e27aa7c1801",
+    "config": "5185035d979a494c7b1f39129988070df31124bf56a73c4543885d387d6da879",
+    "adapters": "2b612385132c8b534bd9eb0f79286b537be8aa9a11ecbaa417b3012c24eb89b2",
+    "rules": "c7f728a22bf07a27d20f2b0ba60c59d2528cf27f6b218a22272fcbbe465f8971",
+    "registry": "4b9f91371fedc59f87eff7fb0b5f648723281387406e4d4c261c0b6bab356f7a",
+    "projection": "8466a61ed0ade50e80c26024bd1526ffab7b6d72a1a0f8d32b233132bc12aee5"
+  },
+  "artifacts": [
+    {
+      "path": "FEATURE_FACTS.md",
+      "sha256": "32a2e13972a62606e7072422914b08fd3bdda11f7f4ca3bb4d10db2f780524ea"
+    },
+    {
+      "path": ".featurefacts/features.yaml",
+      "sha256": "bcef6b86d587b17c218005f62335174d077ecf268b384ed3b8a1e7a9d9f931a8"
+    },
+    {
+      "path": ".featurefacts/features.json",
+      "sha256": "47820a442ae67a2ab107def3c1e9c7a93ff9c3b9a6e6923c58de1f78c699f133"
+    },
+    {
+      "path": ".featurefacts/surfaces.json",
+      "sha256": "d38cd553a02d18b0fb05cd147d7c77ab33defb6a8eaf2564bca290ce21433b50"
+    },
+    {
+      "path": ".featurefacts/gaps.yaml",
+      "sha256": "8da0dfd097696b1a82f850533d390f1c1218d123d7487ac5940c8b15118bac23"
+    },
+    {
+      "path": ".featurefacts/docs-index.json",
+      "sha256": "5d23859cd326b9a94690e08cf540ef972da5ca0704d3bfbcc6a5664bfa1e9353"
+    },
+    {
+      "path": ".featurefacts/test-index.json",
+      "sha256": "660272520d63c3494d9c0a2dbf939d0421353091d6648d46f702cc48e2c7fe70"
+    },
+    {
+      "path": ".featurefacts/FEATURES.md",
+      "sha256": "0a140723f774c8e88690b867db066e80fe1e70db24e6b30aaacfd5e4e97f4999"
+    }
+  ],
+  "diagnostics": []
+}

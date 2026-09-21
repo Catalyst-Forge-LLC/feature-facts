@@ -1,0 +1,46 @@
+{
+  "schemaVersion": "0.2.0",
+  "scan_id": "demo-scan-1",
+  "kind": "tests",
+  "assessments": [
+    {
+      "feature_id": "resume-importer",
+      "assessment": {
+        "state": "assessed",
+        "result": "linked-evidence",
+        "adapter_ids": [
+          "fixture-test"
+        ],
+        "links": [
+          {
+            "surface_id": "import-test",
+            "association": "explicit-annotation"
+          }
+        ],
+        "reason": "An explicit feature annotation was found. Test execution and breadth were not assessed."
+      }
+    },
+    {
+      "feature_id": "admin-export",
+      "assessment": {
+        "state": "assessed",
+        "result": "no-linked-evidence",
+        "adapter_ids": [
+          "fixture-test"
+        ],
+        "links": [],
+        "reason": "The adapter completed its declared local scope without an accepted association."
+      }
+    },
+    {
+      "feature_id": "storage-helper",
+      "assessment": {
+        "state": "unassessed",
+        "result": "unknown",
+        "adapter_ids": [],
+        "links": [],
+        "reason": "This dimension has not been assessed."
+      }
+    }
+  ]
+}

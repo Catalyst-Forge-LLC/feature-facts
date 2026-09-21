@@ -1,0 +1,89 @@
+{
+  "schemaVersion": "0.2.0",
+  "scan_id": "scan-ffdeb569d843",
+  "kind": "tests",
+  "assessments": [
+    {
+      "feature_id": "a",
+      "assessment": {
+        "state": "unassessed",
+        "result": "unknown",
+        "adapter_ids": [
+          "typescript-test"
+        ],
+        "links": [],
+        "reason": "No explicit test association. A similar test filename is only a proposal."
+      }
+    },
+    {
+      "feature_id": "admin-export",
+      "assessment": {
+        "state": "unassessed",
+        "result": "unknown",
+        "adapter_ids": [
+          "typescript-test"
+        ],
+        "links": [],
+        "reason": "No explicit test association. A similar test filename is only a proposal."
+      }
+    },
+    {
+      "feature_id": "resume-importer",
+      "assessment": {
+        "state": "assessed",
+        "result": "linked-evidence",
+        "adapter_ids": [
+          "typescript-test"
+        ],
+        "links": [
+          {
+            "surface_id": "test-resume-importer",
+            "association": "explicit-annotation"
+          }
+        ],
+        "reason": "An explicit FeatureFacts annotation was found in a test file. Tests were not executed."
+      }
+    },
+    {
+      "feature_id": "route-get-package-json",
+      "assessment": {
+        "state": "unassessed",
+        "result": "unknown",
+        "adapter_ids": [
+          "typescript-test"
+        ],
+        "links": [],
+        "reason": "No explicit test association. A similar test filename is only a proposal."
+      }
+    },
+    {
+      "feature_id": "tests-fixtures-workshop-tests-import-test-ts",
+      "assessment": {
+        "state": "assessed",
+        "result": "linked-evidence",
+        "adapter_ids": [
+          "typescript-test"
+        ],
+        "links": [
+          {
+            "surface_id": "test-tests-fixtures-workshop-tests-import-test",
+            "association": "explicit-annotation"
+          }
+        ],
+        "reason": "An explicit FeatureFacts annotation was found in a test file. Tests were not executed."
+      }
+    },
+    {
+      "feature_id": "uniqueness",
+      "assessment": {
+        "state": "unassessed",
+        "result": "unknown",
+        "adapter_ids": [
+          "typescript-test"
+        ],
+        "links": [],
+        "reason": "No explicit test association. A similar test filename is only a proposal."
+      }
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://featurefacts.dev/schema/v0.2.0/test-index.schema.json",
+  "title": "FeatureFacts test-index",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "scan_id",
+    "kind",
+    "assessments"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "0.2.0"
+    },
+    "scan_id": {
+      "$ref": "common.schema.json#/$defs/id"
+    },
+    "kind": {
+      "const": "tests"
+    },
+    "assessments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "feature_id",
+          "assessment"
+        ],
+        "properties": {
+          "feature_id": {
+            "$ref": "common.schema.json#/$defs/id"
+          },
+          "assessment": {
+            "$ref": "common.schema.json#/$defs/assessment"
+          }
+        }
+      },
+      "minItems": 0
+    }
+  }
+}

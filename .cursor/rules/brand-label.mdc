@@ -1,0 +1,12 @@
+---
+description: xFacts label heading vs nutrition metaphor
+alwaysApply: true
+---
+
+# xFacts label vs nutrition metaphor
+
+On product surfaces (README, npm, GitHub, LocalHelm, site chrome, shelf cards) the heading is **xFacts label**. Never "Nutrition label".
+
+Keep "nutrition label" only in teaching copy if the food analogy is being taught.
+
+Write **FeatureFacts** as one word with both capital Fs. Write the family as **xFacts**, lowercase x.

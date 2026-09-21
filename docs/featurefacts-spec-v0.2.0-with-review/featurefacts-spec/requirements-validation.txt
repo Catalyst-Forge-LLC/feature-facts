@@ -1,0 +1,4 @@
+# Development/skill validation only. These versions were used for this revision.
+jsonschema==4.26.0
+PyYAML==6.0.3
+referencing==0.37.0

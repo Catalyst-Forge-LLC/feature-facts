@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FeatureFacts - Know what this product can do</title>
+  <meta name="description" content="FEATURE_FACTS.md: a compact capability label backed by an evidence-backed feature register. Part of the xFacts suite." />
+  <link rel="canonical" href="https://featurefacts.dev/" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <meta property="og:title" content="FeatureFacts" />
+  <meta property="og:description" content="Know what this product can do, where the evidence lives, and which capabilities still need review." />
+  <meta property="og:url" content="https://featurefacts.dev/" />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Sora:wght@500;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #101418;
+      --paper: #f8fafc;
+      --slate: #1a222c;
+      --slate-2: #243040;
+      --mute: #9aa8b8;
+      --line: #d7dee7;
+      --accent: #8a9a40;
+      --accent-soft: #c4d06a;
+      --ok: #2f6f4e;
+      --radius: 2px;
+      --font-display: "Sora", sans-serif;
+      --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+      --max: 68rem;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--paper);
+      background:
+        radial-gradient(1200px 600px at 10% -10%, rgba(138, 154, 64, 0.18), transparent 55%),
+        radial-gradient(900px 500px at 90% 0%, rgba(80, 120, 160, 0.14), transparent 50%),
+        linear-gradient(180deg, #0c1015 0%, var(--ink) 40%, #0a0e13 100%);
+      font-family: var(--font-mono);
+      font-size: 15px;
+      line-height: 1.55;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent-soft); text-decoration-thickness: 1px; text-underline-offset: 0.18em; }
+    a:hover { color: #fff; }
+
+    .wrap { width: min(100% - 2rem, var(--max)); margin-inline: auto; }
+
+    .hero {
+      min-height: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 1.5rem 0 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse 80% 55% at 50% 0%, black, transparent);
+      pointer-events: none;
+    }
+
+    .hero-copy { position: relative; padding-bottom: 1.1rem; }
+
+    .brand {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(2.4rem, 7vw, 3.8rem);
+      letter-spacing: -0.04em;
+      line-height: 0.95;
+      margin: 0 0 0.7rem;
+      color: #fff;
+    }
+    .brand span { color: var(--accent); }
+
+    .lede {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: clamp(1.05rem, 2.2vw, 1.3rem);
+      line-height: 1.35;
+      color: #e8eef5;
+      max-width: 40ch;
+      margin: 0 0 0.7rem;
+    }
+    .lede a { color: inherit; }
+    .lede a:hover { color: #fff; }
+
+    .sub { color: var(--mute); max-width: 52ch; margin: 0 0 1.15rem; }
+
+    .cta { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.7rem 1rem;
+      border: 1px solid transparent;
+      font: 600 0.85rem/1 var(--font-mono);
+      text-decoration: none;
+    }
+    .btn-primary { background: var(--accent); color: #101418; }
+    .btn-primary:hover { background: var(--accent-soft); color: #101418; }
+    .btn-ghost { background: transparent; border-color: rgba(255,255,255,0.22); color: var(--paper); }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.5); color: #fff; }
+
+    .label-plane {
+      position: relative;
+      width: 100%;
+      margin-top: 1.5rem;
+      background: var(--paper);
+      color: var(--ink);
+      border-top: 4px solid var(--ink);
+    }
+    .label-plane-inner {
+      width: min(100% - 2rem, var(--max));
+      margin-inline: auto;
+      padding: 1.1rem 0 1.35rem;
+    }
+    .label-plane h2 {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      letter-spacing: -0.03em;
+      margin: 0;
+      text-transform: uppercase;
+    }
+    .label-plane .serving {
+      font-size: 0.75rem;
+      border-bottom: 10px solid var(--ink);
+      padding: 0.4rem 0 0.5rem;
+      margin-bottom: 0.35rem;
+    }
+    .label-cols { display: grid; gap: 0.25rem 2rem; }
+    @media (min-width: 720px) { .label-cols { grid-template-columns: 1fr 1fr; } }
+    .label-plane .row {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      border-bottom: 1px solid var(--ink);
+      padding: 0.32rem 0;
+      font-size: 0.8rem;
+    }
+    .label-plane .row.thick { border-bottom-width: 5px; }
+    .label-plane .deps {
+      margin-top: 0.65rem;
+      font-size: 0.72rem;
+      color: #44505c;
+      grid-column: 1 / -1;
+    }
+
+    section { padding: 3.5rem 0; border-top: 1px solid rgba(255,255,255,0.08); }
+    .section-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(1.4rem, 3vw, 1.9rem);
+      letter-spacing: -0.03em;
+      margin: 0 0 0.6rem;
+      color: #fff;
+    }
+    .section-lead { color: var(--mute); max-width: 52ch; margin: 0 0 1.5rem; }
+    .prose p { margin: 0 0 1rem; color: #c9d3de; max-width: 62ch; }
+    .prose strong { color: #fff; font-weight: 600; }
+
+    pre {
+      margin: 0;
+      padding: 1rem 1.1rem;
+      overflow-x: auto;
+      background: var(--slate);
+      border: 1px solid var(--slate-2);
+      color: #dce5ef;
+      font-size: 0.78rem;
+      line-height: 1.5;
+    }
+    .split { display: grid; gap: 1.5rem; }
+    @media (min-width: 800px) { .split { grid-template-columns: 1fr 1fr; } }
+
+    .sponsor { background: linear-gradient(180deg, rgba(138, 154, 64, 0.08), transparent); }
+    .sponsor-box { border-left: 3px solid var(--accent); padding: 0.25rem 0 0.25rem 1.1rem; max-width: 48rem; }
+    .sponsor-box p { margin: 0.35rem 0; color: #c9d3de; }
+    .kicker { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-soft); }
+
+    .xfacts-family-footer {
+      padding: 2rem 0 2.75rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      color: var(--mute);
+      font-size: 0.8rem;
+    }
+    .xfacts-family-footer .xfacts-footer-inner {
+      width: min(100% - 2rem, var(--max));
+      margin-inline: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .xfacts-family-footer .xfacts-footer-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem 1rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .xfacts-family-footer .xfacts-footer-nav a,
+    .xfacts-family-footer .xfacts-footer-nav span {
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 0.78rem;
+    }
+    .xfacts-family-footer .xfacts-footer-nav .current { color: #fff; }
+    .xfacts-family-footer .xfacts-footer-nav a[data-label="hub"] { color: #c9d3de; }
+    .xfacts-family-footer .xfacts-footer-nav a[data-label="app"] { color: #f0a36a; }
+    .xfacts-family-footer .xfacts-footer-nav a[data-label="model"] { color: #ab93f5; }
+    .xfacts-family-footer .xfacts-footer-nav a[data-label="tool"] { color: #5eead4; }
+    .xfacts-family-footer .xfacts-footer-nav a[data-label="agent"] { color: #fbd38d; }
+    .xfacts-family-footer .xfacts-footer-nav a[data-label="skill"] { color: #f9a8d4; }
+    .xfacts-family-footer .xfacts-footer-nav span[data-label="feature"] { color: var(--accent-soft); }
+    .xfacts-family-footer .xfacts-footer-credit {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.25rem;
+      justify-content: space-between;
+    }
+    .xfacts-family-footer .xfacts-footer-credit a { color: #c9d3de; }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap hero-copy">
+      <h1 class="brand">Feature<span>Facts</span></h1>
+      <p class="lede">Know what this product can do. Part of the <a href="https://xfacts.dev">xFacts</a> suite.</p>
+      <p class="sub">
+        A compact xFacts label for product capabilities, backed by an inspectable
+        feature register. Candidates are not confirmed features. Zero rows is a
+        truthful outcome.
+      </p>
+      <div class="cta">
+        <a class="btn btn-primary" href="https://github.com/Catalyst-Forge-LLC/feature-facts">View on GitHub</a>
+        <a class="btn btn-ghost" href="/schema/feature-facts-label.schema.json">Label schema</a>
+        <a class="btn btn-ghost" href="#write">Scan a repo</a>
+      </div>
+    </div>
+    <div class="label-plane" aria-label="Example Feature Facts label">
+      <div class="label-plane-inner">
+        <h2>xFacts label</h2>
+        <div class="serving">Serving size: one product · Terrain layer · Max 12 curated rows</div>
+        <div class="label-cols">
+          <div class="row thick"><strong>Product</strong><span>Workshop Demo</span></div>
+          <div class="row thick"><strong>Mode</strong><span>map-backed</span></div>
+          <div class="row"><strong>Question</strong><span>What can this product do?</span></div>
+          <div class="row"><strong>Selected</strong><span>Resume import</span></div>
+          <div class="row"><strong>Lifecycle</strong><span>released</span></div>
+          <div class="row"><strong>Availability</strong><span>conditional · Pro · member</span></div>
+          <div class="row"><strong>Maturity</strong><span>experimental</span></div>
+          <div class="row"><strong>Evidence</strong><span>current</span></div>
+          <div class="deps">
+            <b>Not a coverage score.</b>
+            Linked documentation or tests means an accepted association exists.
+            It does not mean the tests passed or the docs are adequate.
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="depths">
+      <div class="wrap prose">
+        <h2 class="section-title">Two reading depths</h2>
+        <p class="section-lead">A small label, then the register that can defend it.</p>
+        <p>
+          <strong>FEATURE_FACTS.md</strong> holds zero to 12 approved rows.
+          Initialization leaves the selection empty. A scanner can propose
+          candidates. It cannot silently curate them.
+        </p>
+        <p>
+          <strong>.featurefacts/</strong> keeps the known capabilities inside a
+          declared survey scope: surfaces, evidence, stale locators, and
+          publication choices. It is not a claim that every capability was found.
+        </p>
+      </div>
+    </section>
+
+    <section id="write">
+      <div class="wrap">
+        <h2 class="section-title">Scan one TypeScript repo</h2>
+        <p class="section-lead">Default scan does not execute target code, use the network, or call a model.</p>
+        <div class="split">
+          <pre>pnpm add -D featurefacts
+pnpm featurefacts init
+pnpm featurefacts scan
+pnpm featurefacts show
+pnpm featurefacts check</pre>
+          <div class="prose">
+            <p>
+              First ecosystem: TypeScript/Node. Unsupported inputs report
+              <code>unsupported</code>, not a fabricated inventory. Confirming a
+              feature, approving public rows, and selecting label IDs stay
+              attributed maintainer decisions.
+            </p>
+            <ul>
+              <li><a href="/examples/index.json">Synthetic examples</a></li>
+              <li><a href="/llms.txt">llms.txt</a></li>
+              <li><a href="https://github.com/Catalyst-Forge-LLC/feature-facts">Repository</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sponsor" id="catalyst-forge">
+      <div class="wrap">
+        <div class="sponsor-box">
+          <p class="kicker">Origin · Sponsor</p>
+          <h2 class="section-title">From Catalyst Forge</h2>
+          <p>
+            FeatureFacts was created by
+            <a href="https://www.catalystforge.com/">Catalyst Forge</a> —
+            AI consulting for growing businesses. Find what matters. Forge it.
+          </p>
+          <p>
+            Part of the <a href="https://xfacts.dev">xFacts</a> suite —
+            body, brain, toolbelt, hands, playbook, and terrain, all labeled.
+            Spec &amp; schema are <strong>CC0</strong>. Tooling is <strong>MIT</strong>.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="xfacts-family-footer" data-current="feature">
+    <div class="xfacts-footer-inner">
+      <ul class="xfacts-footer-nav" aria-label="xFacts family">
+        <li><a data-label="hub" href="https://xfacts.dev">xFacts</a></li>
+        <li><a data-label="app" href="https://appfacts.dev">AppFacts</a></li>
+        <li><a data-label="model" href="https://modelfacts.dev">ModelFacts</a></li>
+        <li><a data-label="tool" href="https://toolfacts.dev">ToolFacts</a></li>
+        <li><a data-label="agent" href="https://agentfacts.dev">AgentFacts</a></li>
+        <li><a data-label="skill" href="https://skillfacts.dev">SkillFacts</a></li>
+        <li><span class="current" data-label="feature">FeatureFacts</span></li>
+      </ul>
+      <div class="xfacts-footer-credit">
+        <div>© 2026 FeatureFacts</div>
+        <div>by <a href="https://www.catalystforge.com/">Catalyst Forge</a></div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

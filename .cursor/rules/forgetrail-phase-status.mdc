@@ -1,0 +1,42 @@
+---
+description: Show ForgeTrail phase, next actions, and doc gaps from workflow_tracking.json (esp. bookends & what's next)
+alwaysApply: true
+---
+
+# ForgeTrail phase awareness
+
+This repo uses **ForgeTrail** lifecycle tracking. **Source of truth:** `.forgetrail/workflow_tracking.json` (`currentPhase`, `phases`, `decisions`).
+
+## When to surface status
+
+Include a short **ForgeTrail** footer in replies when it helps orientation—especially:
+
+- User asks **what’s next**, **status**, **phase**, or **milestone**
+- **Start** of a multi-step / multi-file task block
+- **End** of a task block, PR-sized change, or session wrap-up
+
+**Lessons gate:** For substantial work (see **`forgetrail-lessons-gate.mdc`**), run **`getAntiPatterns`** + **`searchLessons`** before deep implementation; the phase footer can still appear at start/end without repeating full lesson text.
+
+Skip the footer for trivial one-line answers (typos, single-token replies) unless the user asked for status.
+
+**Product-facing / non-technical users:** Do **not** show ForgeTrail footers, phase IDs, MCP/tool names, or internal checklists unless they ask how the workflow is wired up. Plain language only.
+
+## What to read
+
+1. Open **`.forgetrail/workflow_tracking.json`** (or use known state from the same turn).
+2. Report **`currentPhase`** using friendly names:  
+   `1-architecture` → Plan · `2-scaffolding` → Build · `3-stabilization` → Stabilize · `4-feature-iteration` → Iterate · `5-refactoring` → Refine · `6-strategic-review` → Align · `7-hardening` → Harden.
+3. For that phase, note **`status`** and **1–3 items** from **`exitCriteriaRemaining`** as **likely next actions**.
+4. If Phase 2+ docs are expected but missing, mention once.
+
+## Footer format (compact, copy-paste)
+
+```text
+**ForgeTrail:** Build (2-scaffolding) · in_progress · Next: …
+```
+
+Keep it **≤4 lines**.
+
+## Phase transitions
+
+Do **not** advance `currentPhase` or mark phases complete without **explicit user confirmation**.

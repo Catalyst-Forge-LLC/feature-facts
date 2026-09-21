@@ -1,0 +1,314 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://featurefacts.dev/schema/v0.2.0/feature-facts-label.schema.json",
+  "title": "FeatureFacts feature-facts-label",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "feature_facts_version",
+    "mode",
+    "audience",
+    "name",
+    "type",
+    "status",
+    "selection_state",
+    "features",
+    "basis",
+    "generated"
+  ],
+  "properties": {
+    "feature_facts_version": {
+      "const": "0.2.0"
+    },
+    "mode": {
+      "type": "string",
+      "enum": [
+        "map-backed",
+        "standalone"
+      ]
+    },
+    "audience": {
+      "type": "string",
+      "enum": [
+        "internal",
+        "public"
+      ]
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "type": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "maintenance",
+        "archived",
+        "experimental",
+        "unknown",
+        "undisclosed"
+      ]
+    },
+    "license": {
+      "type": "string",
+      "minLength": 1
+    },
+    "selection_state": {
+      "type": "string",
+      "enum": [
+        "curated",
+        "not-curated",
+        "no-eligible-features"
+      ]
+    },
+    "empty_reason": {
+      "type": "string",
+      "minLength": 1
+    },
+    "features": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/label_row"
+      },
+      "minItems": 0,
+      "maxItems": 12
+    },
+    "map": {
+      "$ref": "common.schema.json#/$defs/path"
+    },
+    "counts": {
+      "$ref": "common.schema.json#/$defs/counts"
+    },
+    "assessments": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "docs",
+        "tests"
+      ],
+      "properties": {
+        "docs": {
+          "$ref": "common.schema.json#/$defs/rollup"
+        },
+        "tests": {
+          "$ref": "common.schema.json#/$defs/rollup"
+        }
+      }
+    },
+    "basis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "summary"
+      ],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "registry",
+            "declaration"
+          ]
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "declaration": {
+      "$ref": "common.schema.json#/$defs/declaration"
+    },
+    "verification_limits": {
+      "type": "string",
+      "minLength": 1
+    },
+    "generated": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "date",
+        "generator",
+        "generator_version",
+        "projection_fingerprint"
+      ],
+      "properties": {
+        "date": {
+          "$ref": "common.schema.json#/$defs/date"
+        },
+        "generator": {
+          "type": "string",
+          "minLength": 1
+        },
+        "generator_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "projection_fingerprint": {
+          "$ref": "common.schema.json#/$defs/hash"
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "mode": {
+            "const": "map-backed"
+          }
+        },
+        "required": [
+          "mode"
+        ]
+      },
+      "then": {
+        "properties": {
+          "basis": {
+            "properties": {
+              "kind": {
+                "const": "registry"
+              }
+            }
+          }
+        },
+        "not": {
+          "anyOf": [
+            {
+              "required": [
+                "declaration"
+              ]
+            },
+            {
+              "required": [
+                "verification_limits"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "mode": {
+            "const": "standalone"
+          }
+        },
+        "required": [
+          "mode"
+        ]
+      },
+      "then": {
+        "required": [
+          "declaration",
+          "verification_limits"
+        ],
+        "properties": {
+          "basis": {
+            "properties": {
+              "kind": {
+                "const": "declaration"
+              }
+            }
+          },
+          "features": {
+            "items": {
+              "properties": {
+                "evidence_state": {
+                  "const": "declared"
+                }
+              }
+            }
+          }
+        },
+        "not": {
+          "anyOf": [
+            {
+              "required": [
+                "map"
+              ]
+            },
+            {
+              "required": [
+                "counts"
+              ]
+            },
+            {
+              "required": [
+                "assessments"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "audience": {
+            "const": "public"
+          }
+        },
+        "required": [
+          "audience"
+        ]
+      },
+      "then": {
+        "not": {
+          "required": [
+            "map"
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "features": {
+            "maxItems": 0
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "empty_reason"
+        ],
+        "properties": {
+          "selection_state": {
+            "type": "string",
+            "enum": [
+              "not-curated",
+              "no-eligible-features"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "features": {
+            "minItems": 1
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "selection_state": {
+            "const": "curated"
+          }
+        },
+        "not": {
+          "required": [
+            "empty_reason"
+          ]
+        }
+      }
+    }
+  ]
+}

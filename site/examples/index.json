@@ -1,0 +1,25 @@
+{
+  "schema": "featurefacts-examples",
+  "version": "0.2.0",
+  "items": [
+    {
+      "id": "workshop-demo",
+      "name": "Workshop Demo",
+      "kind": "map-backed",
+      "path": "/examples/FEATURE_FACTS.md",
+      "note": "Synthetic fixture, not a scan of a real product."
+    },
+    {
+      "id": "standalone",
+      "name": "Standalone declaration",
+      "kind": "standalone",
+      "path": "/examples/STANDALONE_FEATURE_FACTS.md"
+    },
+    {
+      "id": "public",
+      "name": "Public projection",
+      "kind": "map-backed",
+      "path": "/examples/PUBLIC_FEATURE_FACTS.md"
+    }
+  ]
+}

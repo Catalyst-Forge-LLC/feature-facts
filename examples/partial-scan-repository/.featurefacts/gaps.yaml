@@ -1,0 +1,23 @@
+schemaVersion: 0.2.0
+scan_id: demo-scan-2
+gaps:
+- id: gap-9f16c38478fa8979b1cf926c
+  feature_id: admin-export
+  rule_id: docs-linked-evidence
+  rule_version: 0.2.0
+  kind: no-linked-docs
+  severity: warn
+  applicability: applicable
+  reason: The named adapters completed the supported scope without an accepted association.
+  evidence_ids:
+  - admin-export-docs
+  adapter_ids:
+  - fixture-document
+  text: No linked documentation evidence was found for Administrative audit export
+    in the inspected scope.
+  suggested_action: Review admin-export and add an explicit documentation association,
+    or record a justified waiver.
+  basis_fingerprint: e8c6978815f952d69bcd39ff2c964208ded614dae6b2b7bec2cfa44b51539a9f
+  disposition:
+    state: waived
+    reason: The fixture owner accepts no linked operator guide for this demonstration.

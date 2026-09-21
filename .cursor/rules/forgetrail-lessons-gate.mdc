@@ -1,0 +1,28 @@
+---
+description: Before substantial feature work, run ForgeTrail lessons + anti-patterns (MCP) and fold findings into the plan
+alwaysApply: true
+---
+
+# ForgeTrail lessons gate (when + how)
+
+This complements **`forgetrail-lessons-mcp.mdc`** and **`forgetrail-phase-status.mdc`**.
+
+## When to run the gate
+
+Run **`getAntiPatterns`** once and **`searchLessons`** when any of these is true:
+
+- You expect to touch **≥3 files**, or **≥2** top-level areas.
+- **New or changed** user-facing flow, CLI command, schema, or publication path.
+- The user asks for a **plan**, **feature**, **refactor**, or **milestone** that spans multiple files.
+
+**Skip** for single-file typos, pure renames, or an explicit skip.
+
+## How to run it
+
+1. Call **`getAntiPatterns`**.
+2. Call **`searchLessons`** with 2–4 short keyword queries.
+3. Fold 3–6 do/avoid bullets into the plan before coding. Do not paste full MCP dumps.
+
+## Product-facing users
+
+Do not mention MCP, tool names, or “lessons gate” in user-facing summaries unless they ask.

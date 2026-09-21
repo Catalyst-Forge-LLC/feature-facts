@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://featurefacts.dev/schema/v0.2.0/surfaces.schema.json",
+  "title": "FeatureFacts surfaces",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "scan_id",
+    "surfaces"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "0.2.0"
+    },
+    "scan_id": {
+      "$ref": "common.schema.json#/$defs/id"
+    },
+    "surfaces": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/surface"
+      },
+      "minItems": 0
+    }
+  }
+}

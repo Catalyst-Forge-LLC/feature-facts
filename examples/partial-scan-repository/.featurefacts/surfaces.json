@@ -1,0 +1,108 @@
+{
+  "schemaVersion": "0.2.0",
+  "scan_id": "demo-scan-2",
+  "surfaces": [
+    {
+      "id": "import-route",
+      "kind": "route",
+      "ref": "GET /app/import",
+      "locator": {
+        "path": "src/routes.txt",
+        "content_sha256": "3dfdcb9f263bc348088a1e2c2db874b75f8a10134104ac482420889d101823a8",
+        "start_line": 2
+      },
+      "provenance": {
+        "adapter_id": "fixture-surface",
+        "adapter_version": "0.2.0",
+        "origin": "deterministic",
+        "method": "explicit-fixture-descriptor"
+      },
+      "state": "current"
+    },
+    {
+      "id": "import-api",
+      "kind": "api",
+      "ref": "POST /api/import",
+      "locator": {
+        "path": "src/routes.txt",
+        "content_sha256": "3dfdcb9f263bc348088a1e2c2db874b75f8a10134104ac482420889d101823a8",
+        "start_line": 3
+      },
+      "provenance": {
+        "adapter_id": "fixture-surface",
+        "adapter_version": "0.2.0",
+        "origin": "deterministic",
+        "method": "explicit-fixture-descriptor"
+      },
+      "state": "current"
+    },
+    {
+      "id": "admin-command",
+      "kind": "command",
+      "ref": "export-audit",
+      "locator": {
+        "path": "internal/admin.txt",
+        "content_sha256": "0e56409fa88724591403e13e6a4a4140bfa6b6e88cba627b58337ff8389ed48a",
+        "start_line": 2
+      },
+      "provenance": {
+        "adapter_id": "fixture-surface",
+        "adapter_version": "0.2.0",
+        "origin": "deterministic",
+        "method": "explicit-fixture-descriptor"
+      },
+      "state": "current"
+    },
+    {
+      "id": "storage-symbol",
+      "kind": "symbol",
+      "ref": "store-upload",
+      "locator": {
+        "path": "src/storage.txt",
+        "content_sha256": "c9a0c79fb9535dee06f746b0ec81a088414585d455af3a7d8cd2ecc244c81352",
+        "start_line": 2
+      },
+      "provenance": {
+        "adapter_id": "fixture-surface",
+        "adapter_version": "0.2.0",
+        "origin": "deterministic",
+        "method": "explicit-fixture-descriptor"
+      },
+      "state": "current"
+    },
+    {
+      "id": "import-doc",
+      "kind": "document",
+      "ref": "Import a resume",
+      "locator": {
+        "path": "docs/import.md",
+        "content_sha256": "05d12dd323c03a5ddf6f58c4a1705cd45d13fbc52f91c459868b5214886b4bcb",
+        "start_line": 3
+      },
+      "provenance": {
+        "adapter_id": "fixture-document",
+        "adapter_version": "0.2.0",
+        "origin": "deterministic",
+        "method": "explicit-fixture-descriptor"
+      },
+      "state": "current"
+    },
+    {
+      "id": "import-test",
+      "kind": "test",
+      "ref": "text upload yields a draft profile",
+      "locator": {
+        "path": "tests/import.test.txt",
+        "content_sha256": "1e024965fc157b958a39cec5f06ddd074d868166e3a2b3810da454d59593f8d7",
+        "start_line": 2
+      },
+      "provenance": {
+        "adapter_id": "fixture-test",
+        "adapter_version": "0.2.0",
+        "origin": "deterministic",
+        "method": "explicit-fixture-descriptor"
+      },
+      "state": "stale"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "name": "featurefacts",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "description": "FeatureFacts: a compact capability label and evidence-backed feature register.",
+  "bin": {
+    "featurefacts": "./bin/featurefacts.mjs"
+  },
+  "scripts": {
+    "featurefacts": "tsx src/cli.ts",
+    "test": "tsx --test tests/cli.test.ts",
+    "typecheck": "tsc --noEmit",
+    "verify": "pnpm typecheck && pnpm test",
+    "preview": "node scripts/preview.mjs",
+    "ship": "wrangler deploy --config site/wrangler.jsonc"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "minimatch": "^10.0.3",
+    "yaml": "^2.8.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0",
+    "wrangler": "^4.28.0"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "pnpm": {
+    "overrides": {
+      "sharp": "0.35.4",
+      "fast-uri": "3.1.7"
+    },
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "workerd"
+    ]
+  }
+}

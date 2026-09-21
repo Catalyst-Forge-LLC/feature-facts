@@ -1,0 +1,313 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://featurefacts.dev/schema/v0.2.0/config.schema.json",
+  "title": "FeatureFacts config",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "include",
+    "exclude",
+    "adapters",
+    "externals",
+    "curation",
+    "publication",
+    "policy",
+    "waivers",
+    "safety"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "0.2.0"
+    },
+    "include": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "exclude": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "adapters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "kind",
+          "enabled"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "common.schema.json#/$defs/id"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "tree",
+              "surface",
+              "document",
+              "test",
+              "graph",
+              "history"
+            ]
+          },
+          "enabled": {
+            "type": "boolean"
+          }
+        }
+      },
+      "minItems": 1
+    },
+    "externals": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/id"
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "curation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "selected_ids",
+        "overrides"
+      ],
+      "properties": {
+        "selected_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/id"
+          },
+          "minItems": 0,
+          "maxItems": 12,
+          "uniqueItems": true
+        },
+        "overrides": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+          },
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        "approval": {
+          "$ref": "common.schema.json#/$defs/declaration"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "selected_ids": {
+                "minItems": 1
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "approval"
+            ]
+          }
+        }
+      ]
+    },
+    "publication": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "target",
+        "include_counts",
+        "include_assessments",
+        "map_link"
+      ],
+      "properties": {
+        "target": {
+          "type": "string",
+          "enum": [
+            "internal",
+            "public"
+          ]
+        },
+        "include_counts": {
+          "type": "boolean"
+        },
+        "include_assessments": {
+          "type": "boolean"
+        },
+        "map_link": {
+          "anyOf": [
+            {
+              "$ref": "common.schema.json#/$defs/path"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "target": {
+                "const": "public"
+              }
+            },
+            "required": [
+              "target"
+            ]
+          },
+          "then": {
+            "properties": {
+              "map_link": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "enabled",
+        "rules",
+        "unassessed"
+      ],
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "rules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "level"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "enum": [
+                  "released-test-links",
+                  "locked-locators-resolve",
+                  "unconfirmed-selection"
+                ]
+              },
+              "level": {
+                "type": "string",
+                "enum": [
+                  "warn",
+                  "fail"
+                ]
+              }
+            }
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "unassessed": {
+          "type": "string",
+          "enum": [
+            "warn",
+            "fail",
+            "ignore"
+          ]
+        }
+      }
+    },
+    "waivers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "feature_id",
+          "rule_id",
+          "basis_fingerprint",
+          "reason",
+          "approved_by",
+          "recorded_at"
+        ],
+        "properties": {
+          "feature_id": {
+            "$ref": "common.schema.json#/$defs/id"
+          },
+          "rule_id": {
+            "$ref": "common.schema.json#/$defs/id"
+          },
+          "basis_fingerprint": {
+            "$ref": "common.schema.json#/$defs/hash"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "approved_by": {
+            "type": "string",
+            "minLength": 1
+          },
+          "recorded_at": {
+            "$ref": "common.schema.json#/$defs/datetime"
+          }
+        }
+      },
+      "minItems": 0
+    },
+    "safety": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "max_file_bytes",
+        "follow_symlinks",
+        "network",
+        "execute_target_code"
+      ],
+      "properties": {
+        "max_file_bytes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "follow_symlinks": {
+          "const": false
+        },
+        "network": {
+          "const": false
+        },
+        "execute_target_code": {
+          "const": false
+        }
+      }
+    }
+  }
+}
