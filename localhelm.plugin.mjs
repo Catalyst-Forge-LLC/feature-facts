@@ -33,7 +33,7 @@ function run(args) {
   });
 }
 
-export function board() {
+async function board() {
   return {
     plugin: 'featurefacts',
     title: 'FeatureFacts',
@@ -44,7 +44,7 @@ export function board() {
     rows: [
       {
         id: 'feature-facts',
-        name: 'FeatureFacts',
+        label: 'FeatureFacts',
         cells: { label: 'FEATURE_FACTS.md', register: '.featurefacts/' },
         actions: [
           { id: 'scan', label: 'Scan', write: true, icon: 'lucide:radar' },
@@ -56,16 +56,26 @@ export function board() {
   };
 }
 
-export async function plan(action) {
+async function plan(action) {
   if (action === 'scan') return { summary: 'Run featurefacts scan in this checkout.' };
   if (action === 'check') return { summary: 'Run featurefacts check (read-only).' };
   if (action === 'report') return { summary: 'Regenerate projections without rescanning.' };
   throw new Error(`Unknown FeatureFacts action: ${action}`);
 }
 
-export async function apply(action) {
+async function apply(action) {
   const command = action === 'scan' ? ['scan'] : action === 'check' ? ['check'] : action === 'report' ? ['report'] : null;
   if (!command) throw new Error(`Unknown FeatureFacts action: ${action}`);
   const result = await run(command);
   return { ok: result.status === 0, detail: result.stdout.trim() || result.stderr.trim() };
 }
+
+const plugin = {
+  id: 'featurefacts',
+  label: 'FeatureFacts',
+  board,
+  plan,
+  apply,
+};
+
+export default plugin;
