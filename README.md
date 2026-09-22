@@ -8,7 +8,7 @@ This is a sibling of AppFacts, not an AppFacts field. A folder is not a feature.
 
 ## Status
 
-Phase 1 vertical slice: TypeScript/Node scanner, sibling Worker site, LocalHelm plugin, LocalSlip preview claim. featurefacts.dev DNS is owner work and is not claimed live until it resolves.
+Phase 1 vertical slice: TypeScript/Node scanner, sibling Worker site at [featurefacts.dev](https://featurefacts.dev), LocalHelm plugin, LocalSlip preview claim.
 
 ## Install
 
