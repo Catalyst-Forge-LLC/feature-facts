@@ -92,7 +92,7 @@ Each assessment contains `state`, `result`, `adapter_ids`, `links`, and `reason`
 | `partial` | `linked-evidence` or `unknown` | Some scope or evidence remains unverified |
 | `unassessed` | `unknown` | Assessment not performed or unavailable |
 | `not-applicable` | `not-applicable` | Attributed applicability decision |
-| `undisclosed` | `undisclosed` | Deliberately withheld |
+| `undisclosed` | `undisclosed` | Not published in the sources the label relies on. Records absence, not intent |
 
 `linked-evidence` requires at least one accepted link. `no-linked-evidence` requires an assessed state and an empty link list. A partial result without a positive link is `unknown`, never `no-linked-evidence`. Unassessed, not-applicable, and undisclosed results have no asserted links.
 

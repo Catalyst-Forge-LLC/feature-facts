@@ -56,7 +56,7 @@ An **observation** is tied to a source locator and detector provenance. A **decl
 
 Evidence binds to a particular field value. A citation for route existence cannot automatically justify released status, broad testing, or adequate documentation. Structural validation checks required shapes. Semantic validation checks IDs, references, claim bindings, supported assessment scope, and projection consistency. Neither validates truth by itself.
 
-Use `unknown` when a value is not established. Use `undisclosed` when the value is deliberately withheld. Use assessment states to distinguish assessed, partial, unassessed, not applicable, and undisclosed. Do not conceal an unperformed assessment behind a numeric zero.
+Use `unknown` when the label's author could not establish a value. Use `undisclosed` when the owner has not published the value in the sources the label relies on. `undisclosed` records absence, not intent; give a reason in `uncertainty_reasons` only when a source states one. Use assessment states to distinguish assessed, partial, unassessed, not applicable, and undisclosed. Do not conceal an unperformed assessment behind a numeric zero.
 
 ## Outputs and ownership
 
