@@ -246,7 +246,7 @@
         truthful outcome.
       </p>
       <div class="cta">
-        <a class="btn btn-primary" href="https://github.com/Catalyst-Forge-LLC/feature-facts">View on GitHub</a>
+        <a class="btn btn-primary" href="/examples/FEATURE_FACTS.md">Read an example</a>
         <a class="btn btn-ghost" href="/schema/feature-facts-label.schema.json">Label schema</a>
         <a class="btn btn-ghost" href="#write">Scan a repo</a>
       </div>
@@ -254,7 +254,7 @@
     <div class="label-plane" aria-label="Example Feature Facts label">
       <div class="label-plane-inner">
         <h2>xFacts label</h2>
-        <div class="serving">Serving size: one product · Terrain layer · Max 12 curated rows</div>
+        <div class="serving">Example · synthetic fixture · not a scan of a real product</div>
         <div class="label-cols">
           <div class="row thick"><strong>Product</strong><span>Workshop Demo</span></div>
           <div class="row thick"><strong>Mode</strong><span>map-backed</span></div>
@@ -297,22 +297,23 @@
         <h2 class="section-title">Scan one TypeScript repo</h2>
         <p class="section-lead">Default scan does not execute target code, use the network, or call a model.</p>
         <div class="split">
-          <pre>pnpm add -D featurefacts
-pnpm featurefacts init
-pnpm featurefacts scan
-pnpm featurefacts show
-pnpm featurefacts check</pre>
+          <pre>featurefacts init
+featurefacts scan
+featurefacts show
+featurefacts check</pre>
           <div class="prose">
             <p>
+              The CLI lives in the FeatureFacts repository, which is not public yet.
+              It is not on npm, and it is not a runtime dependency of the app you scan.
               First ecosystem: TypeScript/Node. Unsupported inputs report
               <code>unsupported</code>, not a fabricated inventory. Confirming a
               feature, approving public rows, and selecting label IDs stay
               attributed maintainer decisions.
             </p>
             <ul>
-              <li><a href="/examples/index.json">Synthetic examples</a></li>
+              <li><a href="/examples/FEATURE_FACTS.md">Synthetic example label</a></li>
               <li><a href="/llms.txt">llms.txt</a></li>
-              <li><a href="https://github.com/Catalyst-Forge-LLC/feature-facts">Repository</a></li>
+              <li><a href="/schema/feature-facts-label.schema.json">Label schema</a></li>
             </ul>
           </div>
         </div>
