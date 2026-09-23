@@ -297,14 +297,19 @@
         <h2 class="section-title">Scan one TypeScript repo</h2>
         <p class="section-lead">Default scan does not execute target code, use the network, or call a model.</p>
         <div class="split">
-          <pre>featurefacts init
-featurefacts scan
-featurefacts show
-featurefacts check</pre>
+          <pre>git clone https://github.com/Catalyst-Forge-LLC/feature-facts
+cd feature-facts
+pnpm install
+
+pnpm featurefacts init  --root ../my-app
+pnpm featurefacts scan  --root ../my-app
+pnpm featurefacts show  --root ../my-app
+pnpm featurefacts check --root ../my-app</pre>
           <div class="prose">
             <p>
-              The CLI lives in the FeatureFacts repository, which is not public yet.
-              It is not on npm, and it is not a runtime dependency of the app you scan.
+              The CLI runs from a clone of the
+              <a href="https://github.com/Catalyst-Forge-LLC/feature-facts">FeatureFacts repository</a>.
+              It is not on npm yet, and it is not a runtime dependency of the app you scan.
               First ecosystem: TypeScript/Node. Unsupported inputs report
               <code>unsupported</code>, not a fabricated inventory. Confirming a
               feature, approving public rows, and selecting label IDs stay

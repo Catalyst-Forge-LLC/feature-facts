@@ -21,6 +21,10 @@
 
 FeatureFacts answers “What can this product do?” It is not an AppFacts field, a test runner, or a coverage certificate.
 
+## CLI
+
+Not on npm. Run from a clone: `pnpm install`, then `pnpm featurefacts <init|scan|show|check> --root <app>`.
+
 ## Spec (git)
 
 - https://github.com/Catalyst-Forge-LLC/feature-facts/blob/main/SPEC.md
