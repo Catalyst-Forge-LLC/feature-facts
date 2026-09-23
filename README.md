@@ -49,3 +49,5 @@ The plugin exposes scan / check / report on the Sites board.
 ## Spec
 
 See [SPEC.md](SPEC.md). Schemas are CC0. Tooling is MIT.
+
+[See the rest of the Catalyst Forge shelf.](https://catalystforge.com/tools/)
