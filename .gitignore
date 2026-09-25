@@ -8,4 +8,5 @@ dist/
 *.key
 .wrangler/
 .featurefacts/EVALUATION.md
+.featurefacts-helm/
 private-dogfood/

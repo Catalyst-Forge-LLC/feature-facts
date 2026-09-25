@@ -58,7 +58,7 @@ pnpm ship       # wrangler deploy --config site/wrangler.jsonc
 localhelm enroll ../feature-facts --apply
 ```
 
-The plugin exposes scan / check / report on the Sites board.
+The plugin lists repos that already have a register. **Add repos** scans a folder the way Fleet and FilePress do. Init writes an empty `FEATURE_FACTS.md` and `.featurefacts/` into each ticked repo and skips one that already has a register. Scan, Check, and Report then run in that repo.
 
 ## Spec
 

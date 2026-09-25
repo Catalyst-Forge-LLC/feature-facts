@@ -9,7 +9,7 @@
   },
   "scripts": {
     "featurefacts": "tsx src/cli.ts",
-    "test": "tsx --test tests/cli.test.ts",
+    "test": "tsx --test tests/cli.test.ts tests/helm-repos.test.ts",
     "typecheck": "tsc --noEmit",
     "verify": "pnpm typecheck && pnpm test",
     "preview": "node scripts/preview.mjs",
