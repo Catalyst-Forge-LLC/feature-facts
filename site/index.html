@@ -241,9 +241,9 @@
       <h1 class="brand">Feature<span>Facts</span></h1>
       <p class="lede">Know what this product can do. Part of the <a href="https://xfacts.dev">xFacts</a> suite.</p>
       <p class="sub">
-        A compact xFacts label for product capabilities, backed by an inspectable
-        feature register. Candidates are not confirmed features. Zero rows is a
-        truthful outcome.
+        A compact xFacts label for product capabilities. The internal label can
+        link to its register. A public label contains only approved fields.
+        Candidates are not confirmed features. Zero rows is a truthful outcome.
       </p>
       <div class="cta">
         <a class="btn btn-primary" href="/examples/FEATURE_FACTS.md">Read an example</a>
@@ -310,10 +310,21 @@ pnpm featurefacts check --root ../my-app</pre>
               The CLI runs from a clone of the
               <a href="https://github.com/Catalyst-Forge-LLC/feature-facts">FeatureFacts repository</a>.
               It is not on npm yet, and it is not a runtime dependency of the app you scan.
-              First ecosystem: TypeScript/Node. Unsupported inputs report
-              <code>unsupported</code>, not a fabricated inventory. Confirming a
-              feature, approving public rows, and selecting label IDs stay
-              attributed maintainer decisions.
+              Current scope: TypeScript/Node. It is not on npm, and it is not a runtime
+              dependency of the app you scan. Unsupported inputs report
+              <code>unsupported</code>, not a fabricated inventory.
+            </p>
+            <p>
+              After scanning, inspect the candidates. There is no approve command.
+              Confirm only supported capabilities in <code>.featurefacts/features.yaml</code>
+              (<code>recognition: confirmed</code> plus a declared actor, source, and time).
+              Record the selection in <code>config.yaml</code> under
+              <code>curation.selected_ids</code> (up to 12) and
+              <code>curation.approval</code>. Then run <code>report</code> and <code>check</code>.
+              An empty label can be the correct result.
+              The internal label can link to its register. A public label contains only
+              approved fields and does not expose the private register or source locators.
+              See <code>docs/LABEL.md</code> and <code>docs/PUBLICATION_AND_SAFETY.md</code>.
             </p>
             <ul>
               <li><a href="/examples/FEATURE_FACTS.md">Synthetic example label</a></li>
