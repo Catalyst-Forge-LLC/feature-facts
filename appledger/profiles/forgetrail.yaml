@@ -1,0 +1,205 @@
+profile: forgetrail
+profile_version: 0.1.0
+archetype: product
+project_status: active
+current_phase_instance: phase-65df5370e72e
+phase_instances:
+  - id: phase-1bd49ed90130
+    phase: plan
+    status: completed
+    started_at: 2026-09-21T00:00:00Z
+    completed_at: 2026-09-21T00:00:00Z
+    criteria:
+      - id: crit-6a339d49c932
+        text: Tech choices confirmed
+        status: met
+        evidence_refs: []
+        disposition_reason: Imported as a historical assertion. Verification was not recorded.
+      - id: crit-564fef0cd2ee
+        text: Folder structure confirmed
+        status: met
+        evidence_refs: []
+        disposition_reason: Imported as a historical assertion. Verification was not recorded.
+      - id: crit-164c4012683b
+        text: Data model shape confirmed
+        status: met
+        evidence_refs: []
+        disposition_reason: Imported as a historical assertion. Verification was not recorded.
+      - id: crit-dd1e4fd31151
+        text: First feature batch defined
+        status: met
+        evidence_refs: []
+        disposition_reason: Imported as a historical assertion. Verification was not recorded.
+      - id: crit-ad4213acae4e
+        text: Claude's understanding verified by user
+        status: met
+        evidence_refs: []
+        disposition_reason: Imported as a historical assertion. Verification was not recorded.
+      - id: crit-2c77337f4b1c
+        text: PHASE_1_BRIEF.md created, complete, and locked (docs/)
+        status: met
+        evidence_refs: []
+        disposition_reason: Imported as a historical assertion. Verification was not recorded.
+      - id: crit-4bbf3ca6468c
+        text: Major decisions recorded in workflow_tracking.json decisions[]
+        status: met
+        evidence_refs: []
+        disposition_reason: Imported as a historical assertion. Verification was not recorded.
+  - id: phase-65df5370e72e
+    phase: build
+    status: in_progress
+    started_at: 2026-09-21T00:00:00Z
+    criteria:
+      - id: crit-a734b4211472
+        text: CLI init/scan/report/show/check runs locally
+        status: met
+        evidence_refs: []
+        disposition_reason: Imported as a historical assertion. Verification was not recorded.
+      - id: crit-7797df13b0a8
+        text: Register artifacts and empty label render
+        status: met
+        evidence_refs: []
+        disposition_reason: Imported as a historical assertion. Verification was not recorded.
+      - id: crit-b7abcfd62ef6
+        text: CONTEXT_PROMPT.md created and populated by merging PHASE_1_BRIEF.md
+        status: met
+        evidence_refs: []
+        disposition_reason: Imported as a historical assertion. Verification was not recorded.
+      - id: crit-6628433d0177
+        text: README.md created
+        status: met
+        evidence_refs: []
+        disposition_reason: Imported as a historical assertion. Verification was not recorded.
+      - id: crit-09b1cba3aeaf
+        text: TODO.md created
+        status: met
+        evidence_refs: []
+        disposition_reason: Imported as a historical assertion. Verification was not recorded.
+      - id: crit-313a61613b9e
+        text: IDEAS.md created
+        status: met
+        evidence_refs: []
+        disposition_reason: Imported as a historical assertion. Verification was not recorded.
+      - id: crit-75bf0642df72
+        text: Runnable verify script in package.json passing cleanly
+        status: met
+        evidence_refs: []
+        disposition_reason: Imported as a historical assertion. Verification was not recorded.
+      - id: crit-f6a613a0385c
+        text: Phase 2 doc scope only per WORKFLOW §1a
+        status: met
+        evidence_refs: []
+        disposition_reason: Imported as a historical assertion. Verification was not recorded.
+  - id: phase-67c064f28401
+    phase: stabilize
+    status: not_started
+    criteria:
+      - id: crit-4c26d4191ef8
+        text: Core workflow completes without infrastructure errors
+        status: pending
+        evidence_refs: []
+      - id: crit-e4286f85222d
+        text: Error messages are human-readable
+        status: pending
+        evidence_refs: []
+      - id: crit-1c360f52b9ef
+        text: Check exit codes distinguish contract, freshness, and operational failure
+        status: pending
+        evidence_refs: []
+  - id: phase-c9d2e8f99e10
+    phase: iterate
+    status: not_started
+    criteria:
+      - id: crit-df5efb57b2e1
+        text: Core value proposition delivered
+        status: pending
+        evidence_refs: []
+      - id: crit-14579572d930
+        text: Hero flow works with real data including edge cases
+        status: pending
+        evidence_refs: []
+      - id: crit-9e072cd8f6c0
+        text: Features tested beyond happy path
+        status: pending
+        evidence_refs: []
+  - id: phase-a3c2ead17054
+    phase: refine
+    status: not_started
+    criteria:
+      - id: crit-b83628948c0e
+        text: No file exceeds ~500 lines without justification
+        status: pending
+        evidence_refs: []
+      - id: crit-9f1a67ab2f86
+        text: Shared utilities extracted
+        status: pending
+        evidence_refs: []
+      - id: crit-ec2bc0c5de09
+        text: No duplicated patterns
+        status: pending
+        evidence_refs: []
+      - id: crit-f9a5d6f95917
+        text: Build passes after each refactor
+        status: pending
+        evidence_refs: []
+  - id: phase-380029fbbb62
+    phase: align
+    status: not_started
+    criteria:
+      - id: crit-8d6be8a20b0a
+        text: BRAND_AND_PRODUCT.md created
+        status: pending
+        evidence_refs: []
+      - id: crit-e97517a0ecc5
+        text: TODO reorganized by brand value pillars
+        status: pending
+        evidence_refs: []
+      - id: crit-d65e3a6214e6
+        text: Features mapped to brand pillars
+        status: pending
+        evidence_refs: []
+      - id: crit-922d958feab8
+        text: Gap between brand promise and product identified
+        status: pending
+        evidence_refs: []
+      - id: crit-d1b6dd797a40
+        text: IDEAS.md processed into TODO
+        status: pending
+        evidence_refs: []
+      - id: crit-2acf78478d29
+        text: Build order decided
+        status: pending
+        evidence_refs: []
+  - id: phase-cca13442d6ba
+    phase: harden
+    status: not_started
+    criteria:
+      - id: crit-a4899105c59a
+        text: CODE_QUALITY.md produced and critical findings fixed
+        status: pending
+        evidence_refs: []
+      - id: crit-1ccd45cf6708
+        text: BLACK_HAT_REPORT.md produced and critical/high findings fixed
+        status: pending
+        evidence_refs: []
+      - id: crit-1fa948e95e1f
+        text: All findings triaged into TODO.md
+        status: pending
+        evidence_refs: []
+      - id: crit-12d7616c1310
+        text: No silent failures in core workflows
+        status: pending
+        evidence_refs: []
+      - id: crit-865ba76ff82e
+        text: DEPLOYMENT.md created
+        status: pending
+        evidence_refs: []
+      - id: crit-9e065cbed93b
+        text: TEST_PLAN.md complete or extended
+        status: pending
+        evidence_refs: []
+      - id: crit-90cb30a73ba2
+        text: TECHNICAL_REFERENCE.md complete and current
+        status: pending
+        evidence_refs: []
+transitions: []
