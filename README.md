@@ -6,7 +6,7 @@ FeatureFacts is the Terrain layer of [xFacts](https://xfacts.dev). The public he
 
 This is a sibling of AppFacts, not an AppFacts field. A folder is not a feature. A candidate is not a confirmed capability. Zero rows is a valid label.
 
-Current scope: TypeScript/Node repositories. Run the CLI from a FeatureFacts checkout. It is not published on npm and does not become a runtime dependency of the app you scan.
+Current scope: TypeScript/Node repositories. Run the CLI from a FeatureFacts checkout. The npm name is `@xfacts/featurefacts`. It is not published on npm yet and does not become a runtime dependency of the app you scan.
 
 ## Install
 
