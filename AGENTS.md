@@ -4,4 +4,4 @@ Implementation protocol: `docs/featurefacts-spec-v0.2.0-with-review/featurefacts
 
 Target-repo skill: `skill/SKILL.md`.
 
-Locked brief: `docs/PHASE_1_BRIEF.md`. Tracking: `.forgetrail/workflow_tracking.json`.
+Locked brief: `docs/PHASE_1_BRIEF.md`. The record is `appledger/`.
