@@ -1,12 +1,14 @@
 {
   "name": "@xfacts/featurefacts",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "type": "module",
   "description": "FeatureFacts: a compact capability label and evidence-backed feature register.",
   "bin": {
     "featurefacts": "./bin/featurefacts.mjs"
   },
   "scripts": {
+    "build": "node scripts/build.mjs src/cli.ts",
+    "prepack": "pnpm build",
     "featurefacts": "node bin/featurefacts.mjs",
     "test": "tsx --test tests/cli.test.ts tests/helm-repos.test.ts",
     "typecheck": "tsc --noEmit",
@@ -22,6 +24,7 @@
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
+    "esbuild": "^0.28.2",
     "tsx": "^4.19.0",
     "typescript": "^5.6.0",
     "wrangler": "^4.28.0"
@@ -41,7 +44,7 @@
   },
   "files": [
     "bin",
-    "src",
+    "dist",
     "schemas",
     "LICENSE",
     "README.md"
