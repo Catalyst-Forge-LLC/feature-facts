@@ -13,6 +13,11 @@ bindings:
     subject_id: app-ec215d2c3031
     repository_id: repo-home
     path: .featurefacts/features.yaml
+  - id: appfacts-application
+    family: appfacts
+    subject_id: app-ec215d2c3031
+    repository_id: repo-home
+    path: APP_FACTS.md
 profiles:
   - id: forgetrail
     version: 0.1.0
