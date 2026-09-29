@@ -6,23 +6,20 @@ FeatureFacts is the Terrain layer of [xFacts](https://xfacts.dev). The public he
 
 This is a sibling of AppFacts, not an AppFacts field. A folder is not a feature. A candidate is not a confirmed capability. Zero rows is a valid label.
 
-Current scope: TypeScript/Node repositories. Run the CLI from a FeatureFacts checkout. The npm name is `@xfacts/featurefacts`. It is not published on npm yet and does not become a runtime dependency of the app you scan.
+Current scope: TypeScript/Node repositories. Install `@xfacts/featurefacts` (Node 22.18 or newer). It does not become a runtime dependency of the app you scan.
 
 ## Install
 
 ```bash
-git clone https://github.com/Catalyst-Forge-LLC/feature-facts
-cd feature-facts
-pnpm install
-pnpm featurefacts --help
+npx @xfacts/featurefacts --help
 ```
 
 ## First scan
 
 ```bash
-pnpm featurefacts init  --root ../my-app
-pnpm featurefacts scan  --root ../my-app
-pnpm featurefacts show  --root ../my-app
+npx @xfacts/featurefacts init  --root ../my-app
+npx @xfacts/featurefacts scan  --root ../my-app
+npx @xfacts/featurefacts show  --root ../my-app
 ```
 
 Default scan does not execute target code, use the network, or call a model.
@@ -39,7 +36,7 @@ Then edit `.featurefacts/config.yaml`:
 - `curation.approval`: `actor`, `source`, and `recorded_at` for that selection.
 - `publication.target`: `internal` until you intend a public file.
 
-An empty selection is a valid label. `pnpm featurefacts report --root ../my-app` refreshes `FEATURE_FACTS.md` from those files. `pnpm featurefacts check --root ../my-app` checks the projection.
+An empty selection is a valid label. `npx @xfacts/featurefacts report --root ../my-app` refreshes `FEATURE_FACTS.md` from those files. `npx @xfacts/featurefacts check --root ../my-app` checks the projection.
 
 The internal label can link to `.featurefacts/FEATURES.md`. A public label is a separate target. Each public row needs `publication.scope: public` with its own attributed permission. The public label contains only approved fields and does not expose the private register or source locators. Do not upload `.featurefacts/` and do not add a public map link. See [docs/PUBLICATION_AND_SAFETY.md](docs/PUBLICATION_AND_SAFETY.md).
 

@@ -297,21 +297,15 @@
         <h2 class="section-title">Scan one TypeScript repo</h2>
         <p class="section-lead">Default scan does not execute target code, use the network, or call a model.</p>
         <div class="split">
-          <pre>git clone https://github.com/Catalyst-Forge-LLC/feature-facts
-cd feature-facts
-pnpm install
-
-pnpm featurefacts init  --root ../my-app
-pnpm featurefacts scan  --root ../my-app
-pnpm featurefacts show  --root ../my-app
-pnpm featurefacts check --root ../my-app</pre>
+          <pre>npx @xfacts/featurefacts init  --root ../my-app
+npx @xfacts/featurefacts scan  --root ../my-app
+npx @xfacts/featurefacts show  --root ../my-app
+npx @xfacts/featurefacts check --root ../my-app</pre>
           <div class="prose">
             <p>
-              The CLI runs from a clone of the
-              <a href="https://github.com/Catalyst-Forge-LLC/feature-facts">FeatureFacts repository</a>.
-              It is not on npm yet, and it is not a runtime dependency of the app you scan.
-              Current scope: TypeScript/Node. It is not on npm, and it is not a runtime
-              dependency of the app you scan. Unsupported inputs report
+              Install <code>@xfacts/featurefacts</code> (Node 22.18 or newer).
+              It is not a runtime dependency of the app you scan.
+              Current scope: TypeScript/Node. Unsupported inputs report
               <code>unsupported</code>, not a fabricated inventory.
             </p>
             <p>

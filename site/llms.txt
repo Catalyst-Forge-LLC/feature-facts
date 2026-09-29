@@ -23,7 +23,7 @@ FeatureFacts answers “What can this product do?” It is not an AppFacts field
 
 ## CLI
 
-Not on npm. Run from a clone: `pnpm install`, then `pnpm featurefacts <init|scan|show|check> --root <app>`.
+`npx @xfacts/featurefacts <init|scan|show|check> --root <app>` (Node 22.18 or newer).
 
 ## Spec (git)
 
