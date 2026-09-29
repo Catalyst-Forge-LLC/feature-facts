@@ -177,19 +177,20 @@ export function assembleFeatures(args: {
   return [...byId.values()].sort((a, b) => a.id.localeCompare(b.id));
 }
 
-export function applyProduct(registry: Registry, packageText: string | undefined, fallbackName: string): void {
-  if (!packageText) {
-    registry.product = { name: fallbackName, type: 'unknown', status: 'unknown' };
-    return;
+export function applyProduct(registry: Registry, packageText: string | undefined, fallbackName: string, preferredName = ''): void {
+  let name = preferredName || fallbackName;
+  let type = 'unknown';
+  let status = 'unknown';
+  if (packageText) {
+    try {
+      const pkg = JSON.parse(packageText) as { name?: string; private?: boolean; description?: string };
+      const raw = typeof pkg.name === 'string' ? pkg.name.replace(/^@[^/]+\//, '') : '';
+      if (!preferredName) name = raw || fallbackName;
+      type = 'typescript-node';
+      status = pkg.private ? 'experimental' : 'active';
+    } catch {
+      if (!preferredName) name = fallbackName;
+    }
   }
-  try {
-    const pkg = JSON.parse(packageText) as { name?: string; private?: boolean; description?: string };
-    registry.product = {
-      name: pkg.name ?? fallbackName,
-      type: 'typescript-node',
-      status: pkg.private ? 'experimental' : 'active',
-    };
-  } catch {
-    registry.product = { name: fallbackName, type: 'unknown', status: 'unknown' };
-  }
+  registry.product = { name, type, status };
 }

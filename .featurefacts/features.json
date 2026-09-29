@@ -2,7 +2,7 @@
   "schemaVersion": "0.2.0",
   "scan_id": "scan-ffdeb569d843",
   "product": {
-    "name": "featurefacts",
+    "name": "FeatureFacts",
     "type": "typescript-node",
     "status": "experimental"
   },

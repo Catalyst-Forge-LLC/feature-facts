@@ -2,7 +2,7 @@
 feature_facts_version: 0.2.0
 mode: map-backed
 audience: internal
-name: featurefacts
+name: FeatureFacts
 type: typescript-node
 status: experimental
 selection_state: no-eligible-features
@@ -16,7 +16,7 @@ generated:
   date: 2026-09-21
   generator: featurefacts
   generator_version: 0.2.0
-  projection_fingerprint: 6ca8328ef48eb91ba7dd26d08e76653ec2c2b59dafc7012f75a1709976f7c8d7
+  projection_fingerprint: b984c9ca587a2e206f634f460ab1a688c0076768507b724f087511149ee37682
 counts:
   scope: eligible-confirmed-active
   registered: 0
@@ -43,7 +43,7 @@ assessments:
     undisclosed: 0
 ---
 
-# Feature Facts: featurefacts
+# Feature Facts: FeatureFacts
 
 What can this product do?
 

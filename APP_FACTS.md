@@ -1,6 +1,6 @@
 ---
 app_facts_version: 0.1.0
-name: featurefacts
+name: FeatureFacts
 type: CLI tool
 status: active
 license: MIT
@@ -36,7 +36,7 @@ credits:
   built_by: "Catalyst Forge — https://www.catalystforge.com/"
 ---
 
-# featurefacts
+# FeatureFacts
 
 `CLI tool` · **active** · MIT
 
@@ -70,4 +70,4 @@ FeatureFacts: a compact capability label and evidence-backed feature register.
 ---
 *Generated with [AppFacts](https://appfacts.dev) · Built by [Catalyst Forge](https://www.catalystforge.com/) · [Visual label][appfacts-label]*
 
-[appfacts-label]: https://appfacts.dev/v#af1.eNqdkk9rwzAMxb9KeGc7YVdfOwaFbpf1NsZQHTdx53_YSlko_e7DSbt7dzG29J5-SNYFZ6gngUDeQOFoiKdsjqS5QIDnVKOb3bbhGB0EChNPBQqk2Z4NBJzVJpQqe93uV4X-hrrAURgmGmpmPyfzrrNNDIE8BbYL7S32pj0toBidDQMUUkgeV4HepAL1cUGosNMZAgkKz0Y7yqZvbGgS6W8aaoUYWgjUkqv7zyWPMXtaennU7W2wnliP__DO5N0jtk-Bw2RdX8d2E315CjSYfB-JAJvCUODy00hZH009Sqedbeut5XKLjMZ5mU2K5Z6AgI4-WVeRC6op639cBRal5ZhnKIzMqaiuGyyP06HV0XcbYnJzYfkS82Dkbrfpbnsi10W5_gJOw8CY
+[appfacts-label]: https://appfacts.dev/v#af1.eNqdkk9rwzAMxb9KeGcnYVdfMwqFbpf1NsZQHTdx63_YSlko_e7DSbt7dzG29J5-SNYVF8gXAU9OQ2KjiaekN6Q4Q4DnWKLdbltxCBYCmYmnDAlSbC4aAtYo7XORvW33q0KdIa-w5IeJhpLZz1F_qGQiQyBNns1Cew-9bk4LKARr_ACJ6KPDTaDXMUN-XuEL7HSBQITEq1aWku4r46tI6kxDqRB8A4FScnX_uepjSI6WXp51O-ONI1bjP7wzOfuM7UvgMBnbl7HdRd-OPA06PUYiwDozJDj_VHVdHlU5cqusacqt4XyPjNq6OukY8iMBARVcNLYgF1SV1_-4CSxKwyHNkBiZY5ZtOxgep0Ojgms7YrJz5noT0qDr3a5rj-ue1MdlUW6_wdTAWA

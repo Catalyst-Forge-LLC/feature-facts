@@ -1,4 +1,4 @@
-# Feature register: featurefacts
+# Feature register: FeatureFacts
 
 Scan `scan-ffdeb569d843`. Candidates are not confirmed capabilities.
 

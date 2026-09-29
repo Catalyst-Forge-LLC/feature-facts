@@ -10,7 +10,7 @@
     "build": "node scripts/build.mjs src/cli.ts",
     "prepack": "pnpm build",
     "featurefacts": "node bin/featurefacts.mjs",
-    "test": "tsx --test tests/cli.test.ts tests/helm-repos.test.ts",
+    "test": "tsx --test tests/cli.test.ts tests/helm-repos.test.ts tests/product-title.test.ts",
     "typecheck": "tsc --noEmit",
     "verify": "pnpm typecheck && pnpm test",
     "preview": "node scripts/preview.mjs",

@@ -6,6 +6,7 @@ import { assembleFeatures, applyProduct } from '../assemble.ts';
 import { emptyRegistry } from '../defaults.ts';
 import { scanIdFor } from '../hash.ts';
 import { buildManifest, productNameFromRoot } from '../project.ts';
+import { productTitle } from '../product-title.ts';
 import { enumerateTree } from '../safety.ts';
 import type { AdapterMeta, Diagnostic, Surface } from '../types.ts';
 import { writeJson } from '../workspace.ts';
@@ -41,7 +42,7 @@ export function scanCommand(root: string): { scanId: string; status: string; cha
   ]);
   const registry = prior ?? emptyRegistry(scanId, productNameFromRoot(root));
   registry.scan_id = scanId;
-  applyProduct(registry, ctx.contents.get('package.json')?.text, productNameFromRoot(root));
+  applyProduct(registry, ctx.contents.get('package.json')?.text, productNameFromRoot(root), productTitle(root));
   registry.features = assembleFeatures({
     scanId,
     prior: registry.features,
