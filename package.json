@@ -1,6 +1,6 @@
 {
   "name": "@xfacts/featurefacts",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "type": "module",
   "description": "FeatureFacts: a compact capability label and evidence-backed feature register.",
   "bin": {
