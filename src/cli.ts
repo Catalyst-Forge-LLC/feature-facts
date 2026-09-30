@@ -79,7 +79,7 @@ export async function run(argv: string[]): Promise<void> {
 }
 
 const entry = process.argv[1]?.replace(/\\/g, '/') ?? '';
-if (entry.endsWith('src/cli.ts') || entry.endsWith('featurefacts.mjs')) {
+if (entry.endsWith('src/cli.ts')) {
   await run(process.argv.slice(2));
 }
 
