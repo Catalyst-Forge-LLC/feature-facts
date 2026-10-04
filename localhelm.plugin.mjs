@@ -36,13 +36,7 @@ function run(args) {
   });
 }
 
-const ROW_ACTIONS = [
-  { id: 'scan', label: 'Scan', write: true, icon: 'lucide:radar' },
-  { id: 'review', label: 'Review', write: true, icon: 'lucide:list-checks' },
-  { id: 'view', label: 'View', write: false, icon: 'lucide:file-text' },
-  { id: 'check', label: 'Check', write: false, icon: 'lucide:search-check' },
-  { id: 'report', label: 'Report', write: true, icon: 'lucide:file-output' },
-];
+const ROW_ACTIONS = [{ id: 'label', label: 'Label', write: true, icon: 'lucide:tag' }];
 
 const PLAN_REASON = {
   scan: 'Reads the repo and refreshes the candidate list. Does not write the label.',
@@ -71,6 +65,39 @@ function labelCell(absPath) {
   return `${count} to review`;
 }
 
+function readCard(absPath) {
+  const labelPath = join(absPath, 'FEATURE_FACTS.md');
+  if (!existsSync(labelPath)) return null;
+  let data;
+  try {
+    const raw = readFileSync(labelPath, 'utf8');
+    const fence = raw.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+    if (!fence) return null;
+    data = parse(fence[1]);
+  } catch {
+    return null;
+  }
+  const features = Array.isArray(data?.features) ? data.features : [];
+  const rows = [];
+  for (const item of features) {
+    if (!item || typeof item !== 'object' || typeof item.name !== 'string' || !item.name.trim()) continue;
+    rows.push({
+      name: item.name.trim(),
+      lifecycle: typeof item.lifecycle === 'string' ? item.lifecycle : '',
+      availability: typeof item.availability === 'string' ? item.availability : '',
+      maturity: typeof item.maturity === 'string' ? item.maturity : '',
+      evidence: typeof item.evidence_state === 'string' ? item.evidence_state : '',
+    });
+  }
+  if (!rows.length) return null;
+  return {
+    name: typeof data.name === 'string' ? data.name : '',
+    type: typeof data.type === 'string' ? data.type : '',
+    status: typeof data.status === 'string' ? data.status : '',
+    rows,
+  };
+}
+
 function repoById(id) {
   const hit = registeredRepos(root).find((row) => row.id === id);
   if (!hit) throw new Error(`No FeatureFacts register for ${id}. Init that repo from Add repos first.`);
@@ -83,7 +110,7 @@ async function board() {
     plugin: 'featurefacts',
     title: 'FeatureFacts',
     rowLabel: 'repo',
-    note: 'Scan finds capabilities. Review ticks which ones go on the label. View shows that label. Check compares it to the repo and writes nothing. Report rewrites the label from the current ticks.',
+    note: 'Label shows the rendered card and the capability list. Scan refreshes that list and does not write the label. Update label is the only write.',
     columns: [
       { id: 'label', label: 'label' },
       { id: 'register', label: 'folder' },
@@ -102,17 +129,23 @@ async function plan(action, ids = []) {
     const scanRoot = ids[0] ? resolve(ids[0]) : resolve(root, '..');
     return { root: scanRoot.replace(/\\/g, '/'), candidates: discoverRepos(scanRoot) };
   }
-  if (action === 'view') {
+  if (action === 'label') {
     const row = repoById(ids[0]);
-    const labelPath = join(row.absPath, 'FEATURE_FACTS.md');
-    if (!existsSync(labelPath)) {
-      return {
-        repo: row.id,
-        hasLabel: false,
-        text: 'No FEATURE_FACTS.md yet.\n\nReview ticks up to 12 capabilities. Update label writes this file.',
-      };
+    const result = await run(['review', '--root', row.absPath]);
+    let body;
+    try {
+      body = JSON.parse(result.stdout);
+    } catch {
+      throw new Error(result.stderr.trim() || 'Label did not return the capability list.');
     }
-    return { repo: row.id, hasLabel: true, text: readFileSync(labelPath, 'utf8') };
+    let check = '';
+    try {
+      const checked = await run(['check', '--root', row.absPath]);
+      check = checked.stdout.trim();
+    } catch (err) {
+      check = err instanceof Error ? err.message : String(err);
+    }
+    return { repo: row.id, ...body, card: readCard(row.absPath), check };
   }
   if (action === 'review') {
     const row = repoById(ids[0]);

@@ -55,7 +55,7 @@ pnpm ship       # wrangler deploy --config site/wrangler.jsonc
 localhelm enroll ../feature-facts --apply
 ```
 
-The plugin lists repos that already have a register. **Add repos** scans a folder the way Fleet and FilePress do. Init writes `.featurefacts/` into each ticked repo and skips one that already has a register. It does not write `FEATURE_FACTS.md` until a capability is selected. Scan, Check, and Report then run in that repo.
+The plugin lists repos that already have a register. **Add repos** scans a folder the way Fleet and FilePress do. Init writes `.featurefacts/` into each ticked repo and skips one that already has a register. It does not write `FEATURE_FACTS.md` until a capability is selected. **Label** on a row shows that file and the checklist. Scan refreshes the list. Update label is the write.
 
 ## Spec
 
