@@ -24,7 +24,7 @@ Required fields are `feature_facts_version`, `mode`, `audience`, product `name`,
 
 Map-backed mode uses `basis.kind: registry`. Standalone mode uses `basis.kind: declaration`, and requires the explicit declaration and verification limits.
 
-`selection_state` is `curated` when rows exist. An empty row list requires `empty_reason` and either `not-curated` or `no-eligible-features`. Do not use “no features exist” when the actual result is unsupported scanning or absent curation.
+`selection_state` is `curated` when rows exist. An empty row list is not published: do not write `FEATURE_FACTS.md` when nothing is selected. The register still records candidates and the reason nothing was eligible. Do not use “no features exist” when the actual result is unsupported scanning or absent curation.
 
 The generated object contains a quoted date string, generator name, generator version, and the SHA-256 projection fingerprint. Do not add a private source tree hash, internal commit ID, adapter diagnostics, or registry hash to a public label.
 

@@ -754,7 +754,7 @@
     "adapters": "a2668548ef7dc616dab584b9c4a66c5694021d38f98aeeeb0967fe662161d03c",
     "rules": "c7f728a22bf07a27d20f2b0ba60c59d2528cf27f6b218a22272fcbbe465f8971",
     "registry": "4f48ddcb5b1808b80c598d0fb778da9c3bb6351b824bcec8c5cc634c7049f0c7",
-    "projection": "6ca8328ef48eb91ba7dd26d08e76653ec2c2b59dafc7012f75a1709976f7c8d7"
+    "projection": "b984c9ca587a2e206f634f460ab1a688c0076768507b724f087511149ee37682"
   },
   "artifacts": [
     {
@@ -767,15 +767,15 @@
     },
     {
       "path": ".featurefacts/features.json",
-      "sha256": "039c8f8fd4563e2df2e37f6c837005249e1f9402b828837ba0254b8f9e70f907"
+      "sha256": "3d348b66836b380c95294a3ff595a923b8af749d370739e5eb8b250ece820d95"
     },
     {
       "path": ".featurefacts/FEATURES.md",
-      "sha256": "17a8f15c9ca1f75e6ef8ef62b973cb5808fa6c9ef7e5fb5b43378d7fbaad79b4"
+      "sha256": "0bfeccfa43b003b12ec305834f095843a6fc71c87488c268ec90aaa4d04b9a76"
     },
     {
       "path": ".featurefacts/features.yaml",
-      "sha256": "43c012b3067e259c4af43bd475265ab5bc1e506e87cf587724e5c2c9b43de2ba"
+      "sha256": "2c77532c57d12e167c750e0f7c490cde749fef2512cef0fe4ca07fa105126346"
     },
     {
       "path": ".featurefacts/gaps.yaml",
@@ -788,10 +788,6 @@
     {
       "path": ".featurefacts/test-index.json",
       "sha256": "2e61f50b19e928c77cefbff62b80fa85fed357007452786642895534a462207e"
-    },
-    {
-      "path": "FEATURE_FACTS.md",
-      "sha256": "4437a23f1d7441f2900b4fe810798d9dfa55fffe4ede1c79b90f5b9c63e0be8a"
     }
   ],
   "diagnostics": []

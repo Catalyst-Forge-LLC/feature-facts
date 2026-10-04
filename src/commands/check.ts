@@ -31,17 +31,28 @@ export function checkCommand(root: string, mode: 'full' | 'projection' = 'full')
     const config = loadConfig(ws);
     const registry = loadRegistry(ws);
     const label = loadLabel(ws);
-    if (!registry || !label) {
-      return { exit: 3, messages: ['Register or label is missing. Run featurefacts init.'] };
+    if (!registry) {
+      return { exit: 3, messages: ['Register is missing. Run featurefacts init.'] };
     }
     const surfaces = { schemaVersion: '0.2.0', scan_id: registry.scan_id, surfaces: loadSurfaces(ws) };
+    const projected = projectLabel(registry, config, label?.data.generated.date ?? new Date().toISOString().slice(0, 10));
 
     const checks: Array<[Parameters<typeof validateSchema>[0], unknown, string]> = [
       ['config', config, ws.configPath],
       ['registry', registry, ws.featuresPath],
       ['surfaces', surfaces, ws.surfacesPath],
-      ['label', label.data, ws.labelPath],
     ];
+    if (projected.features.length > 0) {
+      if (!label) {
+        stale = true;
+        messages.push('FEATURE_FACTS.md is missing. Run featurefacts report.');
+      } else {
+        checks.push(['label', label.data, ws.labelPath]);
+      }
+    } else if (label) {
+      stale = true;
+      messages.push('FEATURE_FACTS.md has no selected capabilities. Remove it, or approve a selection and run featurefacts report.');
+    }
     if (existsSync(ws.docsIndexPath)) checks.push(['docs', JSON.parse(readText(ws.docsIndexPath)), ws.docsIndexPath]);
     if (existsSync(ws.testIndexPath)) checks.push(['tests', JSON.parse(readText(ws.testIndexPath)), ws.testIndexPath]);
     if (existsSync(ws.gapsPath)) checks.push(['gaps', loadYaml(ws.gapsPath), ws.gapsPath]);
@@ -55,14 +66,15 @@ export function checkCommand(root: string, mode: 'full' | 'projection' = 'full')
       }
     }
 
-    const projected = projectLabel(registry, config, label.data.generated.date);
-    if (projected.generated.projection_fingerprint !== label.data.generated.projection_fingerprint) {
-      stale = true;
-      messages.push('Label projection fingerprint does not match the current register and config.');
-    }
-    if (label.body.trim() !== renderLabelBody(projected).trim()) {
-      stale = true;
-      messages.push('Label body does not match the current projection.');
+    if (label && projected.features.length > 0) {
+      if (projected.generated.projection_fingerprint !== label.data.generated.projection_fingerprint) {
+        stale = true;
+        messages.push('Label projection fingerprint does not match the current register and config.');
+      }
+      if (label.body.trim() !== renderLabelBody(projected).trim()) {
+        stale = true;
+        messages.push('Label body does not match the current projection.');
+      }
     }
 
     if (mode === 'full') {
@@ -94,7 +106,7 @@ export function checkCommand(root: string, mode: 'full' | 'projection' = 'full')
       messages.push('Source freshness was not assessed (--projection). A matching stale map and label can still fail a full check.');
     }
 
-    if (config.publication.target === 'public' && label.data.map) {
+    if (config.publication.target === 'public' && label?.data.map) {
       contract = true;
       messages.push('Public labels must not link to the private register.');
     }

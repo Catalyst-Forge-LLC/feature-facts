@@ -4,7 +4,7 @@ Know what a product can do, where the evidence lives, and which capabilities sti
 
 FeatureFacts is the Terrain layer of [xFacts](https://xfacts.dev). The public heading is **xFacts label**. The root file is `FEATURE_FACTS.md`. The register is `.featurefacts/`.
 
-This is a sibling of AppFacts, not an AppFacts field. A folder is not a feature. A candidate is not a confirmed capability. Zero rows is a valid label.
+This is a sibling of AppFacts, not an AppFacts field. A folder is not a feature. A candidate is not a confirmed capability. `FEATURE_FACTS.md` is written only when at least one capability is selected. An empty selection stays in the register and does not publish a label.
 
 Current scope: TypeScript/Node repositories. Install `@xfacts/featurefacts` (Node 22.18 or newer). It does not become a runtime dependency of the app you scan.
 
@@ -36,7 +36,7 @@ Then edit `.featurefacts/config.yaml`:
 - `curation.approval`: `actor`, `source`, and `recorded_at` for that selection.
 - `publication.target`: `internal` until you intend a public file.
 
-An empty selection is a valid label. `npx @xfacts/featurefacts report --root ../my-app` refreshes `FEATURE_FACTS.md` from those files. `npx @xfacts/featurefacts check --root ../my-app` checks the projection.
+`npx @xfacts/featurefacts report --root ../my-app` refreshes `FEATURE_FACTS.md` when a selection exists, and removes that file when nothing is selected. `npx @xfacts/featurefacts check --root ../my-app` checks the projection.
 
 The internal label can link to `.featurefacts/FEATURES.md`. A public label is a separate target. Each public row needs `publication.scope: public` with its own attributed permission. The public label contains only approved fields and does not expose the private register or source locators. Do not upload `.featurefacts/` and do not add a public map link. See [docs/PUBLICATION_AND_SAFETY.md](docs/PUBLICATION_AND_SAFETY.md).
 
@@ -55,7 +55,7 @@ pnpm ship       # wrangler deploy --config site/wrangler.jsonc
 localhelm enroll ../feature-facts --apply
 ```
 
-The plugin lists repos that already have a register. **Add repos** scans a folder the way Fleet and FilePress do. Init writes an empty `FEATURE_FACTS.md` and `.featurefacts/` into each ticked repo and skips one that already has a register. Scan, Check, and Report then run in that repo.
+The plugin lists repos that already have a register. **Add repos** scans a folder the way Fleet and FilePress do. Init writes `.featurefacts/` into each ticked repo and skips one that already has a register. It does not write `FEATURE_FACTS.md` until a capability is selected. Scan, Check, and Report then run in that repo.
 
 ## Spec
 

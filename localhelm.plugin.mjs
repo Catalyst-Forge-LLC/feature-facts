@@ -52,7 +52,7 @@ async function board() {
     plugin: 'featurefacts',
     title: 'FeatureFacts',
     rowLabel: 'repo',
-    note: 'Add repos scans a folder for package.json or git checkouts that do not have a register yet. Init writes an empty FEATURE_FACTS.md and .featurefacts/ into each ticked repo. It does not scan code and does not replace an existing register. Scan, Check, and Report then run in that repo.',
+    note: 'Add repos scans a folder for package.json or git checkouts that do not have a register yet. Init writes .featurefacts/ into each ticked repo. It does not write FEATURE_FACTS.md until a capability is selected, does not scan code, and does not replace an existing register. Scan, Check, and Report then run in that repo.',
     columns: [
       { id: 'label', label: 'label' },
       { id: 'register', label: 'folder' },

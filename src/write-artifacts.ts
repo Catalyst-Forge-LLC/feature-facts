@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync, unlinkSync } from 'node:fs';
 import { relative } from 'node:path';
 import { SCHEMA_VERSION } from './version.ts';
 import { sha256Bytes } from './hash.ts';
@@ -50,7 +50,12 @@ export function writeGenerated(args: {
   } else {
     label = projectLabel(registry, config, date);
   }
-  if (writeLabel(ws, label, renderLabelBody(label))) changed.push(rel(ws, ws.labelPath));
+  if (label.features.length > 0) {
+    if (writeLabel(ws, label, renderLabelBody(label))) changed.push(rel(ws, ws.labelPath));
+  } else if (existsSync(ws.labelPath)) {
+    unlinkSync(ws.labelPath);
+    changed.push(rel(ws, ws.labelPath));
+  }
 
   const artifacts = [
     ws.configPath,
@@ -63,6 +68,7 @@ export function writeGenerated(args: {
     ws.featuresMdPath,
     ws.labelPath,
   ]
+    .filter((path) => existsSync(path))
     .map((path) => ({ path: rel(ws, path), sha256: sha256Bytes(readFileSync(path)) }))
     .sort((a, b) => a.path.localeCompare(b.path));
   return { label, artifacts, changed };

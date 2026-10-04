@@ -1,5 +1,5 @@
-import { deepEqual, equal, match, ok } from 'node:assert/strict';
-import { mkdtempSync, cpSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { equal, match, ok } from 'node:assert/strict';
+import { existsSync, mkdtempSync, cpSync, readFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -10,7 +10,6 @@ import { scanCommand } from '../src/commands/scan.ts';
 import { showCommand } from '../src/commands/show.ts';
 import { loadLabel, loadRegistry } from '../src/workspace.ts';
 import { workspaceAt } from '../src/workspace.ts';
-import { parseFrontmatter } from '../src/yaml-io.ts';
 
 const here = dirname(fileURLToPath(import.meta.url));
 
@@ -20,15 +19,13 @@ function copyFixture(name: string): string {
   return dest;
 }
 
-test('init writes an empty truthful label', () => {
+test('init writes a register and skips a label when nothing is selected', () => {
   const root = copyFixture('empty');
   initCommand(root);
-  const label = loadLabel(workspaceAt(root));
-  ok(label);
-  equal(label.data.selection_state, 'not-curated');
-  equal(label.data.features.length, 0);
-  ok(label.data.empty_reason);
-  match(label.body, /Zero rows is a valid label/);
+  const ws = workspaceAt(root);
+  ok(loadRegistry(ws));
+  equal(loadLabel(ws), null);
+  equal(existsSync(join(root, 'FEATURE_FACTS.md')), false);
   rmSync(root, { recursive: true, force: true });
 });
 
@@ -56,19 +53,18 @@ test('workshop scan groups annotated routes into one candidate', () => {
   const admin = registry.features.find((item) => item.id === 'admin-export');
   ok(admin);
   equal(admin.publication.scope, 'internal');
-  const label = loadLabel(workspaceAt(root))!;
-  equal(label.data.features.length, 0);
-  equal(label.data.selection_state, 'no-eligible-features');
+  equal(loadLabel(workspaceAt(root)), null);
+  equal(existsSync(join(root, 'FEATURE_FACTS.md')), false);
   rmSync(root, { recursive: true, force: true });
 });
 
 test('unchanged rescan preserves IDs and does not churn timestamps', () => {
   const root = copyFixture('workshop');
   scanCommand(root);
-  const first = readFileSync(join(root, 'FEATURE_FACTS.md'), 'utf8');
+  equal(existsSync(join(root, 'FEATURE_FACTS.md')), false);
   const firstReg = readFileSync(join(root, '.featurefacts', 'features.yaml'), 'utf8');
   scanCommand(root);
-  equal(readFileSync(join(root, 'FEATURE_FACTS.md'), 'utf8'), first);
+  equal(existsSync(join(root, 'FEATURE_FACTS.md')), false);
   equal(readFileSync(join(root, '.featurefacts', 'features.yaml'), 'utf8'), firstReg);
   rmSync(root, { recursive: true, force: true });
 });
@@ -95,16 +91,19 @@ test('public projection omits private rows and map links', async () => {
   const { dumpYaml, writeText } = await import('../src/yaml-io.ts');
   writeText(join(root, '.featurefacts', 'features.yaml'), dumpYaml(registry));
   const config = (await import('../src/workspace.ts')).loadConfig(ws);
-  config.publication.target = 'public';
-  config.publication.map_link = null;
+  config.curation.selected_ids = ['resume-importer'];
   writeText(join(root, '.featurefacts', 'config.yaml'), dumpYaml(config));
   const { reportCommand } = await import('../src/commands/report.ts');
   reportCommand(root);
-  const label = loadLabel(ws)!;
-  equal(label.data.audience, 'public');
-  equal(label.data.features.length, 0);
-  equal(label.data.map, undefined);
-  match(label.body, /does not link to the private register/);
+  const selected = loadLabel(ws);
+  ok(selected);
+  equal(selected.data.features.length, 1);
+  config.publication.target = 'public';
+  config.publication.map_link = null;
+  writeText(join(root, '.featurefacts', 'config.yaml'), dumpYaml(config));
+  reportCommand(root);
+  equal(loadLabel(ws), null);
+  equal(existsSync(join(root, 'FEATURE_FACTS.md')), false);
   rmSync(root, { recursive: true, force: true });
 });
 
@@ -116,10 +115,10 @@ test('check --projection reports when freshness is skipped', () => {
   rmSync(root, { recursive: true, force: true });
 });
 
-test('label frontmatter stays parseable after init', () => {
+test('init does not leave a parseable empty label', () => {
   const root = copyFixture('empty');
   initCommand(root);
-  const parsed = parseFrontmatter(readFileSync(join(root, 'FEATURE_FACTS.md'), 'utf8'));
-  deepEqual(Array.isArray((parsed.data as { features: unknown[] }).features), true);
+  equal(existsSync(join(root, 'FEATURE_FACTS.md')), false);
+  ok(existsSync(join(root, '.featurefacts', 'features.yaml')));
   rmSync(root, { recursive: true, force: true });
 });
