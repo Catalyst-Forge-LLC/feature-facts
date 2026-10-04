@@ -3,6 +3,7 @@ import { checkCommand } from './commands/check.ts';
 import { initCommand } from './commands/init.ts';
 import { reportCommand } from './commands/report.ts';
 import { scanCommand } from './commands/scan.ts';
+import { curateSelection, gitActor, reviewSnapshot } from './commands/curate.ts';
 import { showCommand } from './commands/show.ts';
 import { TOOL_NAME, TOOL_VERSION } from './version.ts';
 
@@ -16,6 +17,8 @@ Usage:
   featurefacts scan [--root DIR]
   featurefacts report [--root DIR]
   featurefacts show [feature-id] [--root DIR]
+  featurefacts review [--root DIR]
+  featurefacts review --apply [--root DIR] [--actor NAME] [--id FEATURE]...
   featurefacts check [--projection] [--root DIR]
 
 Default scan does not execute target code, use the network, or call a model.
@@ -27,6 +30,18 @@ function argValue(args: string[], name: string): string | undefined {
   const index = args.indexOf(name);
   if (index === -1) return undefined;
   return args[index + 1];
+}
+
+function argValues(args: string[], name: string): string[] {
+  const out: string[] = [];
+  for (let i = 0; i < args.length; i += 1) {
+    if (args[i] !== name) continue;
+    const value = args[i + 1];
+    if (!value || value.startsWith('--')) continue;
+    out.push(value);
+    i += 1;
+  }
+  return out;
 }
 
 export async function run(argv: string[]): Promise<void> {
@@ -61,6 +76,21 @@ export async function run(argv: string[]): Promise<void> {
     if (command === 'show') {
       const id = rest.find((item) => !item.startsWith('--') && item !== argValue(rest, '--root'));
       process.stdout.write(showCommand(root, id));
+      return;
+    }
+    if (command === 'review') {
+      if (rest.includes('--apply')) {
+        const ids = argValues(rest, '--id');
+        const actor = argValue(rest, '--actor') ?? gitActor(root);
+        const result = curateSelection(root, ids, actor);
+        process.stdout.write(
+          result.selected.length
+            ? `Label updated with ${result.selected.length} capabilities.\n`
+            : 'Label cleared. Nothing is selected.\n',
+        );
+        return;
+      }
+      process.stdout.write(`${JSON.stringify(reviewSnapshot(root))}\n`);
       return;
     }
     if (command === 'check') {
