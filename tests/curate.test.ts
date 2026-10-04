@@ -22,11 +22,14 @@ test('review confirms the ticked capability and leaves the rest as candidates', 
     equal(resume.selected, false);
     throws(() => curateSelection(root, Array.from({ length: 13 }, (_, i) => `extra-${i}`), 'Ada Lovelace'), /at most 12/);
     throws(() => curateSelection(root, ['nope'], 'Ada Lovelace'), /No capability nope/);
+    const prior = loadRegistry(workspaceAt(root))!;
+    const priorType = prior.features.find((item) => item.id === 'resume-importer')?.type;
     const result = curateSelection(root, ['resume-importer'], 'Ada Lovelace');
     equal(result.selected.join(','), 'resume-importer');
     const registry = loadRegistry(workspaceAt(root))!;
     const confirmed = registry.features.find((item) => item.id === 'resume-importer')!;
     equal(confirmed.recognition, 'confirmed');
+    equal(confirmed.type, priorType === 'surface-cluster' ? 'feature' : priorType);
     equal(confirmed.lifecycle, 'implemented');
     const other = registry.features.find((item) => item.id !== 'resume-importer');
     if (other) equal(other.recognition, 'candidate');

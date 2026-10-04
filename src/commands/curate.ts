@@ -64,6 +64,8 @@ export function curateSelection(root: string, ids: string[], actor: string): { s
   for (const feature of registry.features) {
     if (!unique.includes(feature.id)) continue;
     feature.recognition = 'confirmed';
+    // A scan cluster may only stay a candidate. Confirming it promotes the row to a feature.
+    if (feature.type === 'surface-cluster') feature.type = 'feature';
     ensureDeclared(feature, 'recognition', 'confirmed', name, recordedAt);
     if (feature.lifecycle === 'unknown') {
       feature.lifecycle = 'implemented';

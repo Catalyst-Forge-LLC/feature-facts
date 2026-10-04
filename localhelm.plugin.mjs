@@ -39,9 +39,16 @@ function run(args) {
 const ROW_ACTIONS = [
   { id: 'scan', label: 'Scan', write: true, icon: 'lucide:radar' },
   { id: 'review', label: 'Review', write: true, icon: 'lucide:list-checks' },
+  { id: 'view', label: 'View', write: false, icon: 'lucide:file-text' },
   { id: 'check', label: 'Check', write: false, icon: 'lucide:search-check' },
   { id: 'report', label: 'Report', write: true, icon: 'lucide:file-output' },
 ];
+
+const PLAN_REASON = {
+  scan: 'Reads the repo and refreshes the candidate list. Does not write the label.',
+  check: 'Compares the register and the label to this repo. Nothing is written.',
+  report: 'Rewrites FEATURE_FACTS.md from the capabilities already ticked in Review.',
+};
 
 function labelCell(absPath) {
   let count = 0;
@@ -76,7 +83,7 @@ async function board() {
     plugin: 'featurefacts',
     title: 'FeatureFacts',
     rowLabel: 'repo',
-    note: 'Add repos scans a folder for package.json or git checkouts that do not have a register yet. Init writes .featurefacts/ into each ticked repo and does not scan code. Scan finds capabilities. Review is the checklist that writes the label. Check and Report stay available.',
+    note: 'Scan finds capabilities. Review ticks which ones go on the label. View shows that label. Check compares it to the repo and writes nothing. Report rewrites the label from the current ticks.',
     columns: [
       { id: 'label', label: 'label' },
       { id: 'register', label: 'folder' },
@@ -95,6 +102,18 @@ async function plan(action, ids = []) {
     const scanRoot = ids[0] ? resolve(ids[0]) : resolve(root, '..');
     return { root: scanRoot.replace(/\\/g, '/'), candidates: discoverRepos(scanRoot) };
   }
+  if (action === 'view') {
+    const row = repoById(ids[0]);
+    const labelPath = join(row.absPath, 'FEATURE_FACTS.md');
+    if (!existsSync(labelPath)) {
+      return {
+        repo: row.id,
+        hasLabel: false,
+        text: 'No FEATURE_FACTS.md yet.\n\nReview ticks up to 12 capabilities. Update label writes this file.',
+      };
+    }
+    return { repo: row.id, hasLabel: true, text: readFileSync(labelPath, 'utf8') };
+  }
   if (action === 'review') {
     const row = repoById(ids[0]);
     const result = await run(['review', '--root', row.absPath]);
@@ -112,9 +131,8 @@ async function plan(action, ids = []) {
   return {
     rows: targets.map((row) => ({
       id: row.id,
-      action: command,
       writes: true,
-      reason: `featurefacts ${command} --root ${row.absPath}`,
+      reason: PLAN_REASON[command],
     })),
   };
 }
