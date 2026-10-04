@@ -235,8 +235,8 @@ export function assembleFeatures(args: {
             mentionedDocs,
             'static-reference',
             'partial',
-            'unknown',
-            'A document names this capability in a heading or code span. That is a sign, not an accepted link.',
+            'linked-evidence',
+            'A document names this capability in a heading or code span. That is a sign. It does not mean the documentation is adequate.',
           )
         : emptyAssessment('No explicit documentation association. Filename resemblance is not an accepted link.', [
             ADAPTERS.document.id,
@@ -257,7 +257,7 @@ export function assembleFeatures(args: {
             namedTests,
             'static-reference',
             'partial',
-            'unknown',
+            'linked-evidence',
             'A test file is named for this capability. Tests were not executed, and a matching filename is not an accepted link.',
           )
         : emptyAssessment('No explicit test association. A similar test filename is only a proposal.', [ADAPTERS.test.id]);
