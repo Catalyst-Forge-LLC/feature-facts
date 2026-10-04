@@ -81,11 +81,18 @@ function readCard(absPath) {
   const rows = [];
   for (const item of features) {
     if (!item || typeof item !== 'object' || typeof item.name !== 'string' || !item.name.trim()) continue;
+    const conditions = Array.isArray(item.conditions) ? item.conditions : [];
+    const extra = conditions
+      .map((condition) => (condition && typeof condition.value === 'string' ? condition.value.trim() : ''))
+      .filter(Boolean);
+    const availability = typeof item.availability === 'string' ? item.availability : '';
     rows.push({
       name: item.name.trim(),
       lifecycle: typeof item.lifecycle === 'string' ? item.lifecycle : '',
-      availability: typeof item.availability === 'string' ? item.availability : '',
+      availability: availability === 'conditional' && extra.length ? `conditional · ${extra.join(' · ')}` : availability,
       maturity: typeof item.maturity === 'string' ? item.maturity : '',
+      documentation: typeof item.documentation === 'string' ? item.documentation : '',
+      tests: typeof item.tests === 'string' ? item.tests : '',
       evidence: typeof item.evidence_state === 'string' ? item.evidence_state : '',
     });
   }

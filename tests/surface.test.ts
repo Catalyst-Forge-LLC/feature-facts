@@ -56,3 +56,39 @@ headers.delete('content-type');
     rmSync(root, { recursive: true, force: true });
   }
 });
+
+test('a doc mention or a matching test filename is a sign, not availability or maturity', () => {
+  const root = mkdtempSync(join(tmpdir(), 'ff-signs-'));
+  try {
+    writeFileSync(join(root, 'package.json'), JSON.stringify({ name: 'demo', bin: { demo: 'dist/cli.js' } }));
+    mkdirSync(join(root, 'src'), { recursive: true });
+    writeFileSync(
+      join(root, 'src', 'main.ts'),
+      `const argv = process.argv.slice(2);
+const cmd = argv.shift();
+if (cmd === 'push') {}
+if (cmd === 'scan') {}
+`,
+    );
+    writeFileSync(join(root, 'README.md'), '# Push\n\nRun `demo scan` when you want a fresh list.\nThe word push appears here without a code span.\n');
+    mkdirSync(join(root, 'src'), { recursive: true });
+    writeFileSync(join(root, 'src', 'push.test.ts'), 'test("push", () => {});\n');
+    writeFileSync(join(root, 'src', 'other.test.ts'), "test('scan', () => {});\n");
+
+    scanCommand(root);
+    const features = loadRegistry(workspaceAt(root))!.features;
+    const push = features.find((item) => item.id === 'cmd-push')!;
+    const scan = features.find((item) => item.id === 'cmd-scan')!;
+    equal(push.docs.state, 'partial');
+    equal(push.docs.links[0]?.association, 'static-reference');
+    equal(push.tests.state, 'partial');
+    equal(push.tests.links[0]?.association, 'static-reference');
+    equal(scan.docs.state, 'partial');
+    equal(scan.tests.state, 'unassessed');
+    equal(push.availability.state, 'unknown');
+    equal(push.maturity, 'unknown');
+    equal(push.lifecycle, 'unknown');
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});

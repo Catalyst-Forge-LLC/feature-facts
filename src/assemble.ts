@@ -1,7 +1,7 @@
 import { ADAPTERS } from './version.ts';
 import { kebabId } from './hash.ts';
 import { candidateFeature, emptyAssessment } from './defaults.ts';
-import type { Feature, Registry, Surface } from './types.ts';
+import type { Assessment, Feature, Registry, Surface } from './types.ts';
 import { findAnnotations } from './adapters/annotations.ts';
 
 function unique(ids: string[]): string[] {
@@ -19,6 +19,53 @@ function titleFromId(id: string): string {
 function displayName(id: string, titles: string[]): string {
   const nice = titles.find((title) => /^[A-Z][A-Za-z0-9]*(?: [A-Z][A-Za-z0-9]*)*$/.test(title));
   return nice ?? titleFromId(id);
+}
+
+function escapeRegExp(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+/** Command and route ids carry a leaf. Other ids are not guessed from nearby words. */
+function capabilityLeaf(id: string): string {
+  const match = /^(?:cmd|route)-([a-z0-9]+(?:-[a-z0-9]+)*)$/.exec(id);
+  const leaf = match?.[1] ?? '';
+  return leaf.length >= 3 ? leaf : '';
+}
+
+function mentionsCapability(text: string, leaf: string, name: string): boolean {
+  const code = new RegExp('`' + escapeRegExp(leaf) + '`', 'i');
+  const invoked = new RegExp('`[^`\\n]*\\s+' + escapeRegExp(leaf) + '`', 'i');
+  const heading = new RegExp('^#{1,6}\\s+' + escapeRegExp(name) + '\\s*$', 'im');
+  return code.test(text) || invoked.test(text) || heading.test(text);
+}
+
+function testNamedFor(path: string, leaf: string): boolean {
+  const base = path.split(/[/\\]/).pop() ?? '';
+  return new RegExp('^' + escapeRegExp(leaf) + '\\.(?:test|spec)\\.', 'i').test(base);
+}
+
+function linkedAssessment(
+  adapterId: string,
+  surfaceIds: string[],
+  association: 'explicit-annotation' | 'static-reference',
+  state: 'assessed' | 'partial',
+  result: 'linked-evidence' | 'unknown',
+  reason: string,
+): Assessment {
+  return {
+    state,
+    result,
+    adapter_ids: [adapterId],
+    links: surfaceIds.map((surface_id) => ({ surface_id, association })),
+    reason,
+  };
+}
+
+/** A confirmed row keeps a stronger assessment. A sign can fill an empty one. */
+function upgradeAssessment(current: Assessment, next: Assessment): Assessment {
+  if (next.result === 'linked-evidence') return next;
+  if (next.state === 'partial' && current.state === 'unassessed') return next;
+  return current;
 }
 
 /** `/deck` and `/api/push` share a leaf. Deeper paths stay on their own surface. */
@@ -128,6 +175,28 @@ export function assembleFeatures(args: {
     const impl = unique(group.impl);
     const docLinks = unique(group.docs);
     const testLinks = unique(group.tests);
+    const name = displayName(id, group.titles);
+    const leaf = capabilityLeaf(id);
+    const mentionedDocs = leaf
+      ? unique(
+          docs
+            .filter((surface) => {
+              if (surface.provenance.method === 'explicit-annotation') return false;
+              return mentionsCapability(fileTexts.get(surface.locator.path) ?? '', leaf, name);
+            })
+            .map((surface) => surface.id),
+        )
+      : [];
+    const namedTests = leaf
+      ? unique(
+          tests
+            .filter(
+              (surface) =>
+                surface.provenance.method !== 'explicit-annotation' && testNamedFor(surface.locator.path, leaf),
+            )
+            .map((surface) => surface.id),
+        )
+      : [];
     const description = `Observed implementation surfaces: ${entry.length ? entry.join(', ') : 'none'}. Candidate only until a maintainer confirms the product meaning.`;
     const locator = [...surfaces, ...docs, ...tests].find((item) =>
       entry.includes(item.id) || docLinks.includes(item.id) || testLinks.includes(item.id),
@@ -152,24 +221,46 @@ export function assembleFeatures(args: {
     };
 
     const docsAssessment = docLinks.length
-      ? {
-          state: 'assessed' as const,
-          result: 'linked-evidence' as const,
-          adapter_ids: [ADAPTERS.document.id],
-          links: docLinks.map((surface_id) => ({ surface_id, association: 'explicit-annotation' as const })),
-          reason: 'An explicit FeatureFacts annotation was found in documentation.',
-        }
-      : emptyAssessment('No explicit documentation association. Filename resemblance is not an accepted link.', [ADAPTERS.document.id]);
+      ? linkedAssessment(
+          ADAPTERS.document.id,
+          docLinks,
+          'explicit-annotation',
+          'assessed',
+          'linked-evidence',
+          'An explicit FeatureFacts annotation was found in documentation.',
+        )
+      : mentionedDocs.length
+        ? linkedAssessment(
+            ADAPTERS.document.id,
+            mentionedDocs,
+            'static-reference',
+            'partial',
+            'unknown',
+            'A document names this capability in a heading or code span. That is a sign, not an accepted link.',
+          )
+        : emptyAssessment('No explicit documentation association. Filename resemblance is not an accepted link.', [
+            ADAPTERS.document.id,
+          ]);
 
     const testsAssessment = testLinks.length
-      ? {
-          state: 'assessed' as const,
-          result: 'linked-evidence' as const,
-          adapter_ids: [ADAPTERS.test.id],
-          links: testLinks.map((surface_id) => ({ surface_id, association: 'explicit-annotation' as const })),
-          reason: 'An explicit FeatureFacts annotation was found in a test file. Tests were not executed.',
-        }
-      : emptyAssessment('No explicit test association. A similar test filename is only a proposal.', [ADAPTERS.test.id]);
+      ? linkedAssessment(
+          ADAPTERS.test.id,
+          testLinks,
+          'explicit-annotation',
+          'assessed',
+          'linked-evidence',
+          'An explicit FeatureFacts annotation was found in a test file. Tests were not executed.',
+        )
+      : namedTests.length
+        ? linkedAssessment(
+            ADAPTERS.test.id,
+            namedTests,
+            'static-reference',
+            'partial',
+            'unknown',
+            'A test file is named for this capability. Tests were not executed, and a matching filename is not an accepted link.',
+          )
+        : emptyAssessment('No explicit test association. A similar test filename is only a proposal.', [ADAPTERS.test.id]);
 
     if (priorFeature) {
       priorFeature.entry_points = entry;
@@ -184,8 +275,8 @@ export function assembleFeatures(args: {
         priorFeature.docs = docsAssessment;
         priorFeature.tests = testsAssessment;
       } else {
-        if (docsAssessment.result === 'linked-evidence') priorFeature.docs = docsAssessment;
-        if (testsAssessment.result === 'linked-evidence') priorFeature.tests = testsAssessment;
+        priorFeature.docs = upgradeAssessment(priorFeature.docs, docsAssessment);
+        priorFeature.tests = upgradeAssessment(priorFeature.tests, testsAssessment);
       }
       const nextEvidence = priorFeature.evidence.filter((item) => item.kind !== 'observed' || item.assertion.field !== 'capability');
       nextEvidence.unshift(capabilityEvidence);
@@ -197,7 +288,7 @@ export function assembleFeatures(args: {
       id,
       candidateFeature({
         id,
-        name: displayName(id, group.titles),
+        name,
         description,
         entry_points: entry,
         implements: impl,

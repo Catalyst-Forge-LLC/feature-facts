@@ -1,4 +1,5 @@
 import { execFileSync } from 'node:child_process';
+import { compactAssessment } from '../project.ts';
 import { reportCommand } from './report.ts';
 import type { Feature } from '../types.ts';
 import { loadConfig, loadRegistry, workspaceAt, writeYaml } from '../workspace.ts';
@@ -12,6 +13,18 @@ export interface ReviewFeature {
   recognition: string;
   selected: boolean;
   summary: string;
+  lifecycle: string;
+  availability: string;
+  maturity: string;
+  documentation: string;
+  tests: string;
+  evidence: string;
+}
+
+function availabilityLabel(feature: Feature): string {
+  if (feature.availability.state !== 'conditional') return feature.availability.state;
+  const extra = feature.availability.conditions.map((item) => item.value).filter(Boolean);
+  return extra.length ? `conditional · ${extra.join(' · ')}` : 'conditional';
 }
 
 export function reviewSnapshot(root: string): { limit: number; features: ReviewFeature[] } {
@@ -28,6 +41,12 @@ export function reviewSnapshot(root: string): { limit: number; features: ReviewF
       recognition: feature.recognition,
       selected: selected.has(feature.id),
       summary: reviewSummary(feature, selected.has(feature.id)),
+      lifecycle: feature.lifecycle,
+      availability: availabilityLabel(feature),
+      maturity: feature.maturity,
+      documentation: compactAssessment(feature.docs),
+      tests: compactAssessment(feature.tests),
+      evidence: feature.observation.state,
     })),
   };
 }
