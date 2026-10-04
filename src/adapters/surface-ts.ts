@@ -6,8 +6,10 @@ import { findAnnotations } from './annotations.ts';
 
 const TS_EXT = /\.(ts|tsx|js|mjs|cjs)$/;
 const ROUTE_FILE = /(?:^|\/)(?:route|server|\+server|\+page(?:\.server)?)\.(ts|js)$/;
-const ROUTE_CALL = /\.(get|post|put|patch|delete|options|head)\(\s*['"`]([^'"`]+)['"`]/g;
+const ROUTE_CALL = /\.(get|post|put|patch|delete|options|head)\(\s*['"`](\/[^'"`]*)['"`]/g;
 const COMMAND_CALL = /\.command\(\s*['"`]([^'"`]+)['"`]/g;
+const ARGV_EQ = /\b(?:cmd|command|subcommand)\s*==+\s*['"`]([a-z][a-z0-9-]*)['"`]/g;
+const ARGV_CASE = /\bcase\s+['"`]([a-z][a-z0-9-]*)['"`]\s*:/g;
 
 export interface SurfaceResult {
   adapter: AdapterMeta;
@@ -22,6 +24,31 @@ function provenance(method: string) {
     origin: 'deterministic' as const,
     method,
   };
+}
+
+function routeTitle(ref: string): string {
+  if (ref === '/') return 'Home';
+  const leaf = ref.split('/').filter(Boolean).pop() ?? 'Route';
+  return leaf
+    .split('-')
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(' ');
+}
+
+/** SvelteKit `routes` files become URL paths. Other `route.ts` files stay file surfaces. */
+function svelteRoute(path: string): { id: string; ref: string; title: string } | null {
+  const norm = path.replace(/\\/g, '/');
+  const at = norm.indexOf('/routes/');
+  if (at < 0 && !norm.startsWith('routes/')) return null;
+  const rest = at >= 0 ? norm.slice(at + '/routes/'.length) : norm.slice('routes/'.length);
+  if (!/\+(?:server|page)(?:\.server)?\.(?:ts|js)$/.test(rest)) return null;
+  const route = rest
+    .replace(/\/?\+(?:server|page)(?:\.server)?\.(?:ts|js)$/, '')
+    .replace(/(^|\/)\([^/]+\)(?=\/|$)/g, '$1')
+    .replace(/\/+/g, '/')
+    .replace(/^\/|\/$/g, '');
+  const ref = route ? `/${route}` : '/';
+  return { id: route ? kebabId(`route-${route}`) : 'route-home', ref, title: routeTitle(ref) };
 }
 
 export function runSurface(ctx: ScanContext): SurfaceResult {
@@ -97,11 +124,12 @@ export function runSurface(ctx: ScanContext): SurfaceResult {
     }
 
     if (ROUTE_FILE.test(path)) {
+      const svelte = svelteRoute(path);
       add({
-        id: kebabId(`file-${path.replace(/\.[^.]+$/, '')}`),
+        id: svelte?.id ?? kebabId(`file-${path.replace(/\.[^.]+$/, '')}`),
         kind: 'route',
-        ref: path,
-        title: path,
+        ref: svelte?.ref ?? path,
+        title: svelte?.title ?? path,
         locator: { path, content_sha256: file.sha256 },
         provenance: provenance('framework-route-file'),
         state: 'current',
@@ -139,6 +167,28 @@ export function runSurface(ctx: ScanContext): SurfaceResult {
         provenance: provenance('static-command-call'),
         state: 'current',
       });
+    }
+
+    if (content.text.includes('process.argv')) {
+      const seenCmd = new Set<string>();
+      for (const pattern of [ARGV_EQ, ARGV_CASE]) {
+        pattern.lastIndex = 0;
+        while ((match = pattern.exec(content.text))) {
+          const name = match[1];
+          if (seenCmd.has(name)) continue;
+          seenCmd.add(name);
+          const start = content.text.slice(0, match.index).split(/\r?\n/).length;
+          add({
+            id: kebabId(`cmd-${name}`),
+            kind: 'command',
+            ref: name,
+            title: name,
+            locator: { path, content_sha256: file.sha256, start_line: start, end_line: start, symbol: name },
+            provenance: provenance('argv-command'),
+            state: 'current',
+          });
+        }
+      }
     }
 
     for (const annotation of findAnnotations(content.text)) {

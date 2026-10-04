@@ -22,7 +22,7 @@ npx @xfacts/featurefacts scan  --root ../my-app
 npx @xfacts/featurefacts show  --root ../my-app
 ```
 
-Default scan does not execute target code, use the network, or call a model.
+Default scan does not execute target code, use the network, or call a model. It records CLI subcommands (`.command()` and `process.argv` checks), HTTP routes whose path starts with `/`, and SvelteKit `routes` files. A header lookup such as `.get('accept')` is not a route. Generated trees (`.svelte-kit`, `.next`, coverage) are skipped. The package `bin` is not its own capability when subcommands are visible.
 
 ## From candidates to a label
 

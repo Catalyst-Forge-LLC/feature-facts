@@ -16,6 +16,24 @@ function titleFromId(id: string): string {
     .join(' ');
 }
 
+function displayName(id: string, titles: string[]): string {
+  const nice = titles.find((title) => /^[A-Z][A-Za-z0-9]*(?: [A-Z][A-Za-z0-9]*)*$/.test(title));
+  return nice ?? titleFromId(id);
+}
+
+/** `/deck` and `/api/push` share a leaf. Deeper paths stay on their own surface. */
+function routeLeaf(ref: string): string | null {
+  const path = ref.startsWith('/')
+    ? ref
+    : ref.match(/^(?:GET|POST|PUT|PATCH|DELETE|OPTIONS|HEAD)\s+(\/\S*)$/)?.[1];
+  if (!path) return null;
+  if (path === '/') return '';
+  const parts = path.split('/').filter(Boolean);
+  if (parts.length === 1) return parts[0];
+  if (parts.length === 2 && parts[0] === 'api') return parts[1];
+  return null;
+}
+
 export function assembleFeatures(args: {
   scanId: string;
   prior: Feature[];
@@ -30,19 +48,32 @@ export function assembleFeatures(args: {
     byId.set(feature.id, structuredClone(feature));
   }
 
-  const clusters = new Map<string, { entry: string[]; impl: string[]; docs: string[]; tests: string[]; refs: string[] }>();
+  const clusters = new Map<string, { entry: string[]; impl: string[]; docs: string[]; tests: string[]; refs: string[]; titles: string[] }>();
 
   function cluster(id: string) {
-    const existing = clusters.get(id) ?? { entry: [], impl: [], docs: [], tests: [], refs: [] };
+    const existing = clusters.get(id) ?? { entry: [], impl: [], docs: [], tests: [], refs: [], titles: [] };
     clusters.set(id, existing);
     return existing;
   }
 
+  function noteTitle(group: { titles: string[] }, surface: Surface): void {
+    if (surface.title) group.titles.push(surface.title);
+  }
+
+  const commandByLeaf = new Map<string, string>();
   for (const surface of surfaces) {
+    if (surface.kind === 'command' && surface.provenance.method !== 'package-json-bin') {
+      commandByLeaf.set(surface.ref, surface.id);
+    }
+  }
+
+  for (const surface of surfaces) {
+    if (surface.provenance.method === 'package-json-bin' && commandByLeaf.size > 0) continue;
     if (surface.provenance.method === 'explicit-annotation') {
       const group = cluster(kebabId(surface.ref));
       group.entry.push(surface.id);
       group.refs.push(surface.ref);
+      noteTitle(group, surface);
       continue;
     }
     const text = fileTexts.get(surface.locator.path) ?? '';
@@ -51,13 +82,31 @@ export function assembleFeatures(args: {
       for (const id of annotated) {
         const group = cluster(kebabId(id));
         group.entry.push(surface.id);
+        noteTitle(group, surface);
         if (surface.kind !== 'route' && surface.kind !== 'command') group.impl.push(surface.id);
       }
+      continue;
+    }
+    const leaf = surface.kind === 'route' ? routeLeaf(surface.ref) : null;
+    if (leaf !== null) {
+      const commandId = leaf ? commandByLeaf.get(leaf) : undefined;
+      if (commandId) {
+        const group = cluster(commandId);
+        group.impl.push(surface.id);
+        noteTitle(group, surface);
+        continue;
+      }
+      const id = leaf ? kebabId(`route-${leaf}`) : 'route-home';
+      const group = cluster(id);
+      group.entry.push(surface.id);
+      group.refs.push(surface.ref);
+      noteTitle(group, surface);
       continue;
     }
     const group = cluster(surface.id);
     group.entry.push(surface.id);
     group.refs.push(surface.ref);
+    noteTitle(group, surface);
   }
 
   for (const surface of docs) {
@@ -148,7 +197,7 @@ export function assembleFeatures(args: {
       id,
       candidateFeature({
         id,
-        name: titleFromId(id),
+        name: displayName(id, group.titles),
         description,
         entry_points: entry,
         implements: impl,

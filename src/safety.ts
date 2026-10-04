@@ -6,6 +6,7 @@ import { sha256Bytes } from './hash.ts';
 import { toPosixRel } from './paths.ts';
 
 const SECRET_NAMES = new Set(['.env', '.env.local', '.env.production', '.env.development']);
+const GENERATED_DIRS = new Set(['.svelte-kit', '.turbo', '.vite', '.next', 'coverage']);
 const SECRET_SUFFIXES = ['.pem', '.key', '.p12', '.pfx'];
 const SELF_OUTPUTS = new Set(['FEATURE_FACTS.md', 'FEATURES.md']);
 
@@ -55,6 +56,10 @@ export function enumerateTree(root: string, config: Config): ScanContext {
         continue;
       }
       if (stat.isDirectory()) {
+        if (GENERATED_DIRS.has(entry.name)) {
+          exclusions.push({ path: rel, reason: 'generated-output' });
+          continue;
+        }
         if (isExcluded(rel, config.exclude) || isExcluded(`${rel}/**`, config.exclude)) {
           exclusions.push({ path: rel, reason: 'exclude-pattern' });
           continue;
