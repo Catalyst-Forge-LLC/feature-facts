@@ -211,10 +211,20 @@ export function projectGaps(features: Feature[], scanId: string) {
   return { schemaVersion: SCHEMA_VERSION, scan_id: scanId, gaps };
 }
 
+/** The register and the label are this tool's own output, not a change in the product. */
+function isOwnOutput(path: string): boolean {
+  return path === '.featurefacts' || path.startsWith('.featurefacts/') || path === 'FEATURE_FACTS.md';
+}
+
 export function sourceFingerprint(files: Manifest['scope']['files'], exclusions: Manifest['scope']['exclusions']): string {
   return sha256Json({
-    files: files.map((file) => ({ path: file.path, sha256: file.sha256, bytes: file.bytes })).sort((a, b) => a.path.localeCompare(b.path)),
-    exclusions: [...exclusions].sort((a, b) => a.path.localeCompare(b.path) || a.reason.localeCompare(b.reason)),
+    files: files
+      .filter((file) => !isOwnOutput(file.path))
+      .map((file) => ({ path: file.path, sha256: file.sha256, bytes: file.bytes }))
+      .sort((a, b) => a.path.localeCompare(b.path)),
+    exclusions: exclusions
+      .filter((item) => !isOwnOutput(item.path))
+      .sort((a, b) => a.path.localeCompare(b.path) || a.reason.localeCompare(b.reason)),
   });
 }
 

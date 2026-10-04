@@ -85,7 +85,11 @@ export function checkCommand(root: string, mode: 'full' | 'projection' = 'full')
         stale = true;
         messages.push('Manifest is missing; source freshness cannot pass.');
       } else {
-        if (manifest.fingerprints.source !== source) {
+        const baseline = sourceFingerprint(
+          manifest.scope.files,
+          manifest.scope.exclusions.filter((item) => item.path && item.path !== '.'),
+        );
+        if (baseline !== source) {
           stale = true;
           messages.push('Source fingerprint is stale.');
         }
