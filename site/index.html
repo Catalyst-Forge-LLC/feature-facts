@@ -233,23 +233,28 @@
       justify-content: space-between;
     }
     .xfacts-family-footer .xfacts-footer-credit a { color: #c9d3de; }
-  </style>
+
+/* Shared reading rhythm, with each family's accent and label retained. */
+.hero .brand {font-size:1.25rem;letter-spacing:-.03em;margin:0 0 1rem;line-height:1.3}
+.hero h1.lede {font-size:clamp(2rem,4.2vw,3.4rem);font-weight:650;line-height:1.12;letter-spacing:-.035em;max-width:19ch;text-wrap:balance;margin:0 0 1.25rem}
+.hero .sub {font-size:1.0625rem;line-height:1.65;max-width:58ch}
+.hero .entry-limit {font-size:.875rem;line-height:1.6;max-width:58ch;margin:1rem 0;color:var(--muted,inherit)}
+.hero .entry-kind {font-size:.875rem;line-height:1.5;margin:0 0 1rem}
+.hero .cta {display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.5rem}
+.hero .cta a {display:inline-flex;align-items:center;min-height:44px;padding:.7rem 1rem;font-size:1rem}
+.hero :is(a,button):focus-visible {outline:3px solid currentColor;outline-offset:4px}
+.hero .label-plane {min-width:0;max-width:100%}
+@media(max-width:760px){.hero h1.lede{font-size:2.25rem}.hero .brand{font-size:1.125rem}.hero .cta a{max-width:100%;white-space:normal}.hero{overflow-wrap:anywhere}}
+
+</style>
 </head>
 <body>
   <header class="hero">
     <div class="wrap hero-copy">
-      <h1 class="brand">Feature<span>Facts</span></h1>
-      <p class="lede">Know what this product can do. Part of the <a href="https://xfacts.dev">xFacts</a> suite.</p>
-      <p class="sub">
-        A compact xFacts label for product capabilities. The internal label can
-        link to its register. A public label contains only approved fields.
-        Candidates are not confirmed features. Zero rows is a truthful outcome.
-      </p>
-      <div class="cta">
-        <a class="btn btn-primary" href="/examples/FEATURE_FACTS.md">Read an example</a>
-        <a class="btn btn-ghost" href="/schema/feature-facts-label.schema.json">Label schema</a>
-        <a class="btn btn-ghost" href="#write">Scan a repo</a>
-      </div>
+      <p class="brand">Feature<span>Facts</span></p>
+      <p class="entry-kind">Open label format · part of <a href="https://xfacts.dev">xFacts</a></p><h1 class="lede">What can this product do?</h1>
+      <p class="sub">Read a compact capability label before adopting a product. Maintainers review candidates in an evidence-backed register, then select the capabilities and fields appropriate for a public label.</p>
+      <div class="cta"><a class="btn btn-primary" href="/examples/FEATURE_FACTS.md">Read an example label</a><a class="btn btn-ghost" href="#write">Scan a repository</a></div><p class="entry-limit">Candidates are not confirmed features. Zero rows is valid. Linked tests do not mean those tests passed.</p>
     </div>
     <div class="label-plane" aria-label="Example Feature Facts label">
       <div class="label-plane-inner">
