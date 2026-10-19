@@ -40,6 +40,38 @@ Then edit `.featurefacts/config.yaml`:
 
 The internal label can link to `.featurefacts/FEATURES.md`. A public label is a separate target. Each public row needs `publication.scope: public` with its own attributed permission. The public label contains only approved fields and does not expose the private register or source locators. Do not upload `.featurefacts/` and do not add a public map link. See [docs/PUBLICATION_AND_SAFETY.md](docs/PUBLICATION_AND_SAFETY.md).
 
+## One candidate becomes a useful label row
+
+In a scan, a resume-import route is a **candidate**. Its presence alone does not establish that importing works, who can use it, or whether it belongs on a public label.
+
+The [Workshop Demo fixture](https://github.com/Catalyst-Forge-LLC/feature-facts/tree/main/examples/demo-repository/) shows a reviewed capability. Its register includes this recognition evidence (shortened excerpt):
+
+```yaml
+id: resume-importer
+name: Resume import
+recognition: confirmed
+evidence:
+  - id: resume-importer-recognition
+    kind: declared
+    state: current
+    assertion:
+      field: recognition
+      value: confirmed
+      claim: The synthetic maintainer declares recognition.
+    declaration:
+      actor: Fixture Maintainer
+      source: decisions/features.md
+      recorded_at: '2026-09-19T20:00:00Z'
+```
+
+The fixture's selection includes `resume-importer` and an attributed approval. Reporting produces this internal label row:
+
+| Feature | Lifecycle | Availability | Maturity | Documentation | Tests | Evidence |
+| --- | --- | --- | --- | --- | --- | --- |
+| Resume import | released | conditional: Pro plan, member role | experimental | linked-evidence | linked-evidence | current |
+
+A reader can see the conditions and follow the evidence instead of assuming every route is a released feature. Linked tests mean an association was found, not that the tests ran or proved adequate coverage. This is a synthetic format example; see its [complete register](https://github.com/Catalyst-Forge-LLC/feature-facts/blob/main/examples/demo-repository/.featurefacts/features.yaml), [selection](https://github.com/Catalyst-Forge-LLC/feature-facts/blob/main/examples/demo-repository/.featurefacts/config.yaml), and [label](https://github.com/Catalyst-Forge-LLC/feature-facts/blob/main/examples/demo-repository/FEATURE_FACTS.md). The snippets above are incomplete records. A public projection still needs the separate permissions described above.
+
 ## Development
 
 Static Worker site in `site/`, same shape as toolfacts.dev.
