@@ -84,3 +84,34 @@ switch (cmd) {
     rmSync(root, { recursive: true, force: true });
   }
 });
+
+test('a stale product-name candidate that no scan ever located is dropped', () => {
+  const root = project(`const cmd = process.argv[2];\nif (cmd === 'run') run();\n`);
+  try {
+    scanCommand(root);
+    const ws = workspaceAt(root);
+    const registry = loadRegistry(ws)!;
+    // What a label helper seeds: a declared row from package.json with no locator.
+    const seeded = structuredClone(registry.features[0]!);
+    seeded.id = 'demo';
+    seeded.name = 'demo';
+    seeded.entry_points = [];
+    seeded.implements = [];
+    seeded.observation = { state: 'stale', last_seen_scan_id: 'scan-add', reason: 'seeded' };
+    seeded.evidence = [
+      {
+        id: 'ev-package',
+        kind: 'declared',
+        state: 'stale',
+        assertion: { field: 'capability', value: 'A demo package.', claim: 'package.json names this package.' },
+        declaration: { actor: 'xfacts-add-labels', source: 'package.json', recorded_at: '2026-09-29T19:42:06.182Z' },
+      },
+    ];
+    registry.features.push(seeded);
+    writeFileSync(ws.featuresPath, JSON.stringify(registry));
+    scanCommand(root);
+    deepEqual(loadRegistry(ws)!.features.map((item) => item.id), ['cmd-run']);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});

@@ -354,6 +354,15 @@ export function assembleFeatures(args: {
     }
   }
 
+  // A candidate no scan ever located (for example a product-name row seeded from package.json by a
+  // label helper) only says the package exists. Once stale it is dropped; confirmed rows are kept.
+  for (const [id, feature] of byId) {
+    if (seen.has(id) || feature.recognition === 'confirmed') continue;
+    if (feature.entry_points.length || feature.implements.length) continue;
+    if (feature.evidence.some((item) => item.locator)) continue;
+    byId.delete(id);
+  }
+
   return [...byId.values()].sort((a, b) => a.id.localeCompare(b.id));
 }
 
