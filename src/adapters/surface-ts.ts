@@ -18,7 +18,26 @@ function isPackageJson(path: string): boolean {
 export function isTestPath(path: string): boolean {
   return TEST_DIR.test(path) || TEST_FILE.test(path);
 }
-const ROUTE_FILE = /(?:^|\/)(?:route|server|\+server|\+page(?:\.server)?)\.(ts|js)$/;
+/** SvelteKit route files. A plain `server.ts` or `route.ts` is only a filename. */
+const ROUTE_FILE = /(?:^|\/)(?:\+server|\+page(?:\.server)?)\.(ts|js)$/;
+/** A `route.ts` counts when it exports an HTTP handler, as Next.js app routes do. */
+const HANDLER_FILE = /(?:^|\/)route\.(ts|js)$/;
+const HANDLER_EXPORT = /\bexport\s+(?:async\s+)?(?:function\s+|const\s+)(?:GET|POST|PUT|PATCH|DELETE|HEAD|OPTIONS)\b/;
+
+/** `app/api/items/route.ts` serves `/api/items`; `(group)` folders do not appear in the URL. */
+function appRoute(path: string): { id: string; ref: string; title: string } | null {
+  const norm = path.replace(/\\/g, '/');
+  const at = norm.startsWith('app/') ? 0 : norm.indexOf('/app/') + 1;
+  if (at <= 0 && !norm.startsWith('app/')) return null;
+  const route = norm
+    .slice(at + 'app/'.length)
+    .replace(/\/?route\.(?:ts|js)$/, '')
+    .replace(/(^|\/)\([^/]+\)(?=\/|$)/g, '$1')
+    .replace(/\/+/g, '/')
+    .replace(/^\/|\/$/g, '');
+  const ref = route ? `/${route}` : '/';
+  return { id: route ? kebabId(`route-${route}`) : 'route-home', ref, title: routeTitle(ref) };
+}
 const ROUTE_CALL = /\.(get|post|put|patch|delete|options|head)\(\s*['"`](\/[^'"`]*)['"`]/g;
 const COMMAND_CALL = /\.command\(\s*['"`]([^'"`]+)['"`]/g;
 const ARGV_EQ = /\b(?:cmd|command|subcommand)\s*==+\s*['"`]([a-z][a-z0-9-]*)['"`]/g;
@@ -177,7 +196,7 @@ function routeTitle(ref: string): string {
     .join(' ');
 }
 
-/** SvelteKit `routes` files become URL paths. Other `route.ts` files stay file surfaces. */
+/** SvelteKit `routes` files become URL paths. */
 function svelteRoute(path: string): { id: string; ref: string; title: string } | null {
   const norm = path.replace(/\\/g, '/');
   const at = norm.indexOf('/routes/');
@@ -284,6 +303,19 @@ export function runSurface(ctx: ScanContext): SurfaceResult {
       } catch {
         // Treat as data. A broken package.json is a diagnostic, not execution.
       }
+    }
+
+    if (HANDLER_FILE.test(path) && HANDLER_EXPORT.test(content.text)) {
+      const next = appRoute(path);
+      add({
+        id: next?.id ?? kebabId(`file-${path.replace(/\.[^.]+$/, '')}`),
+        kind: 'route',
+        ref: next?.ref ?? path,
+        title: next?.title ?? path,
+        locator: { path, content_sha256: file.sha256 },
+        provenance: provenance('framework-route-file'),
+        state: 'current',
+      });
     }
 
     if (ROUTE_FILE.test(path)) {

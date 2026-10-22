@@ -213,3 +213,23 @@ test('default includes cover root entry files, workspaces, web/, and +page.svelt
     rmSync(root, { recursive: true, force: true });
   }
 });
+
+test('server.ts and route.ts are routes only when they define one', () => {
+  const root = mkdtempSync(join(tmpdir(), 'ff-route-files-'));
+  try {
+    writeFileSync(join(root, 'package.json'), JSON.stringify({ name: 'demo' }));
+    mkdirSync(join(root, 'src', 'lib', 'server', 'aegis'), { recursive: true });
+    mkdirSync(join(root, 'app', 'api', 'items'), { recursive: true });
+    mkdirSync(join(root, 'src', 'app', '(shop)', 'cart'), { recursive: true });
+    writeFileSync(join(root, 'src', 'server.ts'), "import express from 'express';\nconst app = express();\napp.get('/health', () => undefined);\n");
+    writeFileSync(join(root, 'src', 'lib', 'server', 'aegis', 'route.ts'), 'export function routeRequest() { return 1; }\n');
+    writeFileSync(join(root, 'app', 'api', 'items', 'route.ts'), 'export async function GET() { return new Response(); }\n');
+    writeFileSync(join(root, 'src', 'app', '(shop)', 'cart', 'route.ts'), 'export const POST = async () => new Response();\n');
+
+    scanCommand(root);
+    const ids = loadRegistry(workspaceAt(root))!.features.map((item) => item.id).sort();
+    equal(ids.join(','), 'route-cart,route-health,route-items');
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
