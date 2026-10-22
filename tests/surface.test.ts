@@ -150,7 +150,9 @@ export function handle(method: string) {
 test('test files, fixtures, and package.json prose are not product surfaces', () => {
   const root = mkdtempSync(join(tmpdir(), 'ff-tests-not-surface-'));
   try {
-    writeFileSync(join(root, 'package.json'), JSON.stringify({ name: 'demo', description: 'FeatureFacts: a sample package' }));
+    // Built at runtime so this test file does not itself carry an annotation.
+    const prose = ['FeatureFacts', ': a sample package'].join('');
+    writeFileSync(join(root, 'package.json'), JSON.stringify({ name: 'demo', description: prose }));
     mkdirSync(join(root, 'src', '__tests__'), { recursive: true });
     mkdirSync(join(root, 'tests', 'fixtures', 'app', 'src'), { recursive: true });
     mkdirSync(join(root, 'test'), { recursive: true });

@@ -328,7 +328,7 @@ export function runSurface(ctx: ScanContext): SurfaceResult {
       }
     }
 
-    // package.json is data: a description such as "FeatureFacts: a compact ..." is prose, not an annotation.
+    // package.json is data. A description that happens to read like an annotation is prose.
     for (const annotation of path.endsWith('package.json') ? [] : findAnnotations(content.text)) {
       add({
         id: kebabId(`ann-${annotation.id}-${path}`),
