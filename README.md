@@ -54,7 +54,7 @@ npx @xfacts/featurefacts refresh-config --root ../my-app --write    # apply them
 npx @xfacts/featurefacts refresh-config --root ../my-app --include 'viewer/**' --write
 ```
 
-It proposes default patterns that match something in the repo (a root glob only when a root script exists that is not a tool config; a folder only when it holds code), any other top-level folder with its own `package.json` or `src/` and code (such as `ui/` or `viewer/`) unless an exclude covers it, and the tool-config excludes when a root glob would read a config file. The selection, approval, and other settings are kept; YAML comments are not. The config fingerprint changes, so run `scan` and `report` again before committing.
+It proposes default patterns that match something in the repo (a root glob only when a root script exists that is not a tool config or a plugin such as `localhelm.plugin.mjs`; a folder only when it holds code), any other top-level folder with its own `package.json` or `src/` and code (such as `ui/` or `viewer/`) unless an exclude covers it, and the tool-config excludes when a root glob would read a config file. The selection, approval, and other settings are kept; YAML comments are not. The config fingerprint changes, so run `scan` and `report` again before committing.
 
 Curation fields in `config.yaml`, which `review --apply` writes:
 

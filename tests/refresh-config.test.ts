@@ -88,6 +88,7 @@ test('refresh-config proposes app folders and root scripts, never root tool conf
     const ws = workspaceAt(root);
     writeFileSync(join(root, 'vite.config.ts'), 'export default {};\n');
     writeFileSync(join(root, 'svelte.config.js'), 'export default {};\n');
+    writeFileSync(join(root, 'localhelm.plugin.mjs'), 'export default {};\n');
     // viewer/ is an app (its own package.json and code); ui/ has src/ and code; notes/ holds no code.
     mkdirSync(join(root, 'viewer', 'src', 'pages'), { recursive: true });
     writeFileSync(join(root, 'viewer', 'package.json'), JSON.stringify({ name: 'viewer' }));

@@ -17,6 +17,8 @@ export interface RefreshConfigResult {
 /** Root tool and build configs. A root `*.ts` glob is for entry files, not these. */
 export const ROOT_CONFIG_EXCLUDES = ['*.config.js', '*.config.mjs', '*.config.cjs', '*.config.ts', '*.config.mts', '*.config.cts', '.eslintrc.*'];
 const ROOT_CONFIG = /^(?:[^/]+\.config\.[cm]?[jt]s|\.eslintrc\..+)$/;
+/** A plugin another tool loads (such as localhelm.plugin.mjs) is not this product's entry script. */
+const ROOT_PLUGIN = /^[^/]+\.plugin\.[cm]?[jt]s$/;
 const CODE = /\.(?:[cm]?[jt]sx?|svelte|vue)$/;
 const SKIP_DIRS = new Set(['node_modules', 'dist', 'build', 'out', 'coverage', 'vendor', 'tmp']);
 const ROOT_GLOB = /^\*\.[a-z]+$/;
@@ -68,8 +70,8 @@ function patternApplies(root: string, pattern: string, exclude: string[]): boole
   const dir = pattern.match(/^([^*/]+)\/\*\*$/)?.[1];
   if (dir) return !dirExcluded(dir, exclude) && hasCode(join(root, dir), dir === 'docs' ? DOC : CODE);
   if (ROOT_GLOB.test(pattern)) {
-    // Only a root entry script, never a root tool config, earns a root glob.
-    return entries(root).some((name) => isIncluded(name, [pattern]) && !ROOT_CONFIG.test(name) && !isExcluded(name, exclude) && !isDir(join(root, name)));
+    // Only a root entry script, never a root tool config or plugin, earns a root glob.
+    return entries(root).some((name) => isIncluded(name, [pattern]) && !ROOT_CONFIG.test(name) && !ROOT_PLUGIN.test(name) && !isExcluded(name, exclude) && !isDir(join(root, name)));
   }
   return existsSync(join(root, pattern));
 }
