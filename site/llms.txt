@@ -23,7 +23,7 @@ FeatureFacts answers “What can this product do?” It is not an AppFacts field
 
 ## CLI
 
-`npx @xfacts/featurefacts <init|scan|show|review|report|check|refresh-config> --root <app>` (Node 22.18 or newer). `review --apply --actor <name> --id <feature>... [--name <feature>=<display name>]...` confirms and selects capabilities; `--name` sets the label name in `curation.overrides`. `refresh-config` lists default include patterns an older config lacks; `--write` adds them (or only the `--include` patterns named) and keeps the selection. `init` refuses to replace an existing register.
+`npx @xfacts/featurefacts <init|scan|show|review|report|check|refresh-config> --root <app>` (Node 22.18 or newer). `review --apply --actor <name> --id <feature>... [--name <feature>=<display name>]...` confirms and selects capabilities; `--name` sets the label name in `curation.overrides`. `refresh-config` lists default include patterns an older config lacks that match the repo, plus top-level app folders such as `ui/` or `viewer/`, and excludes root tool configs (`vite.config.*` and the like) from a root glob; `--write` adds them (or only the `--include` patterns named) and keeps the selection. `init` refuses to replace an existing register.
 
 ## Spec (git)
 

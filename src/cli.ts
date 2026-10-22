@@ -110,16 +110,19 @@ export async function run(argv: string[]): Promise<void> {
     if (command === 'refresh-config') {
       const write = rest.includes('--write');
       const result = refreshConfigCommand(root, { write, patterns: argValues(rest, '--include') });
-      if (!result.added.length) {
-        process.stdout.write('Include list already has these patterns. Nothing to change.\n');
+      if (!result.added.length && !result.excluded.length) {
+        process.stdout.write('Include list already covers this repo. Nothing to change.\n');
         return;
       }
-      const list = result.added.join(', ');
-      process.stdout.write(
+      const lines: string[] = [];
+      if (result.added.length) lines.push(`${write ? 'Added' : 'Would add'} to include: ${result.added.join(', ')}.`);
+      if (result.excluded.length) lines.push(`${write ? 'Added' : 'Would add'} to exclude (root tool configs): ${result.excluded.join(', ')}.`);
+      lines.push(
         write
-          ? `Added to include: ${list}.\nRun featurefacts scan, review, and report, then commit .featurefacts/ and FEATURE_FACTS.md.\n`
-          : `Would add to include: ${list}.\nNothing written. Run again with --write to update .featurefacts/config.yaml.\n`,
+          ? 'Run featurefacts scan, review, and report, then commit .featurefacts/ and FEATURE_FACTS.md.'
+          : 'Nothing written. Run again with --write to update .featurefacts/config.yaml.',
       );
+      process.stdout.write(`${lines.join('\n')}\n`);
       return;
     }
     if (command === 'check') {

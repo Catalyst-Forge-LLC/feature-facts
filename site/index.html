@@ -325,7 +325,9 @@ npx @xfacts/featurefacts check --root ../my-app</pre>
               then run <code>report</code>. Finish with <code>check</code>, and commit all of
               <code>.featurefacts/</code> (including <code>manifest.json</code>) with the label.
               For a register made by an older version, <code>refresh-config</code> shows the default
-              include patterns it lacks and <code>--write</code> adds them without touching the selection.
+              include patterns it lacks that match the repo, plus app folders such as <code>ui/</code>
+              or <code>viewer/</code>, and <code>--write</code> adds them without touching the selection.
+              Root tool configs such as <code>vite.config.ts</code> stay out.
               Selecting nothing can be the correct result; then no label file is written.
               The internal label can link to its register. A public label contains only
               approved fields and does not expose the private register or source locators.

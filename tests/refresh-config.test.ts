@@ -6,9 +6,8 @@ import { test } from 'node:test';
 import { checkCommand } from '../src/commands/check.ts';
 import { curateSelection } from '../src/commands/curate.ts';
 import { initCommand } from '../src/commands/init.ts';
-import { refreshConfigCommand } from '../src/commands/refresh-config.ts';
+import { ROOT_CONFIG_EXCLUDES, refreshConfigCommand } from '../src/commands/refresh-config.ts';
 import { scanCommand } from '../src/commands/scan.ts';
-import { defaultConfig } from '../src/defaults.ts';
 import { loadConfig, loadLabel, loadRegistry, workspaceAt, writeYaml } from '../src/workspace.ts';
 
 const OLD_INCLUDE = ['package.json', 'README.md', 'CHANGELOG.md', 'src/**', 'app/**', 'lib/**', 'bin/**', 'docs/**', 'tests/**', 'test/**'];
@@ -25,7 +24,7 @@ function oldLayoutProject(): string {
   const ws = workspaceAt(root);
   const config = loadConfig(ws);
   config.include = [...OLD_INCLUDE];
-  config.exclude = [...config.exclude, 'docs/private/**'];
+  config.exclude = [...config.exclude.filter((item) => !ROOT_CONFIG_EXCLUDES.includes(item)), 'docs/private/**'];
   writeYaml(ws.configPath, config);
   scanCommand(root);
   curateSelection(root, ['cmd-run'], 'Ada Lovelace');
@@ -39,7 +38,9 @@ test('refresh-config only reports by default and keeps the file as it is', () =>
     const before = readFileSync(ws.configPath, 'utf8');
     const result = refreshConfigCommand(root);
     equal(result.written, false);
-    deepEqual(result.added, defaultConfig().include.filter((item) => !OLD_INCLUDE.includes(item)));
+    // Only defaults that match this repo: web/ has code; there is no root script, apps/, or client/.
+    deepEqual(result.added, ['web/**']);
+    deepEqual(result.excluded, []);
     equal(readFileSync(ws.configPath, 'utf8'), before);
   } finally {
     rmSync(root, { recursive: true, force: true });
@@ -76,6 +77,46 @@ test('init refuses to replace an existing register', () => {
   try {
     throws(() => initCommand(root), /already has a \.featurefacts\/ register/);
     throws(() => refreshConfigCommand(mkdtempSync(join(tmpdir(), 'ff-none-'))), /No \.featurefacts\/config\.yaml/);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
+test('refresh-config proposes app folders and root scripts, never root tool configs', () => {
+  const root = oldLayoutProject();
+  try {
+    const ws = workspaceAt(root);
+    writeFileSync(join(root, 'vite.config.ts'), 'export default {};\n');
+    writeFileSync(join(root, 'svelte.config.js'), 'export default {};\n');
+    // viewer/ is an app (its own package.json and code); ui/ has src/ and code; notes/ holds no code.
+    mkdirSync(join(root, 'viewer', 'src', 'pages'), { recursive: true });
+    writeFileSync(join(root, 'viewer', 'package.json'), JSON.stringify({ name: 'viewer' }));
+    writeFileSync(join(root, 'viewer', 'src', 'pages', 'index.ts'), 'export const page = 1;\n');
+    mkdirSync(join(root, 'ui', 'src'), { recursive: true });
+    writeFileSync(join(root, 'ui', 'src', 'main.ts'), 'export {};\n');
+    mkdirSync(join(root, 'notes'));
+    writeFileSync(join(root, 'notes', 'todo.md'), '# Todo\n');
+    // site/ is excluded by default even though it is an app.
+    mkdirSync(join(root, 'site', 'src'), { recursive: true });
+    writeFileSync(join(root, 'site', 'package.json'), '{}');
+    writeFileSync(join(root, 'site', 'src', 'main.ts'), 'export {};\n');
+
+    let result = refreshConfigCommand(root);
+    deepEqual(result.added, ['web/**', 'ui/**', 'viewer/**']);
+    deepEqual(result.excluded, []);
+
+    // A root entry script earns the root glob, and the tool configs it would read are excluded.
+    writeFileSync(join(root, 'serve.ts'), "const cmd = process.argv[2];\nif (cmd === 'up') up();\n");
+    result = refreshConfigCommand(root, { write: true });
+    deepEqual(result.added, ['*.ts', 'web/**', 'ui/**', 'viewer/**']);
+    ok(result.excluded.includes('*.config.ts') && result.excluded.includes('*.config.js'));
+    const config = loadConfig(ws);
+    ok(config.exclude.includes('docs/private/**'));
+    scanCommand(root);
+    const files = JSON.parse(readFileSync(ws.manifestPath, 'utf8')).scope.files.map((item: { path: string }) => item.path);
+    ok(files.includes('serve.ts'));
+    ok(!files.includes('vite.config.ts'));
+    deepEqual(refreshConfigCommand(root), { added: [], excluded: [], written: false });
   } finally {
     rmSync(root, { recursive: true, force: true });
   }
