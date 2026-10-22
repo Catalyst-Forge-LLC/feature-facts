@@ -5,6 +5,7 @@ import { reportCommand } from './commands/report.ts';
 import { scanCommand } from './commands/scan.ts';
 import { curateSelection, gitActor, reviewSnapshot } from './commands/curate.ts';
 import { showCommand } from './commands/show.ts';
+import { refreshConfigCommand } from './commands/refresh-config.ts';
 import { TOOL_NAME, TOOL_VERSION } from './version.ts';
 
 const COMMIT_HINT =
@@ -23,10 +24,13 @@ Usage:
   featurefacts review [--root DIR]
   featurefacts review --apply [--root DIR] [--actor NAME] [--source TEXT] [--id FEATURE]...
   featurefacts check [--projection] [--root DIR]
+  featurefacts refresh-config [--root DIR] [--include PATTERN]... [--write]
 
 Default scan does not execute target code, use the network, or call a model.
 Candidates are not confirmed features. review --apply confirms and selects them.
 With nothing selected, no FEATURE_FACTS.md is written.
+refresh-config adds new default include patterns to an existing config; it only
+prints them unless --write is given, and keeps selections and other settings.
 `;
 }
 
@@ -100,6 +104,21 @@ export async function run(argv: string[]): Promise<void> {
         return;
       }
       process.stdout.write(`${JSON.stringify(reviewSnapshot(root))}\n`);
+      return;
+    }
+    if (command === 'refresh-config') {
+      const write = rest.includes('--write');
+      const result = refreshConfigCommand(root, { write, patterns: argValues(rest, '--include') });
+      if (!result.added.length) {
+        process.stdout.write('Include list already has these patterns. Nothing to change.\n');
+        return;
+      }
+      const list = result.added.join(', ');
+      process.stdout.write(
+        write
+          ? `Added to include: ${list}.\nRun featurefacts scan, review, and report, then commit .featurefacts/ and FEATURE_FACTS.md.\n`
+          : `Would add to include: ${list}.\nNothing written. Run again with --write to update .featurefacts/config.yaml.\n`,
+      );
       return;
     }
     if (command === 'check') {

@@ -321,7 +321,10 @@ npx @xfacts/featurefacts check --root ../my-app</pre>
               a declared actor, source, and time, sets <code>curation.selected_ids</code>
               (up to 12) and <code>curation.approval</code>, and writes the label. You can also
               edit <code>.featurefacts/features.yaml</code> and <code>config.yaml</code> by hand,
-              then run <code>report</code>. Finish with <code>check</code>.
+              then run <code>report</code>. Finish with <code>check</code>, and commit all of
+              <code>.featurefacts/</code> (including <code>manifest.json</code>) with the label.
+              For a register made by an older version, <code>refresh-config</code> shows the default
+              include patterns it lacks and <code>--write</code> adds them without touching the selection.
               Selecting nothing can be the correct result; then no label file is written.
               The internal label can link to its register. A public label contains only
               approved fields and does not expose the private register or source locators.

@@ -11,6 +11,12 @@ import { localDate, localTimestamp } from '../time.ts';
 
 export function initCommand(root: string): { changed: string[] } {
   const ws = workspaceAt(root);
+  if (existsSync(ws.configPath) || existsSync(ws.featuresPath)) {
+    // init would replace the selection and approval with defaults.
+    throw new Error(
+      'This repo already has a .featurefacts/ register. Run featurefacts scan, or featurefacts refresh-config to add new default include patterns.',
+    );
+  }
   const config = defaultConfig();
   const registry = emptyRegistry('scan-init', productNameFromRoot(root));
   const result = writeGenerated({
