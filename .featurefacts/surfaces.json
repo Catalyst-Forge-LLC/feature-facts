@@ -1,6 +1,6 @@
 {
   "schemaVersion": "0.2.0",
-  "scan_id": "scan-82d47ca6c8d6",
+  "scan_id": "scan-54c6d6d4589e",
   "surfaces": [
     {
       "id": "cmd-check",
@@ -303,7 +303,7 @@
       "title": "README.md",
       "locator": {
         "path": "README.md",
-        "content_sha256": "28ad941cc25d4c96071f5b9aabd1ca29236f403a56b9a51a2a04c348d1f5f9c9"
+        "content_sha256": "e6ef23d739614e001f16a553fdc147d8fcffa4f87aa19b94cb229f82cd6200f5"
       },
       "provenance": {
         "adapter_id": "markdown-document",
@@ -422,7 +422,7 @@
       "title": "tests/manifest.test.ts",
       "locator": {
         "path": "tests/manifest.test.ts",
-        "content_sha256": "99b2a0e71d9e19300048d0e61b0026801f9ebd09597eeffe0e09b29079b5374a"
+        "content_sha256": "14359be398588f1b0119706e7626e5997e861bf6ec1eac3ebd2dc02391d285f7"
       },
       "provenance": {
         "adapter_id": "typescript-test",
@@ -473,7 +473,7 @@
       "title": "tests/refresh-config.test.ts",
       "locator": {
         "path": "tests/refresh-config.test.ts",
-        "content_sha256": "03208344a8a1769945608960d10b25a02feab5339001a998357aad72d26cfaac"
+        "content_sha256": "795c0c30bae0476d9db4cd004d3c100c9c71a55c1da1a02c1efdcb1781eb0a4f"
       },
       "provenance": {
         "adapter_id": "typescript-test",
