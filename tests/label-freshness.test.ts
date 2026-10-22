@@ -1,5 +1,5 @@
 import { equal } from 'node:assert/strict';
-import { cpSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { cpSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -25,6 +25,28 @@ test('updating the label does not mark the repo stale', () => {
     parsed.description = 'edited after the label';
     writeFileSync(pkg, JSON.stringify(parsed));
     equal(checkCommand(root).messages.join('\n'), 'Source fingerprint is stale.');
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
+test('build output, dependencies, and local secrets do not make a fresh clone look stale', () => {
+  const root = mkdtempSync(join(tmpdir(), 'ff-label-clone-'));
+  try {
+    cpSync(join(here, 'fixtures', 'workshop'), root, { recursive: true });
+    scanCommand(root);
+    equal(checkCommand(root).messages.join('\n'), 'Check passed.');
+    mkdirSync(join(root, 'dist'), { recursive: true });
+    writeFileSync(join(root, 'dist', 'cli.js'), 'built\n');
+    mkdirSync(join(root, 'node_modules', 'left-pad'), { recursive: true });
+    writeFileSync(join(root, 'node_modules', 'left-pad', 'index.js'), 'module.exports = 1;\n');
+    writeFileSync(join(root, '.env'), 'TOKEN=local\n');
+    equal(checkCommand(root).messages.join('\n'), 'Check passed.');
+    scanCommand(root);
+    rmSync(join(root, 'dist'), { recursive: true, force: true });
+    rmSync(join(root, 'node_modules'), { recursive: true, force: true });
+    rmSync(join(root, '.env'));
+    equal(checkCommand(root).messages.join('\n'), 'Check passed.');
   } finally {
     rmSync(root, { recursive: true, force: true });
   }

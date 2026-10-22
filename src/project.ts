@@ -216,6 +216,15 @@ function isOwnOutput(path: string): boolean {
   return path === '.featurefacts' || path.startsWith('.featurefacts/') || path === 'FEATURE_FACTS.md';
 }
 
+/**
+ * Exclusions that stand for an in-scope source file the scan could not read in full.
+ * The rest (dist, node_modules, .env, symlinks, excluded paths) say what happens to be
+ * on disk in this checkout, so a fresh clone or CI run would see a different list.
+ */
+function isSourceExclusion(item: Manifest['scope']['exclusions'][number]): boolean {
+  return item.reason === 'oversized';
+}
+
 export function sourceFingerprint(files: Manifest['scope']['files'], exclusions: Manifest['scope']['exclusions']): string {
   return sha256Json({
     files: files
@@ -223,7 +232,7 @@ export function sourceFingerprint(files: Manifest['scope']['files'], exclusions:
       .map((file) => ({ path: file.path, sha256: file.sha256, bytes: file.bytes }))
       .sort((a, b) => a.path.localeCompare(b.path)),
     exclusions: exclusions
-      .filter((item) => !isOwnOutput(item.path))
+      .filter((item) => !isOwnOutput(item.path) && isSourceExclusion(item))
       .sort((a, b) => a.path.localeCompare(b.path) || a.reason.localeCompare(b.reason)),
   });
 }

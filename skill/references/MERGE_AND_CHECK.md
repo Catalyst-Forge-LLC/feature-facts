@@ -34,7 +34,7 @@ Use SHA-256 and the canonical JSON profile in `LABEL.md`.
 
 | Manifest fingerprint | Inputs |
 |---|---|
-| `source` | Sorted admitted `{path, sha256, bytes}` records and sorted exclusion outcomes |
+| `source` | Sorted admitted `{path, sha256, bytes}` records and sorted `oversized` exclusions (in-scope files too large to read). Other exclusions (`dist`, `node_modules`, `.env`, symlinks, excluded paths) depend on what is on disk in one checkout, so they are recorded in the manifest but left out of the fingerprint; a fresh clone and a built checkout agree. |
 | `config` | Effective include/exclude settings, adapter configuration, externals, and safety settings |
 | `adapters` | Sorted adapter IDs, versions, and kinds |
 | `rules` | Deterministic declared rule-set identity/version in this draft, with a version bump for any behavior change |
