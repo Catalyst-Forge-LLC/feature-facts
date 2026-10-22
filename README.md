@@ -44,7 +44,7 @@ To do the same by hand, set `recognition: confirmed` on a feature only when you 
 Then edit `.featurefacts/config.yaml`:
 
 - `curation.selected_ids`: up to 12 confirmed, non-retired IDs, in the order you want on the label. See [docs/LABEL.md](docs/LABEL.md).
-- `curation.approval`: `actor`, `source`, and `recorded_at` for that selection.
+- `curation.approval`: `actor`, `source`, and `recorded_at` for that selection. `recorded_at` keeps the local UTC offset (`2026-10-21T23:18:00.713-04:00`), and the label's `generated.date` is the local calendar day of the scan.
 - `publication.target`: `internal` until you intend a public file.
 
 `npx @xfacts/featurefacts report --root ../my-app` refreshes `FEATURE_FACTS.md` when a selection exists, and removes that file when nothing is selected. `npx @xfacts/featurefacts check --root ../my-app` checks that the label matches the register and config, and that the register is fresh against source (`check --projection` skips the source part).

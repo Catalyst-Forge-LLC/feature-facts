@@ -2,6 +2,7 @@ import { existsSync } from 'node:fs';
 import { writeJson } from '../workspace.ts';
 import { writeGenerated } from '../write-artifacts.ts';
 import { loadConfig, loadManifest, loadRegistry, loadSurfaces, workspaceAt } from '../workspace.ts';
+import { localDate, localDateOf } from '../time.ts';
 
 export function reportCommand(root: string): { changed: string[] } {
   const ws = workspaceAt(root);
@@ -10,7 +11,7 @@ export function reportCommand(root: string): { changed: string[] } {
   if (!registry) throw new Error('No register found. Run featurefacts init or scan first.');
   const surfaces = loadSurfaces(ws);
   const prior = loadManifest(ws);
-  const date = prior?.generated_at?.slice(0, 10) ?? new Date().toISOString().slice(0, 10);
+  const date = localDateOf(prior?.generated_at) ?? localDate();
   const written = writeGenerated({ ws, config, registry, surfaces, date });
   if (prior && existsSync(ws.manifestPath)) {
     const next = {

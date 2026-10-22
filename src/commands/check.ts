@@ -3,6 +3,7 @@ import { enumerateTree } from '../safety.ts';
 import { adapterFingerprint, configFingerprint, projectLabel, sourceFingerprint } from '../project.ts';
 import { sha256Json } from '../hash.ts';
 import { RULE_SET } from '../version.ts';
+import { localDate } from '../time.ts';
 import { validateSchema } from '../validate.ts';
 import { renderLabelBody } from '../render.ts';
 import {
@@ -35,7 +36,7 @@ export function checkCommand(root: string, mode: 'full' | 'projection' = 'full')
       return { exit: 3, messages: ['Register is missing. Run featurefacts init.'] };
     }
     const surfaces = { schemaVersion: '0.2.0', scan_id: registry.scan_id, surfaces: loadSurfaces(ws) };
-    const projected = projectLabel(registry, config, label?.data.generated.date ?? new Date().toISOString().slice(0, 10));
+    const projected = projectLabel(registry, config, label?.data.generated.date ?? localDate());
 
     const checks: Array<[Parameters<typeof validateSchema>[0], unknown, string]> = [
       ['config', config, ws.configPath],

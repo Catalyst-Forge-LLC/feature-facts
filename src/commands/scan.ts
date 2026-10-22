@@ -12,6 +12,7 @@ import type { AdapterMeta, Diagnostic, Surface } from '../types.ts';
 import { writeJson } from '../workspace.ts';
 import { writeGenerated } from '../write-artifacts.ts';
 import { loadConfig, loadRegistry, workspaceAt } from '../workspace.ts';
+import { localTimestamp } from '../time.ts';
 
 function uniqueSurfaces(items: Surface[]): Surface[] {
   const seen = new Set<string>();
@@ -56,7 +57,7 @@ export function scanCommand(root: string): { scanId: string; status: string; cha
   const partial = adapters.some((adapter) => ['partial', 'unsupported'].includes(adapter.state));
   const status = failed ? 'failed' : partial ? 'partial' : 'complete';
   const diagnostics: Diagnostic[] = adapters.flatMap((adapter) => adapter.diagnostics);
-  const generatedAt = new Date().toISOString();
+  const generatedAt = localTimestamp();
   const date = generatedAt.slice(0, 10);
   const written = writeGenerated({
     ws,

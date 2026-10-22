@@ -3,6 +3,7 @@ import { compactAssessment } from '../project.ts';
 import { reportCommand } from './report.ts';
 import type { Feature } from '../types.ts';
 import { loadConfig, loadRegistry, workspaceAt, writeYaml } from '../workspace.ts';
+import { localTimestamp } from '../time.ts';
 
 const LABEL_LIMIT = 12;
 /** Where an approval came from when the caller does not say. LocalHelm passes its own name. */
@@ -86,7 +87,7 @@ export function curateSelection(
   for (const id of unique) {
     if (!known.has(id)) throw new Error(`No capability ${id}. Run Scan, then review again.`);
   }
-  const recordedAt = new Date().toISOString();
+  const recordedAt = localTimestamp();
   for (const feature of registry.features) {
     if (!unique.includes(feature.id)) continue;
     feature.recognition = 'confirmed';
