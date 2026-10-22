@@ -14,7 +14,7 @@
 
 1. Read FEATURE_FACTS.md frontmatter: mode, selection_state, features[], basis, generated.projection_fingerprint.
 2. A map-backed label is generated from .featurefacts/. Do not hand-edit factual rows.
-3. Zero rows is valid when curation is unapproved or nothing is eligible.
+3. No FEATURE_FACTS.md is written until a capability is selected. A missing label is not a claim that the product does nothing.
 4. Candidates are not confirmed capabilities and do not occupy public counts.
 5. Unknown is not undisclosed. A skipped adapter is not evidence of absence.
 6. Default scan does not execute target code, use the network, or call a model.
@@ -23,7 +23,7 @@ FeatureFacts answers “What can this product do?” It is not an AppFacts field
 
 ## CLI
 
-`npx @xfacts/featurefacts <init|scan|show|check> --root <app>` (Node 22.18 or newer).
+`npx @xfacts/featurefacts <init|scan|show|review|report|check> --root <app>` (Node 22.18 or newer). `review --apply --actor <name> --id <feature>...` confirms and selects capabilities.
 
 ## Spec (git)
 

@@ -20,15 +20,24 @@ npx @xfacts/featurefacts --help
 npx @xfacts/featurefacts init  --root ../my-app
 npx @xfacts/featurefacts scan  --root ../my-app
 npx @xfacts/featurefacts show  --root ../my-app
+npx @xfacts/featurefacts review --root ../my-app
 ```
 
 Default scan does not execute target code, use the network, or call a model. It records CLI subcommands (`.command()` calls, plus `cmd === 'x'` checks and `case 'x':` labels of a `switch` on an argv value in files that read `process.argv`; a `switch (method)` in an MCP or JSON-RPC handler is not a command), HTTP routes whose path starts with `/`, and SvelteKit `routes` files. A header lookup such as `.get('accept')` is not a route. Generated trees (`.svelte-kit`, `.next`, coverage) are skipped. The package `bin` is not its own capability when subcommands are visible.
 
 ## From candidates to a label
 
-There is no approve command. After scanning, inspect the candidates in `.featurefacts/features.yaml`. Confirm only supported capabilities.
+After scanning, inspect the candidates. `review` prints them as JSON (ID, name, recognition, docs and test signs, and whether each is on the label). Confirm only supported capabilities.
 
-Set `recognition: confirmed` on a feature only when you can attach a declared evidence item: `actor`, `source`, and `recorded_at`. See [docs/CONTRACT.md](docs/CONTRACT.md). A candidate stays a candidate until that declaration exists.
+`review --apply` is the approve step. Name the IDs for the label, in order, and who approved them:
+
+```bash
+npx @xfacts/featurefacts review --apply --root ../my-app --actor "Your Name" --id cmd-scan --id cmd-serve
+```
+
+It marks each named capability `confirmed` (and `implemented` if its lifecycle was unknown) with a declared evidence item, sets `curation.selected_ids` (up to 12) and `curation.approval`, then refreshes `FEATURE_FACTS.md`. `--actor` defaults to `git config user.name`; FeatureFacts will not invent an approver. `--source` records where the review happened (default `featurefacts review`; the LocalHelm plugin passes its own name). Running it with no `--id` clears the selection and removes the label. Unnamed capabilities stay candidates in the register.
+
+To do the same by hand, set `recognition: confirmed` on a feature only when you can attach a declared evidence item: `actor`, `source`, and `recorded_at`. See [docs/CONTRACT.md](docs/CONTRACT.md). A candidate stays a candidate until that declaration exists.
 
 Then edit `.featurefacts/config.yaml`:
 
@@ -36,7 +45,7 @@ Then edit `.featurefacts/config.yaml`:
 - `curation.approval`: `actor`, `source`, and `recorded_at` for that selection.
 - `publication.target`: `internal` until you intend a public file.
 
-`npx @xfacts/featurefacts report --root ../my-app` refreshes `FEATURE_FACTS.md` when a selection exists, and removes that file when nothing is selected. `npx @xfacts/featurefacts check --root ../my-app` checks the projection.
+`npx @xfacts/featurefacts report --root ../my-app` refreshes `FEATURE_FACTS.md` when a selection exists, and removes that file when nothing is selected. `npx @xfacts/featurefacts check --root ../my-app` checks that the label matches the register and config, and that the register is fresh against source (`check --projection` skips the source part).
 
 The internal label can link to `.featurefacts/FEATURES.md`. A public label is a separate target. Each public row needs `publication.scope: public` with its own attributed permission. The public label contains only approved fields and does not expose the private register or source locators. Do not upload `.featurefacts/` and do not add a public map link. See [docs/PUBLICATION_AND_SAFETY.md](docs/PUBLICATION_AND_SAFETY.md).
 

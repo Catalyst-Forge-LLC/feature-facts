@@ -22,7 +22,8 @@ Usage:
   featurefacts check [--projection] [--root DIR]
 
 Default scan does not execute target code, use the network, or call a model.
-Candidates are not confirmed features. Empty labels are valid.
+Candidates are not confirmed features. review --apply confirms and selects them.
+With nothing selected, no FEATURE_FACTS.md is written.
 `;
 }
 

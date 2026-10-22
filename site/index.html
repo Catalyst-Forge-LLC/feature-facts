@@ -305,6 +305,7 @@
           <pre>npx @xfacts/featurefacts init  --root ../my-app
 npx @xfacts/featurefacts scan  --root ../my-app
 npx @xfacts/featurefacts show  --root ../my-app
+npx @xfacts/featurefacts review --apply --root ../my-app --actor "Your Name" --id cmd-scan
 npx @xfacts/featurefacts check --root ../my-app</pre>
           <div class="prose">
             <p>
@@ -314,13 +315,14 @@ npx @xfacts/featurefacts check --root ../my-app</pre>
               <code>unsupported</code>, not a fabricated inventory.
             </p>
             <p>
-              After scanning, inspect the candidates. There is no approve command.
-              Confirm only supported capabilities in <code>.featurefacts/features.yaml</code>
-              (<code>recognition: confirmed</code> plus a declared actor, source, and time).
-              Record the selection in <code>config.yaml</code> under
-              <code>curation.selected_ids</code> (up to 12) and
-              <code>curation.approval</code>. Then run <code>report</code> and <code>check</code>.
-              An empty label can be the correct result.
+              After scanning, inspect the candidates (<code>review</code> lists them).
+              Confirm only supported capabilities: <code>review --apply</code> with the
+              IDs and an <code>--actor</code> records <code>recognition: confirmed</code> with
+              a declared actor, source, and time, sets <code>curation.selected_ids</code>
+              (up to 12) and <code>curation.approval</code>, and writes the label. You can also
+              edit <code>.featurefacts/features.yaml</code> and <code>config.yaml</code> by hand,
+              then run <code>report</code>. Finish with <code>check</code>.
+              Selecting nothing can be the correct result; then no label file is written.
               The internal label can link to its register. A public label contains only
               approved fields and does not expose the private register or source locators.
               See <code>docs/LABEL.md</code> and <code>docs/PUBLICATION_AND_SAFETY.md</code>.
