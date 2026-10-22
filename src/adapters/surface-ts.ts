@@ -9,6 +9,12 @@ const TS_EXT = /\.(ts|tsx|js|mjs|cjs)$/;
 const TEST_DIR = /(?:^|\/)(?:tests?|__tests__|__mocks__|fixtures?|e2e)\//;
 const TEST_FILE = /\.(?:test|spec)\.[cm]?[jt]sx?$/;
 
+const SVELTE_PAGE = /(?:^|\/)\+page\.svelte$/;
+
+function isPackageJson(path: string): boolean {
+  return path === 'package.json' || path.endsWith('/package.json');
+}
+
 export function isTestPath(path: string): boolean {
   return TEST_DIR.test(path) || TEST_FILE.test(path);
 }
@@ -150,9 +156,9 @@ function svelteRoute(path: string): { id: string; ref: string; title: string } |
   const at = norm.indexOf('/routes/');
   if (at < 0 && !norm.startsWith('routes/')) return null;
   const rest = at >= 0 ? norm.slice(at + '/routes/'.length) : norm.slice('routes/'.length);
-  if (!/\+(?:server|page)(?:\.server)?\.(?:ts|js)$/.test(rest)) return null;
+  if (!/\+(?:(?:server|page)(?:\.server)?\.(?:ts|js)|page\.svelte)$/.test(rest)) return null;
   const route = rest
-    .replace(/\/?\+(?:server|page)(?:\.server)?\.(?:ts|js)$/, '')
+    .replace(/\/?\+(?:(?:server|page)(?:\.server)?\.(?:ts|js)|page\.svelte)$/, '')
     .replace(/(^|\/)\([^/]+\)(?=\/|$)/g, '$1')
     .replace(/\/+/g, '/')
     .replace(/^\/|\/$/g, '');
@@ -163,11 +169,13 @@ function svelteRoute(path: string): { id: string; ref: string; title: string } |
 export function runSurface(ctx: ScanContext): SurfaceResult {
   const eligible = markEligible(ctx.files, ADAPTERS.surface.id, (path) => {
     if (isTestPath(path)) return false;
-    return path === 'package.json' || TS_EXT.test(path);
+    if (SVELTE_PAGE.test(path)) return svelteRoute(path) !== null;
+    return isPackageJson(path) || TS_EXT.test(path);
   });
 
-  const hasPackage = ctx.files.some((f) => f.path === 'package.json');
-  const hasTs = eligible.some((path) => path !== 'package.json');
+  // A workspace without a root package.json (code under web/, apps/, packages/) is still a Node project.
+  const hasPackage = eligible.some(isPackageJson);
+  const hasTs = eligible.some((path) => !isPackageJson(path));
   if (!hasPackage && !hasTs) {
     return {
       adapter: {
@@ -201,12 +209,30 @@ export function runSurface(ctx: ScanContext): SurfaceResult {
     surfaces.push(surface);
   }
 
+  // A +page.svelte-only route is a page. When the same route also has +page.ts or +page.server.ts,
+  // that file already names it, so the .svelte page is added last and only if the route is new.
+  const sveltePages: Surface[] = [];
+
   for (const path of eligible) {
     const file = ctx.files.find((f) => f.path === path);
     const content = ctx.contents.get(path);
     if (!file || !content) continue;
 
-    if (path === 'package.json') {
+    if (SVELTE_PAGE.test(path)) {
+      const svelte = svelteRoute(path)!;
+      sveltePages.push({
+        id: svelte.id,
+        kind: 'route',
+        ref: svelte.ref,
+        title: svelte.title,
+        locator: { path, content_sha256: file.sha256 },
+        provenance: provenance('framework-route-file'),
+        state: 'current',
+      });
+      continue;
+    }
+
+    if (isPackageJson(path)) {
       try {
         const pkg = JSON.parse(content.text) as {
           name?: string;
@@ -316,6 +342,10 @@ export function runSurface(ctx: ScanContext): SurfaceResult {
     }
 
     void lines;
+  }
+
+  for (const page of sveltePages) {
+    if (!used.has(page.id)) add(page);
   }
 
   markInspected(ctx.files, ADAPTERS.surface.id, eligible);

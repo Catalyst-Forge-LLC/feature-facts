@@ -177,3 +177,37 @@ app.get('/fake-route', () => undefined);
     rmSync(root, { recursive: true, force: true });
   }
 });
+
+test('default includes cover root entry files, workspaces, web/, and +page.svelte-only routes', () => {
+  const root = mkdtempSync(join(tmpdir(), 'ff-layouts-'));
+  try {
+    // No root package.json: the app lives in web/, a tool in packages/, an entry script at the root.
+    const routes = join(root, 'web', 'src', 'routes');
+    mkdirSync(join(routes, 'about'), { recursive: true });
+    mkdirSync(join(routes, 'blog'), { recursive: true });
+    mkdirSync(join(routes, 'api', 'items'), { recursive: true });
+    mkdirSync(join(routes, '(marketing)', 'pricing'), { recursive: true });
+    mkdirSync(join(root, 'web', 'src', 'lib'), { recursive: true });
+    mkdirSync(join(root, 'packages', 'tool', 'src'), { recursive: true });
+    mkdirSync(join(root, 'apps', 'site', 'node_modules', 'dep'), { recursive: true });
+    writeFileSync(join(root, 'web', 'package.json'), JSON.stringify({ name: 'web', private: true }));
+    writeFileSync(join(routes, '+page.svelte'), '<h1>Home</h1>\n');
+    writeFileSync(join(routes, 'about', '+page.svelte'), '<h1>About</h1>\n');
+    writeFileSync(join(routes, 'blog', '+page.svelte'), '<h1>Blog</h1>\n');
+    writeFileSync(join(routes, 'blog', '+page.server.ts'), 'export const load = () => ({});\n');
+    writeFileSync(join(routes, 'api', 'items', '+server.ts'), 'export const GET = () => new Response();\n');
+    writeFileSync(join(routes, '(marketing)', 'pricing', '+page.svelte'), '<h1>Pricing</h1>\n');
+    writeFileSync(join(root, 'web', 'src', 'lib', 'Card.svelte'), '<div>card</div>\n');
+    writeFileSync(join(root, 'packages', 'tool', 'package.json'), JSON.stringify({ name: 'tool' }));
+    writeFileSync(join(root, 'packages', 'tool', 'src', 'cli.ts'), "const cmd = process.argv[2];\nif (cmd === 'build') {}\n");
+    writeFileSync(join(root, 'apps', 'site', 'node_modules', 'dep', 'cli.js'), "const cmd = process.argv[2];\nif (cmd === 'vendored') {}\n");
+    writeFileSync(join(root, 'run.mjs'), "const cmd = process.argv[2];\nif (cmd === 'sync') {}\n");
+
+    scanCommand(root);
+    const ids = loadRegistry(workspaceAt(root))!.features.map((item) => item.id).sort();
+    // /api/items groups under its leaf; /blog appears once although it has +page.svelte and +page.server.ts.
+    equal(ids.join(','), 'cmd-build,cmd-sync,route-about,route-blog,route-home,route-items,route-pricing');
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
