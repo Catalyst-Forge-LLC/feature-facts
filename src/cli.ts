@@ -29,8 +29,11 @@ Usage:
 Default scan does not execute target code, use the network, or call a model.
 Candidates are not confirmed features. review --apply confirms and selects them.
 With nothing selected, no FEATURE_FACTS.md is written.
-refresh-config adds new default include patterns to an existing config; it only
-prints them unless --write is given, and keeps selections and other settings.
+--name FEATURE=NAME sets the name a selected capability shows on the label.
+refresh-config lists what an existing config lacks: default include patterns that
+match the repo, top-level app folders such as ui/ or viewer/, and excludes for root
+tool configs. It only prints them unless --write is given, and keeps selections and
+other settings.
 `;
 }
 
