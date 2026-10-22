@@ -1,9 +1,9 @@
 {
   "schemaVersion": "0.2.0",
-  "scan_id": "scan-ffdeb569d843",
+  "scan_id": "scan-82d47ca6c8d6",
   "tool": "featurefacts",
-  "tool_version": "0.2.0",
-  "generated_at": "2026-09-21T04:03:36.278Z",
+  "tool_version": "0.2.6",
+  "generated_at": "2026-10-22T09:30:44.556-04:00",
   "root": ".",
   "status": "complete",
   "scope": {
@@ -43,8 +43,8 @@
     "files": [
       {
         "path": "bin/featurefacts.mjs",
-        "sha256": "1893be0a331b133f19af2c8e30f912dd577e21daed8d7172ee518be7bd34f30e",
-        "bytes": 96,
+        "sha256": "5618c10f09f7e2d4ab6de7f5445cb2e81564dd6adc5e93d5ad92156577f5b8d6",
+        "bytes": 97,
         "eligible_adapter_ids": [
           "typescript-tree",
           "typescript-node-surface"
@@ -56,8 +56,8 @@
       },
       {
         "path": "docs/CONTRACT.md",
-        "sha256": "83909771dfa1bfb13148e58229076e3c7db7f63fab822f0be25d0a9de701d3f2",
-        "bytes": 11870,
+        "sha256": "76b55af48422eaeae68943132c89387a6308265b98caeec8f99952876e655962",
+        "bytes": 11926,
         "eligible_adapter_ids": [
           "typescript-tree",
           "markdown-document"
@@ -95,8 +95,8 @@
       },
       {
         "path": "docs/GENESIS.md",
-        "sha256": "429d8b13cd317dd342c98c2a9409c0f196be63f92231803236ac454fb11f424f",
-        "bytes": 9473,
+        "sha256": "3cd33d0f9b67e83a084a6f78b74ac761574ece7891df805036e790542b0671b5",
+        "bytes": 9644,
         "eligible_adapter_ids": [
           "typescript-tree",
           "markdown-document"
@@ -108,8 +108,8 @@
       },
       {
         "path": "docs/LABEL.md",
-        "sha256": "112c5acc67c8b434a096f9a7367f63652edd682227148709557f17542187c7b0",
-        "bytes": 7658,
+        "sha256": "3ff04e30448f23005edef981ff183dbaf38866547d30245a2442fc173c8e3135",
+        "bytes": 7733,
         "eligible_adapter_ids": [
           "typescript-tree",
           "markdown-document"
@@ -121,8 +121,8 @@
       },
       {
         "path": "docs/MERGE_AND_CHECK.md",
-        "sha256": "382c1d68aae3380db9abde2c660af57c9cabd152c76c5ef1db03652d3861a067",
-        "bytes": 9768,
+        "sha256": "f69e66e3532531886235b522719049c38ae4c6963f4c6ed98bd0214958a8207b",
+        "bytes": 10247,
         "eligible_adapter_ids": [
           "typescript-tree",
           "markdown-document"
@@ -160,8 +160,8 @@
       },
       {
         "path": "package.json",
-        "sha256": "5592a7d8e76dadf5b459d71a0f64a2ce63e455d39a01c2a54b01d82291f878f5",
-        "bytes": 1037,
+        "sha256": "a6e0b078bd8650580bc256c4a804153f18f2b7a4a5981f6f9f652d02b9eec92c",
+        "bytes": 1711,
         "eligible_adapter_ids": [
           "typescript-tree",
           "typescript-node-surface"
@@ -173,8 +173,8 @@
       },
       {
         "path": "README.md",
-        "sha256": "814b08e472460b67280f081195000f429ced66738a622ea1290f17cef41e205b",
-        "bytes": 1508,
+        "sha256": "28ad941cc25d4c96071f5b9aabd1ca29236f403a56b9a51a2a04c348d1f5f9c9",
+        "bytes": 9388,
         "eligible_adapter_ids": [
           "typescript-tree",
           "markdown-document"
@@ -212,8 +212,8 @@
       },
       {
         "path": "src/adapters/surface-ts.ts",
-        "sha256": "54fc97d172a71a9b46366b8898c1d98dcdf41aee172a2fc7d8354247a05c00f8",
-        "bytes": 5806,
+        "sha256": "4afffc24e88d83a692f70e75a53d77fac7cea391562a85d772169d03a6d651f8",
+        "bytes": 16328,
         "eligible_adapter_ids": [
           "typescript-tree",
           "typescript-node-surface"
@@ -251,8 +251,8 @@
       },
       {
         "path": "src/assemble.ts",
-        "sha256": "9b7f38c5229aa806cd48eb0b76020cbe990131bea2b4c4dbabb457c7ef647ef8",
-        "bytes": 7419,
+        "sha256": "cea70460605dc5e8bbf8b798fb7087cdd87a8dec88971d3de4f5fb1297826df2",
+        "bytes": 16964,
         "eligible_adapter_ids": [
           "typescript-tree",
           "typescript-node-surface"
@@ -264,8 +264,8 @@
       },
       {
         "path": "src/cli.ts",
-        "sha256": "4251751569125b582e4785bd9326caff721765df4169b47c088296faf209fdf4",
-        "bytes": 3255,
+        "sha256": "2d1fb078e2096a8be9a6dcadcba2918c24d348605c5f70fb4c5de95686eb9872",
+        "bytes": 6699,
         "eligible_adapter_ids": [
           "typescript-tree",
           "typescript-node-surface"
@@ -277,8 +277,21 @@
       },
       {
         "path": "src/commands/check.ts",
-        "sha256": "506446123c6786a1fd04db63989ffab4422d4dd5aca44b9c8a69188def143d92",
-        "bytes": 4401,
+        "sha256": "0a115e968897daf4e12ec7612b57e07212a3e97f6086b99898bda69abd1c5bb8",
+        "bytes": 5213,
+        "eligible_adapter_ids": [
+          "typescript-tree",
+          "typescript-node-surface"
+        ],
+        "inspected_by": [
+          "typescript-tree",
+          "typescript-node-surface"
+        ]
+      },
+      {
+        "path": "src/commands/curate.ts",
+        "sha256": "398b5ffe762265f934393c8cfe080a85f6ea22b89eb7044d4c6d3d18eb4afa03",
+        "bytes": 6490,
         "eligible_adapter_ids": [
           "typescript-tree",
           "typescript-node-surface"
@@ -290,8 +303,21 @@
       },
       {
         "path": "src/commands/init.ts",
-        "sha256": "2479cc11b4435e600da458c2946c7f70e3970ef8605ae76edb1c119112cc8771",
-        "bytes": 708,
+        "sha256": "fe36867052ebddb414c65eb4d535ee33c284efa4d357b184dc4206502ce9afef",
+        "bytes": 2530,
+        "eligible_adapter_ids": [
+          "typescript-tree",
+          "typescript-node-surface"
+        ],
+        "inspected_by": [
+          "typescript-tree",
+          "typescript-node-surface"
+        ]
+      },
+      {
+        "path": "src/commands/refresh-config.ts",
+        "sha256": "ae06b6cfe46513f5e7fe4978987699dbbfaa4c17998cfc27bf4de4a49e30c0f9",
+        "bytes": 5358,
         "eligible_adapter_ids": [
           "typescript-tree",
           "typescript-node-surface"
@@ -303,8 +329,8 @@
       },
       {
         "path": "src/commands/report.ts",
-        "sha256": "ebb5061072d8f78745b7864bd0e9ea5e9ae4f3452aee4883f73b280ac89a7934",
-        "bytes": 1234,
+        "sha256": "665c81d958cd1b2c4a19c974155d8a305014fac2c0b83ebf95717753d2264dbb",
+        "bytes": 1411,
         "eligible_adapter_ids": [
           "typescript-tree",
           "typescript-node-surface"
@@ -316,8 +342,8 @@
       },
       {
         "path": "src/commands/scan.ts",
-        "sha256": "bdc5e1e1beedc21735977a090f8df19385c44cf8f1fecf3650e5831ea50b165d",
-        "bytes": 3529,
+        "sha256": "2e0deed6316f1ecb2d299635eef1472c0be16b2438fa10aae08f1e8a80f88f54",
+        "bytes": 4005,
         "eligible_adapter_ids": [
           "typescript-tree",
           "typescript-node-surface"
@@ -342,8 +368,8 @@
       },
       {
         "path": "src/defaults.ts",
-        "sha256": "54ec9f1819e0f75fa711681ad6522aa8fbe299938a4f971d9f860cf3b93260fc",
-        "bytes": 3971,
+        "sha256": "f63647a10a10cdcf2447986337e9da0e4bdb669e9e28a2f5942fa3fce8dac08f",
+        "bytes": 4408,
         "eligible_adapter_ids": [
           "typescript-tree",
           "typescript-node-surface"
@@ -380,9 +406,22 @@
         ]
       },
       {
+        "path": "src/product-title.ts",
+        "sha256": "abd0fb818fbea91efb4ec04a3b8008e8ad0a6a2f24cf3756987dd8f28017a0f9",
+        "bytes": 2886,
+        "eligible_adapter_ids": [
+          "typescript-tree",
+          "typescript-node-surface"
+        ],
+        "inspected_by": [
+          "typescript-tree",
+          "typescript-node-surface"
+        ]
+      },
+      {
         "path": "src/project.ts",
-        "sha256": "be150086ce7b62ff6ca865ff875e7610e77bdb658ff8747ee3d077ba4ff73af5",
-        "bytes": 9956,
+        "sha256": "09a09d9172b498dcb64642b95f026ed2d9bba96f206bdba852d2b83e777abf50",
+        "bytes": 10751,
         "eligible_adapter_ids": [
           "typescript-tree",
           "typescript-node-surface"
@@ -394,8 +433,8 @@
       },
       {
         "path": "src/render.ts",
-        "sha256": "3bc866318363f83ac8f25e6cf358651e36295b843f95d6af8ae37e875baea202",
-        "bytes": 3634,
+        "sha256": "06c79ef47326e77bfced9e41af1e6aa7c5da3cdf657e4b65d15d815cddd483e3",
+        "bytes": 4878,
         "eligible_adapter_ids": [
           "typescript-tree",
           "typescript-node-surface"
@@ -407,8 +446,21 @@
       },
       {
         "path": "src/safety.ts",
-        "sha256": "26958dea854ef6fd74e79994229503bcafd68756728736f069111ed06665e6aa",
-        "bytes": 4362,
+        "sha256": "e7b2b90b5d2e1fec226b7627ea7a6b780471705e5a5090ab1e5882d6a10142d3",
+        "bytes": 4602,
+        "eligible_adapter_ids": [
+          "typescript-tree",
+          "typescript-node-surface"
+        ],
+        "inspected_by": [
+          "typescript-tree",
+          "typescript-node-surface"
+        ]
+      },
+      {
+        "path": "src/time.ts",
+        "sha256": "ea8634e72ba3a535e29f998987acf2c0a89888fbe7455134e8d5a261045fcbbc",
+        "bytes": 1187,
         "eligible_adapter_ids": [
           "typescript-tree",
           "typescript-node-surface"
@@ -446,8 +498,8 @@
       },
       {
         "path": "src/version.ts",
-        "sha256": "9ff6b656db42a23b5747ca01e0e8d82442818f898c92806a39e7d451c82b6848",
-        "bytes": 545,
+        "sha256": "d4d5e13702adb92ba1478a7d173d1b5207d5bfa73c2675ed5d6a7cca7248262b",
+        "bytes": 718,
         "eligible_adapter_ids": [
           "typescript-tree",
           "typescript-node-surface"
@@ -472,8 +524,8 @@
       },
       {
         "path": "src/write-artifacts.ts",
-        "sha256": "7f9668dec513e0aed6cbf6f6b477d1e203b087603165800e85262adadbd25b68",
-        "bytes": 2872,
+        "sha256": "0c1ecbe9c2beacb8398f89b08906ae2d0a4e454947b12677b5c5bcebfd3327a2",
+        "bytes": 3095,
         "eligible_adapter_ids": [
           "typescript-tree",
           "typescript-node-surface"
@@ -497,17 +549,197 @@
         ]
       },
       {
-        "path": "tests/cli.test.ts",
-        "sha256": "9646f5c1102d96b7686f48d602a240d52688321d46467ca07a517da2022ca131",
-        "bytes": 5575,
+        "path": "tests/aliases.test.ts",
+        "sha256": "7773a0661275eba42d3c425ce0a0962919875b5fcbc992961d62b3a0b67dd137",
+        "bytes": 4360,
         "eligible_adapter_ids": [
           "typescript-tree",
-          "typescript-node-surface",
           "typescript-test"
         ],
         "inspected_by": [
           "typescript-tree",
-          "typescript-node-surface",
+          "typescript-test"
+        ]
+      },
+      {
+        "path": "tests/bin.test.ts",
+        "sha256": "b5156ddc81a5c11aaee722e3d6f0c0efe828bbe552ae30dd1707778c9fc26a1c",
+        "bytes": 1056,
+        "eligible_adapter_ids": [
+          "typescript-tree",
+          "typescript-test"
+        ],
+        "inspected_by": [
+          "typescript-tree",
+          "typescript-test"
+        ]
+      },
+      {
+        "path": "tests/cli.test.ts",
+        "sha256": "5942717bedc6bfe25d76d74fa506ccd6f0edef50286a05ae794694fb1749fab1",
+        "bytes": 5460,
+        "eligible_adapter_ids": [
+          "typescript-tree",
+          "typescript-test"
+        ],
+        "inspected_by": [
+          "typescript-tree",
+          "typescript-test"
+        ]
+      },
+      {
+        "path": "tests/curate.test.ts",
+        "sha256": "6a65e98bd32831922ff5ba84fd4db4bc8f2193e234da60534ea3a94e425e0abf",
+        "bytes": 3774,
+        "eligible_adapter_ids": [
+          "typescript-tree",
+          "typescript-test"
+        ],
+        "inspected_by": [
+          "typescript-tree",
+          "typescript-test"
+        ]
+      },
+      {
+        "path": "tests/helm-repos.test.ts",
+        "sha256": "c18f1efc7c311c0523a28805bc8ebc296993a9c4e95b736cd87141f3df55c234",
+        "bytes": 1966,
+        "eligible_adapter_ids": [
+          "typescript-tree",
+          "typescript-test"
+        ],
+        "inspected_by": [
+          "typescript-tree",
+          "typescript-test"
+        ]
+      },
+      {
+        "path": "tests/label-freshness.test.ts",
+        "sha256": "4e9a9545352752e536b35202777515330de89575a04e1fb6aeffc54d0908fc1f",
+        "bytes": 3656,
+        "eligible_adapter_ids": [
+          "typescript-tree",
+          "typescript-test"
+        ],
+        "inspected_by": [
+          "typescript-tree",
+          "typescript-test"
+        ]
+      },
+      {
+        "path": "tests/manifest.test.ts",
+        "sha256": "99b2a0e71d9e19300048d0e61b0026801f9ebd09597eeffe0e09b29079b5374a",
+        "bytes": 2033,
+        "eligible_adapter_ids": [
+          "typescript-tree",
+          "typescript-test"
+        ],
+        "inspected_by": [
+          "typescript-tree",
+          "typescript-test"
+        ]
+      },
+      {
+        "path": "tests/names.test.ts",
+        "sha256": "1a2e2fdab185524ee01e19f689b52b529cb502401f210493d6c64649b155d3d2",
+        "bytes": 2586,
+        "eligible_adapter_ids": [
+          "typescript-tree",
+          "typescript-test"
+        ],
+        "inspected_by": [
+          "typescript-tree",
+          "typescript-test"
+        ]
+      },
+      {
+        "path": "tests/product-title.test.ts",
+        "sha256": "45d8a755f829bd4694dd94c969686d1530f7d283e7b9cb862c9e3fcea370c480",
+        "bytes": 1066,
+        "eligible_adapter_ids": [
+          "typescript-tree",
+          "typescript-test"
+        ],
+        "inspected_by": [
+          "typescript-tree",
+          "typescript-test"
+        ]
+      },
+      {
+        "path": "tests/refresh-config.test.ts",
+        "sha256": "03208344a8a1769945608960d10b25a02feab5339001a998357aad72d26cfaac",
+        "bytes": 6119,
+        "eligible_adapter_ids": [
+          "typescript-tree",
+          "typescript-test"
+        ],
+        "inspected_by": [
+          "typescript-tree",
+          "typescript-test"
+        ]
+      },
+      {
+        "path": "tests/render.test.ts",
+        "sha256": "530c233a5ce3225c4649e2aeda9785ff3b0c512e5fc24781986506d70e6b8f1d",
+        "bytes": 1492,
+        "eligible_adapter_ids": [
+          "typescript-tree",
+          "typescript-test"
+        ],
+        "inspected_by": [
+          "typescript-tree",
+          "typescript-test"
+        ]
+      },
+      {
+        "path": "tests/route-ids.test.ts",
+        "sha256": "2a8fa47dfe9c386a98cf39ac3e306e520c5f76e0d6895a193e12caa72501754b",
+        "bytes": 2897,
+        "eligible_adapter_ids": [
+          "typescript-tree",
+          "typescript-test"
+        ],
+        "inspected_by": [
+          "typescript-tree",
+          "typescript-test"
+        ]
+      },
+      {
+        "path": "tests/stale.test.ts",
+        "sha256": "2357d20b95bb2071e4fdb8194ef5c5b00b54b512efc5c17c19af1d4717d454bf",
+        "bytes": 2463,
+        "eligible_adapter_ids": [
+          "typescript-tree",
+          "typescript-test"
+        ],
+        "inspected_by": [
+          "typescript-tree",
+          "typescript-test"
+        ]
+      },
+      {
+        "path": "tests/surface.test.ts",
+        "sha256": "f65d8f5ee84cc63681f9ce977f28bf55ed1cffcac7984fa641b7ab92ca37a7f3",
+        "bytes": 10920,
+        "eligible_adapter_ids": [
+          "typescript-tree",
+          "typescript-test"
+        ],
+        "inspected_by": [
+          "typescript-tree",
+          "typescript-test"
+        ]
+      },
+      {
+        "path": "tests/time.test.ts",
+        "sha256": "f55d95b1f568eef2fe5367b4ae93a2ea029b828db14372270a689a34397fc2ac",
+        "bytes": 969,
+        "eligible_adapter_ids": [
+          "typescript-tree",
+          "typescript-test"
+        ],
+        "inspected_by": [
+          "typescript-tree",
           "typescript-test"
         ]
       }
@@ -515,6 +747,14 @@
     "exclusions": [
       {
         "path": ".featurefacts",
+        "reason": "exclude-pattern"
+      },
+      {
+        "path": ".git",
+        "reason": "exclude-pattern"
+      },
+      {
+        "path": "dist",
         "reason": "exclude-pattern"
       },
       {
@@ -531,10 +771,6 @@
       },
       {
         "path": "examples",
-        "reason": "exclude-pattern"
-      },
-      {
-        "path": "FEATURE_FACTS.md",
         "reason": "exclude-pattern"
       },
       {
@@ -581,23 +817,41 @@
         "src/assemble.ts",
         "src/cli.ts",
         "src/commands/check.ts",
+        "src/commands/curate.ts",
         "src/commands/init.ts",
+        "src/commands/refresh-config.ts",
         "src/commands/report.ts",
         "src/commands/scan.ts",
         "src/commands/show.ts",
         "src/defaults.ts",
         "src/hash.ts",
         "src/paths.ts",
+        "src/product-title.ts",
         "src/project.ts",
         "src/render.ts",
         "src/safety.ts",
+        "src/time.ts",
         "src/types.ts",
         "src/validate.ts",
         "src/version.ts",
         "src/workspace.ts",
         "src/write-artifacts.ts",
         "src/yaml-io.ts",
-        "tests/cli.test.ts"
+        "tests/aliases.test.ts",
+        "tests/bin.test.ts",
+        "tests/cli.test.ts",
+        "tests/curate.test.ts",
+        "tests/helm-repos.test.ts",
+        "tests/label-freshness.test.ts",
+        "tests/manifest.test.ts",
+        "tests/names.test.ts",
+        "tests/product-title.test.ts",
+        "tests/refresh-config.test.ts",
+        "tests/render.test.ts",
+        "tests/route-ids.test.ts",
+        "tests/stale.test.ts",
+        "tests/surface.test.ts",
+        "tests/time.test.ts"
       ],
       "inspected_files": [
         "bin/featurefacts.mjs",
@@ -619,29 +873,47 @@
         "src/assemble.ts",
         "src/cli.ts",
         "src/commands/check.ts",
+        "src/commands/curate.ts",
         "src/commands/init.ts",
+        "src/commands/refresh-config.ts",
         "src/commands/report.ts",
         "src/commands/scan.ts",
         "src/commands/show.ts",
         "src/defaults.ts",
         "src/hash.ts",
         "src/paths.ts",
+        "src/product-title.ts",
         "src/project.ts",
         "src/render.ts",
         "src/safety.ts",
+        "src/time.ts",
         "src/types.ts",
         "src/validate.ts",
         "src/version.ts",
         "src/workspace.ts",
         "src/write-artifacts.ts",
         "src/yaml-io.ts",
-        "tests/cli.test.ts"
+        "tests/aliases.test.ts",
+        "tests/bin.test.ts",
+        "tests/cli.test.ts",
+        "tests/curate.test.ts",
+        "tests/helm-repos.test.ts",
+        "tests/label-freshness.test.ts",
+        "tests/manifest.test.ts",
+        "tests/names.test.ts",
+        "tests/product-title.test.ts",
+        "tests/refresh-config.test.ts",
+        "tests/render.test.ts",
+        "tests/route-ids.test.ts",
+        "tests/stale.test.ts",
+        "tests/surface.test.ts",
+        "tests/time.test.ts"
       ],
       "diagnostics": []
     },
     {
       "id": "typescript-node-surface",
-      "version": "0.2.0",
+      "version": "0.2.4",
       "kind": "surface",
       "state": "completed",
       "eligible_files": [
@@ -655,23 +927,26 @@
         "src/assemble.ts",
         "src/cli.ts",
         "src/commands/check.ts",
+        "src/commands/curate.ts",
         "src/commands/init.ts",
+        "src/commands/refresh-config.ts",
         "src/commands/report.ts",
         "src/commands/scan.ts",
         "src/commands/show.ts",
         "src/defaults.ts",
         "src/hash.ts",
         "src/paths.ts",
+        "src/product-title.ts",
         "src/project.ts",
         "src/render.ts",
         "src/safety.ts",
+        "src/time.ts",
         "src/types.ts",
         "src/validate.ts",
         "src/version.ts",
         "src/workspace.ts",
         "src/write-artifacts.ts",
-        "src/yaml-io.ts",
-        "tests/cli.test.ts"
+        "src/yaml-io.ts"
       ],
       "inspected_files": [
         "bin/featurefacts.mjs",
@@ -684,23 +959,26 @@
         "src/assemble.ts",
         "src/cli.ts",
         "src/commands/check.ts",
+        "src/commands/curate.ts",
         "src/commands/init.ts",
+        "src/commands/refresh-config.ts",
         "src/commands/report.ts",
         "src/commands/scan.ts",
         "src/commands/show.ts",
         "src/defaults.ts",
         "src/hash.ts",
         "src/paths.ts",
+        "src/product-title.ts",
         "src/project.ts",
         "src/render.ts",
         "src/safety.ts",
+        "src/time.ts",
         "src/types.ts",
         "src/validate.ts",
         "src/version.ts",
         "src/workspace.ts",
         "src/write-artifacts.ts",
-        "src/yaml-io.ts",
-        "tests/cli.test.ts"
+        "src/yaml-io.ts"
       ],
       "diagnostics": []
     },
@@ -739,55 +1017,87 @@
       "kind": "test",
       "state": "completed",
       "eligible_files": [
-        "tests/cli.test.ts"
+        "tests/aliases.test.ts",
+        "tests/bin.test.ts",
+        "tests/cli.test.ts",
+        "tests/curate.test.ts",
+        "tests/helm-repos.test.ts",
+        "tests/label-freshness.test.ts",
+        "tests/manifest.test.ts",
+        "tests/names.test.ts",
+        "tests/product-title.test.ts",
+        "tests/refresh-config.test.ts",
+        "tests/render.test.ts",
+        "tests/route-ids.test.ts",
+        "tests/stale.test.ts",
+        "tests/surface.test.ts",
+        "tests/time.test.ts"
       ],
       "inspected_files": [
-        "tests/cli.test.ts"
+        "tests/aliases.test.ts",
+        "tests/bin.test.ts",
+        "tests/cli.test.ts",
+        "tests/curate.test.ts",
+        "tests/helm-repos.test.ts",
+        "tests/label-freshness.test.ts",
+        "tests/manifest.test.ts",
+        "tests/names.test.ts",
+        "tests/product-title.test.ts",
+        "tests/refresh-config.test.ts",
+        "tests/render.test.ts",
+        "tests/route-ids.test.ts",
+        "tests/stale.test.ts",
+        "tests/surface.test.ts",
+        "tests/time.test.ts"
       ],
       "diagnostics": []
     }
   ],
   "rules_version": "featurefacts-core@0.2.0",
   "fingerprints": {
-    "source": "fe6cfaaa19100a23fb3dd26b4dc5f9e61bd0d36484526599cd303b75a9f92940",
+    "source": "af8700e5f9bac2882ddb4000214c29a3386721651a978e550144195c7650ceb9",
     "config": "0778aff434cfcbd601f90006830e8eda97bd08acd9ccb215b657aadd1520a3ed",
-    "adapters": "a2668548ef7dc616dab584b9c4a66c5694021d38f98aeeeb0967fe662161d03c",
+    "adapters": "04d451e412ce42b8c594b784923933b2dba060dfc0acaafcafd74c212714058d",
     "rules": "c7f728a22bf07a27d20f2b0ba60c59d2528cf27f6b218a22272fcbbe465f8971",
-    "registry": "4f48ddcb5b1808b80c598d0fb778da9c3bb6351b824bcec8c5cc634c7049f0c7",
-    "projection": "b984c9ca587a2e206f634f460ab1a688c0076768507b724f087511149ee37682"
+    "registry": "5dcc093839025229951872244a0f7e1b5e9450787cdd121ef11d1b7812e1b8aa",
+    "projection": "f76bcd7c2dec68213a36cca06a7ea37721a327baf0218175d6d012b847fc948f"
   },
   "artifacts": [
     {
       "path": ".featurefacts/config.yaml",
-      "sha256": "f60e63a6069cab1240377f23f18e38960b9f2e51968b477072477db0d0f035fd"
+      "sha256": "14695d77646578941d44c955695f7ff006c9465ca50700cc5a75a49234ae8fc2"
     },
     {
       "path": ".featurefacts/docs-index.json",
-      "sha256": "334bf88881bd31653459ec1c103c0615627ff81ed3e1ec467131bdfe0ff6efb5"
+      "sha256": "26ce82b1a62ea46a061f1cb263063096b79c93ed05148b9d54b62a7ee2a63fe7"
     },
     {
       "path": ".featurefacts/features.json",
-      "sha256": "3d348b66836b380c95294a3ff595a923b8af749d370739e5eb8b250ece820d95"
+      "sha256": "5d7cf19c102048a7cbb901139545f696242baaf624509a5cf6198e834956aa11"
     },
     {
       "path": ".featurefacts/FEATURES.md",
-      "sha256": "0bfeccfa43b003b12ec305834f095843a6fc71c87488c268ec90aaa4d04b9a76"
+      "sha256": "0c599d80bff2b2108da26b3624f6e408beb30b42a39a37a906a0ce0e4a0da292"
     },
     {
       "path": ".featurefacts/features.yaml",
-      "sha256": "2c77532c57d12e167c750e0f7c490cde749fef2512cef0fe4ca07fa105126346"
+      "sha256": "3906946665a4a0a88dc11aad59b660f4a5d657c02f4c20b41e0faea90ecd0fda"
     },
     {
       "path": ".featurefacts/gaps.yaml",
-      "sha256": "7bede81459f837686c5deb634dd8a5b35121638e6152ac638b6d65969a82a206"
+      "sha256": "72093d3c6378e0933f76a93b733c8cb8333cf5cb7343088eceaa091e560da4c9"
     },
     {
       "path": ".featurefacts/surfaces.json",
-      "sha256": "6098d7ca48fc821676e07ee619be00eb6c0a9eff72e4bb57e202b508011b347b"
+      "sha256": "e4b99b9435dd95df82d534ae55b9e7e8ca366f32e0aff6fe5af4ab6f14b75280"
     },
     {
       "path": ".featurefacts/test-index.json",
-      "sha256": "2e61f50b19e928c77cefbff62b80fa85fed357007452786642895534a462207e"
+      "sha256": "bec69c9a75e7b014ea2e56838983bf51fe6bd728ecacd9dcf8881c22ca1528a2"
+    },
+    {
+      "path": "FEATURE_FACTS.md",
+      "sha256": "6a5e948909d20ed325b260f98cb9c4e0d50bff9e8631a3c90157a04b959e8691"
     }
   ],
   "diagnostics": []

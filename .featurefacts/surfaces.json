@@ -1,23 +1,24 @@
 {
   "schemaVersion": "0.2.0",
-  "scan_id": "scan-ffdeb569d843",
+  "scan_id": "scan-82d47ca6c8d6",
   "surfaces": [
     {
-      "id": "ann-a-package-json",
-      "kind": "other",
-      "ref": "a",
-      "title": "a",
+      "id": "cmd-check",
+      "kind": "command",
+      "ref": "check",
+      "title": "check",
       "locator": {
-        "path": "package.json",
-        "content_sha256": "5592a7d8e76dadf5b459d71a0f64a2ce63e455d39a01c2a54b01d82291f878f5",
-        "start_line": 6,
-        "end_line": 6
+        "path": "src/cli.ts",
+        "content_sha256": "2d1fb078e2096a8be9a6dcadcba2918c24d348605c5f70fb4c5de95686eb9872",
+        "start_line": 132,
+        "end_line": 132,
+        "symbol": "check"
       },
       "provenance": {
         "adapter_id": "typescript-node-surface",
-        "adapter_version": "0.2.0",
+        "adapter_version": "0.2.4",
         "origin": "deterministic",
-        "method": "explicit-annotation"
+        "method": "argv-command"
       },
       "state": "current"
     },
@@ -28,14 +29,134 @@
       "title": "featurefacts",
       "locator": {
         "path": "package.json",
-        "content_sha256": "5592a7d8e76dadf5b459d71a0f64a2ce63e455d39a01c2a54b01d82291f878f5",
+        "content_sha256": "a6e0b078bd8650580bc256c4a804153f18f2b7a4a5981f6f9f652d02b9eec92c",
         "symbol": "bin.featurefacts"
       },
       "provenance": {
         "adapter_id": "typescript-node-surface",
-        "adapter_version": "0.2.0",
+        "adapter_version": "0.2.4",
         "origin": "deterministic",
         "method": "package-json-bin"
+      },
+      "state": "current"
+    },
+    {
+      "id": "cmd-init",
+      "kind": "command",
+      "ref": "init",
+      "title": "init",
+      "locator": {
+        "path": "src/cli.ts",
+        "content_sha256": "2d1fb078e2096a8be9a6dcadcba2918c24d348605c5f70fb4c5de95686eb9872",
+        "start_line": 71,
+        "end_line": 71,
+        "symbol": "init"
+      },
+      "provenance": {
+        "adapter_id": "typescript-node-surface",
+        "adapter_version": "0.2.4",
+        "origin": "deterministic",
+        "method": "argv-command"
+      },
+      "state": "current"
+    },
+    {
+      "id": "cmd-refresh-config",
+      "kind": "command",
+      "ref": "refresh-config",
+      "title": "refresh-config",
+      "locator": {
+        "path": "src/cli.ts",
+        "content_sha256": "2d1fb078e2096a8be9a6dcadcba2918c24d348605c5f70fb4c5de95686eb9872",
+        "start_line": 114,
+        "end_line": 114,
+        "symbol": "refresh-config"
+      },
+      "provenance": {
+        "adapter_id": "typescript-node-surface",
+        "adapter_version": "0.2.4",
+        "origin": "deterministic",
+        "method": "argv-command"
+      },
+      "state": "current"
+    },
+    {
+      "id": "cmd-report",
+      "kind": "command",
+      "ref": "report",
+      "title": "report",
+      "locator": {
+        "path": "src/cli.ts",
+        "content_sha256": "2d1fb078e2096a8be9a6dcadcba2918c24d348605c5f70fb4c5de95686eb9872",
+        "start_line": 85,
+        "end_line": 85,
+        "symbol": "report"
+      },
+      "provenance": {
+        "adapter_id": "typescript-node-surface",
+        "adapter_version": "0.2.4",
+        "origin": "deterministic",
+        "method": "argv-command"
+      },
+      "state": "current"
+    },
+    {
+      "id": "cmd-review",
+      "kind": "command",
+      "ref": "review",
+      "title": "review",
+      "locator": {
+        "path": "src/cli.ts",
+        "content_sha256": "2d1fb078e2096a8be9a6dcadcba2918c24d348605c5f70fb4c5de95686eb9872",
+        "start_line": 98,
+        "end_line": 98,
+        "symbol": "review"
+      },
+      "provenance": {
+        "adapter_id": "typescript-node-surface",
+        "adapter_version": "0.2.4",
+        "origin": "deterministic",
+        "method": "argv-command"
+      },
+      "state": "current"
+    },
+    {
+      "id": "cmd-scan",
+      "kind": "command",
+      "ref": "scan",
+      "title": "scan",
+      "locator": {
+        "path": "src/cli.ts",
+        "content_sha256": "2d1fb078e2096a8be9a6dcadcba2918c24d348605c5f70fb4c5de95686eb9872",
+        "start_line": 77,
+        "end_line": 77,
+        "symbol": "scan"
+      },
+      "provenance": {
+        "adapter_id": "typescript-node-surface",
+        "adapter_version": "0.2.4",
+        "origin": "deterministic",
+        "method": "argv-command"
+      },
+      "state": "current"
+    },
+    {
+      "id": "cmd-show",
+      "kind": "command",
+      "ref": "show",
+      "title": "show",
+      "locator": {
+        "path": "src/cli.ts",
+        "content_sha256": "2d1fb078e2096a8be9a6dcadcba2918c24d348605c5f70fb4c5de95686eb9872",
+        "start_line": 93,
+        "end_line": 93,
+        "symbol": "show"
+      },
+      "provenance": {
+        "adapter_id": "typescript-node-surface",
+        "adapter_version": "0.2.4",
+        "origin": "deterministic",
+        "method": "argv-command"
       },
       "state": "current"
     },
@@ -46,7 +167,7 @@
       "title": "docs/CONTRACT.md",
       "locator": {
         "path": "docs/CONTRACT.md",
-        "content_sha256": "83909771dfa1bfb13148e58229076e3c7db7f63fab822f0be25d0a9de701d3f2"
+        "content_sha256": "76b55af48422eaeae68943132c89387a6308265b98caeec8f99952876e655962"
       },
       "provenance": {
         "adapter_id": "markdown-document",
@@ -97,7 +218,7 @@
       "title": "docs/GENESIS.md",
       "locator": {
         "path": "docs/GENESIS.md",
-        "content_sha256": "429d8b13cd317dd342c98c2a9409c0f196be63f92231803236ac454fb11f424f"
+        "content_sha256": "3cd33d0f9b67e83a084a6f78b74ac761574ece7891df805036e790542b0671b5"
       },
       "provenance": {
         "adapter_id": "markdown-document",
@@ -114,7 +235,7 @@
       "title": "docs/LABEL.md",
       "locator": {
         "path": "docs/LABEL.md",
-        "content_sha256": "112c5acc67c8b434a096f9a7367f63652edd682227148709557f17542187c7b0"
+        "content_sha256": "3ff04e30448f23005edef981ff183dbaf38866547d30245a2442fc173c8e3135"
       },
       "provenance": {
         "adapter_id": "markdown-document",
@@ -131,7 +252,7 @@
       "title": "docs/MERGE_AND_CHECK.md",
       "locator": {
         "path": "docs/MERGE_AND_CHECK.md",
-        "content_sha256": "382c1d68aae3380db9abde2c660af57c9cabd152c76c5ef1db03652d3861a067"
+        "content_sha256": "f69e66e3532531886235b522719049c38ae4c6963f4c6ed98bd0214958a8207b"
       },
       "provenance": {
         "adapter_id": "markdown-document",
@@ -182,7 +303,7 @@
       "title": "README.md",
       "locator": {
         "path": "README.md",
-        "content_sha256": "814b08e472460b67280f081195000f429ced66738a622ea1290f17cef41e205b"
+        "content_sha256": "28ad941cc25d4c96071f5b9aabd1ca29236f403a56b9a51a2a04c348d1f5f9c9"
       },
       "provenance": {
         "adapter_id": "markdown-document",
@@ -193,22 +314,36 @@
       "state": "current"
     },
     {
-      "id": "route-get-package-json",
-      "kind": "route",
-      "ref": "GET package.json",
-      "title": "GET package.json",
+      "id": "test-tests-aliases-test",
+      "kind": "test",
+      "ref": "tests/aliases.test.ts",
+      "title": "tests/aliases.test.ts",
       "locator": {
-        "path": "src/commands/scan.ts",
-        "content_sha256": "bdc5e1e1beedc21735977a090f8df19385c44cf8f1fecf3650e5831ea50b165d",
-        "start_line": 44,
-        "end_line": 44,
-        "symbol": "GET package.json"
+        "path": "tests/aliases.test.ts",
+        "content_sha256": "7773a0661275eba42d3c425ce0a0962919875b5fcbc992961d62b3a0b67dd137"
       },
       "provenance": {
-        "adapter_id": "typescript-node-surface",
+        "adapter_id": "typescript-test",
         "adapter_version": "0.2.0",
         "origin": "deterministic",
-        "method": "static-route-call"
+        "method": "test-filename"
+      },
+      "state": "current"
+    },
+    {
+      "id": "test-tests-bin-test",
+      "kind": "test",
+      "ref": "tests/bin.test.ts",
+      "title": "tests/bin.test.ts",
+      "locator": {
+        "path": "tests/bin.test.ts",
+        "content_sha256": "b5156ddc81a5c11aaee722e3d6f0c0efe828bbe552ae30dd1707778c9fc26a1c"
+      },
+      "provenance": {
+        "adapter_id": "typescript-test",
+        "adapter_version": "0.2.0",
+        "origin": "deterministic",
+        "method": "test-filename"
       },
       "state": "current"
     },
@@ -219,7 +354,211 @@
       "title": "tests/cli.test.ts",
       "locator": {
         "path": "tests/cli.test.ts",
-        "content_sha256": "9646f5c1102d96b7686f48d602a240d52688321d46467ca07a517da2022ca131"
+        "content_sha256": "5942717bedc6bfe25d76d74fa506ccd6f0edef50286a05ae794694fb1749fab1"
+      },
+      "provenance": {
+        "adapter_id": "typescript-test",
+        "adapter_version": "0.2.0",
+        "origin": "deterministic",
+        "method": "test-filename"
+      },
+      "state": "current"
+    },
+    {
+      "id": "test-tests-curate-test",
+      "kind": "test",
+      "ref": "tests/curate.test.ts",
+      "title": "tests/curate.test.ts",
+      "locator": {
+        "path": "tests/curate.test.ts",
+        "content_sha256": "6a65e98bd32831922ff5ba84fd4db4bc8f2193e234da60534ea3a94e425e0abf"
+      },
+      "provenance": {
+        "adapter_id": "typescript-test",
+        "adapter_version": "0.2.0",
+        "origin": "deterministic",
+        "method": "test-filename"
+      },
+      "state": "current"
+    },
+    {
+      "id": "test-tests-helm-repos-test",
+      "kind": "test",
+      "ref": "tests/helm-repos.test.ts",
+      "title": "tests/helm-repos.test.ts",
+      "locator": {
+        "path": "tests/helm-repos.test.ts",
+        "content_sha256": "c18f1efc7c311c0523a28805bc8ebc296993a9c4e95b736cd87141f3df55c234"
+      },
+      "provenance": {
+        "adapter_id": "typescript-test",
+        "adapter_version": "0.2.0",
+        "origin": "deterministic",
+        "method": "test-filename"
+      },
+      "state": "current"
+    },
+    {
+      "id": "test-tests-label-freshness-test",
+      "kind": "test",
+      "ref": "tests/label-freshness.test.ts",
+      "title": "tests/label-freshness.test.ts",
+      "locator": {
+        "path": "tests/label-freshness.test.ts",
+        "content_sha256": "4e9a9545352752e536b35202777515330de89575a04e1fb6aeffc54d0908fc1f"
+      },
+      "provenance": {
+        "adapter_id": "typescript-test",
+        "adapter_version": "0.2.0",
+        "origin": "deterministic",
+        "method": "test-filename"
+      },
+      "state": "current"
+    },
+    {
+      "id": "test-tests-manifest-test",
+      "kind": "test",
+      "ref": "tests/manifest.test.ts",
+      "title": "tests/manifest.test.ts",
+      "locator": {
+        "path": "tests/manifest.test.ts",
+        "content_sha256": "99b2a0e71d9e19300048d0e61b0026801f9ebd09597eeffe0e09b29079b5374a"
+      },
+      "provenance": {
+        "adapter_id": "typescript-test",
+        "adapter_version": "0.2.0",
+        "origin": "deterministic",
+        "method": "test-filename"
+      },
+      "state": "current"
+    },
+    {
+      "id": "test-tests-names-test",
+      "kind": "test",
+      "ref": "tests/names.test.ts",
+      "title": "tests/names.test.ts",
+      "locator": {
+        "path": "tests/names.test.ts",
+        "content_sha256": "1a2e2fdab185524ee01e19f689b52b529cb502401f210493d6c64649b155d3d2"
+      },
+      "provenance": {
+        "adapter_id": "typescript-test",
+        "adapter_version": "0.2.0",
+        "origin": "deterministic",
+        "method": "test-filename"
+      },
+      "state": "current"
+    },
+    {
+      "id": "test-tests-product-title-test",
+      "kind": "test",
+      "ref": "tests/product-title.test.ts",
+      "title": "tests/product-title.test.ts",
+      "locator": {
+        "path": "tests/product-title.test.ts",
+        "content_sha256": "45d8a755f829bd4694dd94c969686d1530f7d283e7b9cb862c9e3fcea370c480"
+      },
+      "provenance": {
+        "adapter_id": "typescript-test",
+        "adapter_version": "0.2.0",
+        "origin": "deterministic",
+        "method": "test-filename"
+      },
+      "state": "current"
+    },
+    {
+      "id": "test-tests-refresh-config-test",
+      "kind": "test",
+      "ref": "tests/refresh-config.test.ts",
+      "title": "tests/refresh-config.test.ts",
+      "locator": {
+        "path": "tests/refresh-config.test.ts",
+        "content_sha256": "03208344a8a1769945608960d10b25a02feab5339001a998357aad72d26cfaac"
+      },
+      "provenance": {
+        "adapter_id": "typescript-test",
+        "adapter_version": "0.2.0",
+        "origin": "deterministic",
+        "method": "test-filename"
+      },
+      "state": "current"
+    },
+    {
+      "id": "test-tests-render-test",
+      "kind": "test",
+      "ref": "tests/render.test.ts",
+      "title": "tests/render.test.ts",
+      "locator": {
+        "path": "tests/render.test.ts",
+        "content_sha256": "530c233a5ce3225c4649e2aeda9785ff3b0c512e5fc24781986506d70e6b8f1d"
+      },
+      "provenance": {
+        "adapter_id": "typescript-test",
+        "adapter_version": "0.2.0",
+        "origin": "deterministic",
+        "method": "test-filename"
+      },
+      "state": "current"
+    },
+    {
+      "id": "test-tests-route-ids-test",
+      "kind": "test",
+      "ref": "tests/route-ids.test.ts",
+      "title": "tests/route-ids.test.ts",
+      "locator": {
+        "path": "tests/route-ids.test.ts",
+        "content_sha256": "2a8fa47dfe9c386a98cf39ac3e306e520c5f76e0d6895a193e12caa72501754b"
+      },
+      "provenance": {
+        "adapter_id": "typescript-test",
+        "adapter_version": "0.2.0",
+        "origin": "deterministic",
+        "method": "test-filename"
+      },
+      "state": "current"
+    },
+    {
+      "id": "test-tests-stale-test",
+      "kind": "test",
+      "ref": "tests/stale.test.ts",
+      "title": "tests/stale.test.ts",
+      "locator": {
+        "path": "tests/stale.test.ts",
+        "content_sha256": "2357d20b95bb2071e4fdb8194ef5c5b00b54b512efc5c17c19af1d4717d454bf"
+      },
+      "provenance": {
+        "adapter_id": "typescript-test",
+        "adapter_version": "0.2.0",
+        "origin": "deterministic",
+        "method": "test-filename"
+      },
+      "state": "current"
+    },
+    {
+      "id": "test-tests-surface-test",
+      "kind": "test",
+      "ref": "tests/surface.test.ts",
+      "title": "tests/surface.test.ts",
+      "locator": {
+        "path": "tests/surface.test.ts",
+        "content_sha256": "f65d8f5ee84cc63681f9ce977f28bf55ed1cffcac7984fa641b7ab92ca37a7f3"
+      },
+      "provenance": {
+        "adapter_id": "typescript-test",
+        "adapter_version": "0.2.0",
+        "origin": "deterministic",
+        "method": "test-filename"
+      },
+      "state": "current"
+    },
+    {
+      "id": "test-tests-time-test",
+      "kind": "test",
+      "ref": "tests/time.test.ts",
+      "title": "tests/time.test.ts",
+      "locator": {
+        "path": "tests/time.test.ts",
+        "content_sha256": "f55d95b1f568eef2fe5367b4ae93a2ea029b828db14372270a689a34397fc2ac"
       },
       "provenance": {
         "adapter_id": "typescript-test",

@@ -42,8 +42,33 @@ adapters:
     enabled: true
 externals: []
 curation:
-  selected_ids: []
-  overrides: {}
+  selected_ids:
+    - cmd-init
+    - cmd-scan
+    - cmd-review
+    - cmd-report
+    - cmd-check
+    - cmd-show
+    - cmd-refresh-config
+  overrides:
+    cmd-init:
+      name: Set up a register
+    cmd-scan:
+      name: Find candidates
+    cmd-review:
+      name: Review and approve
+    cmd-report:
+      name: Write the label
+    cmd-check:
+      name: Freshness check
+    cmd-show:
+      name: Show a record
+    cmd-refresh-config:
+      name: Update an older config
+  approval:
+    actor: acmegeek
+    source: featurefacts review
+    recorded_at: 2026-10-22T09:30:44.854-04:00
 publication:
   target: internal
   include_counts: true

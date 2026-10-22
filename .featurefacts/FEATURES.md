@@ -1,13 +1,14 @@
 # Feature register: FeatureFacts
 
-Scan `scan-ffdeb569d843`. Candidates are not confirmed capabilities.
+Scan `scan-82d47ca6c8d6`. Candidates are not confirmed capabilities.
 
 | ID | Name | Recognition | Lifecycle | Availability | Docs | Tests | Observation |
 |---|---|---|---|---|---|---|---|
-| `a` | A | candidate | unknown | unknown | unknown | unknown | current |
-| `admin-export` | Admin Export | candidate | unknown | unknown | unknown | unknown | stale |
-| `resume-importer` | Resume Importer | candidate | unknown | unknown | linked-evidence | linked-evidence | stale |
-| `route-get-package-json` | Get Package Json | candidate | unknown | unknown | unknown | unknown | current |
-| `tests-fixtures-workshop-tests-import-test-ts` | Tests Fixtures Workshop Tests Import Test Ts | candidate | unknown | unknown | unknown | linked-evidence | stale |
-| `uniqueness` | Uniqueness | candidate | unknown | unknown | linked-evidence | unknown | stale |
+| `cmd-check` | Check | confirmed | implemented | unknown | linked-evidence | unknown | current |
+| `cmd-init` | Init | confirmed | implemented | unknown | linked-evidence | unknown | current |
+| `cmd-refresh-config` | Refresh Config | confirmed | implemented | unknown | unknown | linked-evidence | current |
+| `cmd-report` | Report | confirmed | implemented | unknown | linked-evidence | unknown | current |
+| `cmd-review` | Review | confirmed | implemented | unknown | linked-evidence | unknown | current |
+| `cmd-scan` | Scan | confirmed | implemented | unknown | linked-evidence | unknown | current |
+| `cmd-show` | Show | confirmed | implemented | unknown | linked-evidence | unknown | current |
 
