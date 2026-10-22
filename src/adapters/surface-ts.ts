@@ -85,9 +85,23 @@ function matchBracket(text: string, open: number): number {
   return -1;
 }
 
+/** Text between two labels of one fall-through group: whitespace, comments, and other `case` labels. */
+const CASE_TRIVIA = /\/\/[^\n]*|\/\*[\s\S]*?\*\/|\bcase\s+(?:'[^'\n]*'|"[^"\n]*"|`[^`\n]*`)\s*:|\s+/g;
+
+function onlyCaseTrivia(text: string): boolean {
+  return text.replace(CASE_TRIVIA, '') === '';
+}
+
+export interface ArgvLabel {
+  name: string;
+  index: number;
+  /** The first label of the same fall-through group (`case 'health': case 'scrape-health':`). */
+  aliasOf?: string;
+}
+
 /** `case 'x':` labels of switches whose discriminant reads argv, with their offsets. */
-export function argvCaseLabels(text: string): Array<{ name: string; index: number }> {
-  const out: Array<{ name: string; index: number }> = [];
+export function argvCaseLabels(text: string): ArgvLabel[] {
+  const out: ArgvLabel[] = [];
   SWITCH_START.lastIndex = 0;
   let match: RegExpExecArray | null;
   while ((match = SWITCH_START.exec(text))) {
@@ -102,6 +116,8 @@ export function argvCaseLabels(text: string): Array<{ name: string; index: numbe
     // Only labels at this switch's own depth; a nested switch is judged on its own.
     let depth = 0;
     let i = braceOpen + 1;
+    let head: string | undefined;
+    let lastEnd = -1;
     while (i < braceClose - 1) {
       const ch = text[i];
       if (ch === '"' || ch === "'" || ch === '`') {
@@ -118,7 +134,18 @@ export function argvCaseLabels(text: string): Array<{ name: string; index: numbe
       else if (depth === 0 && ch === 'c') {
         ARGV_CASE.lastIndex = i;
         const label = ARGV_CASE.exec(text);
-        if (label && label.index === i) out.push({ name: label[1]!, index: i });
+        if (label && label.index === i) {
+          const name = label[1]!;
+          const joined = head !== undefined && onlyCaseTrivia(text.slice(lastEnd, i));
+          if (joined && name !== head) out.push({ name, index: i, aliasOf: head });
+          else if (!joined) {
+            head = name;
+            out.push({ name, index: i });
+          }
+          lastEnd = i + label[0].length;
+          i = lastEnd;
+          continue;
+        }
       }
       i += 1;
     }
@@ -307,12 +334,26 @@ export function runSurface(ctx: ScanContext): SurfaceResult {
 
     if (content.text.includes('process.argv')) {
       const seenCmd = new Set<string>();
-      const hits: Array<{ name: string; index: number }> = [];
+      const hits: ArgvLabel[] = [];
       ARGV_EQ.lastIndex = 0;
-      while ((match = ARGV_EQ.exec(content.text))) hits.push({ name: match[1]!, index: match.index });
+      let chainHead: string | undefined;
+      let chainEnd = -1;
+      while ((match = ARGV_EQ.exec(content.text))) {
+        // `cmd === 'start' || cmd === 'serve'` names one command twice.
+        const chained = chainHead !== undefined && /^\s*\|\|\s*$/.test(content.text.slice(chainEnd, match.index));
+        if (chained && match[1] !== chainHead) hits.push({ name: match[1]!, index: match.index, aliasOf: chainHead });
+        else if (!chained) {
+          chainHead = match[1]!;
+          hits.push({ name: match[1]!, index: match.index });
+        }
+        chainEnd = match.index + match[0].length;
+      }
       hits.push(...argvCaseLabels(content.text));
+      // A name seen as a command of its own anywhere in the file is not an alias.
+      const primaries = new Set(hits.filter((hit) => !hit.aliasOf).map((hit) => hit.name));
       for (const hit of hits) {
         const name = hit.name;
+        const alias = hit.aliasOf && !primaries.has(name) ? hit.aliasOf : undefined;
         if (seenCmd.has(name)) continue;
         seenCmd.add(name);
         const start = content.text.slice(0, hit.index).split(/\r?\n/).length;
@@ -321,8 +362,9 @@ export function runSurface(ctx: ScanContext): SurfaceResult {
           kind: 'command',
           ref: name,
           title: name,
-          locator: { path, content_sha256: file.sha256, start_line: start, end_line: start, symbol: name },
-          provenance: provenance('argv-command'),
+          // An alias records the command it shares a branch with as its symbol.
+          locator: { path, content_sha256: file.sha256, start_line: start, end_line: start, symbol: alias ?? name },
+          provenance: provenance(alias ? 'argv-command-alias' : 'argv-command'),
           state: 'current',
         });
       }

@@ -107,12 +107,35 @@ export function assembleFeatures(args: {
     if (surface.title) group.titles.push(surface.title);
   }
 
+  // Commands that share one branch (`case 'health': case 'scrape-health':`) are one capability.
+  // The alias surface names its primary as the locator symbol.
+  const aliasGroups = new Map<string, string[]>();
+  for (const surface of surfaces) {
+    if (surface.provenance.method !== 'argv-command-alias') continue;
+    const primary = surface.locator.symbol ?? surface.ref;
+    const members = aliasGroups.get(primary) ?? [primary];
+    if (!members.includes(surface.ref)) members.push(surface.ref);
+    aliasGroups.set(primary, members);
+  }
+  const canonicalByName = new Map<string, { id: string; aliases: string[] }>();
+  for (const members of aliasGroups.values()) {
+    const ids = members.map((name) => kebabId(`cmd-${name}`));
+    const confirmed = ids.filter((id) => byId.get(id)?.recognition === 'confirmed');
+    // Two confirmed rows are two reviewed identities. Merging them needs a reviewed migration, not a scan.
+    if (confirmed.length > 1) continue;
+    const id = confirmed[0] ?? ids[0]!;
+    const aliases = ids.filter((item) => item !== id).sort((a, b) => a.localeCompare(b));
+    for (const name of members) canonicalByName.set(name, { id, aliases });
+  }
+  const aliasIds = new Set([...canonicalByName.values()].flatMap((item) => item.aliases));
+
   const commandByLeaf = new Map<string, string>();
   for (const surface of surfaces) {
     if (surface.kind === 'command' && surface.provenance.method !== 'package-json-bin') {
-      commandByLeaf.set(surface.ref, surface.id);
+      commandByLeaf.set(surface.ref, canonicalByName.get(surface.ref)?.id ?? surface.id);
     }
   }
+  const aliasesById = new Map([...canonicalByName.values()].map((item) => [item.id, item.aliases]));
 
   for (const surface of surfaces) {
     if (surface.provenance.method === 'package-json-bin' && commandByLeaf.size > 0) continue;
@@ -132,6 +155,13 @@ export function assembleFeatures(args: {
         noteTitle(group, surface);
         if (surface.kind !== 'route' && surface.kind !== 'command') group.impl.push(surface.id);
       }
+      continue;
+    }
+    const canonical = surface.kind === 'command' ? canonicalByName.get(surface.ref) : undefined;
+    if (canonical) {
+      const group = cluster(canonical.id);
+      group.entry.push(surface.id);
+      group.refs.push(surface.ref);
       continue;
     }
     const leaf = surface.kind === 'route' ? routeLeaf(surface.ref) : null;
@@ -262,7 +292,11 @@ export function assembleFeatures(args: {
           )
         : emptyAssessment('No explicit test association. A similar test filename is only a proposal.', [ADAPTERS.test.id]);
 
+    const aliases = aliasesById.get(id) ?? [];
     if (priorFeature) {
+      if (aliases.length) {
+        priorFeature.editorial.aliases = unique([...priorFeature.editorial.aliases, ...aliases]);
+      }
       priorFeature.entry_points = entry;
       priorFeature.implements = impl;
       priorFeature.observation = {
@@ -298,6 +332,12 @@ export function assembleFeatures(args: {
         evidence: [capabilityEvidence],
       }),
     );
+    if (aliases.length) byId.get(id)!.editorial.aliases = aliases;
+  }
+
+  // An unconfirmed row for a name that is now an alias would only repeat its primary as a stale candidate.
+  for (const id of aliasIds) {
+    if (!seen.has(id) && byId.get(id)?.recognition !== 'confirmed') byId.delete(id);
   }
 
   for (const feature of byId.values()) {
