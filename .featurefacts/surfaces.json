@@ -1,6 +1,6 @@
 {
   "schemaVersion": "0.2.0",
-  "scan_id": "scan-54c6d6d4589e",
+  "scan_id": "scan-1c568586ee3b",
   "surfaces": [
     {
       "id": "cmd-check",
@@ -303,7 +303,7 @@
       "title": "README.md",
       "locator": {
         "path": "README.md",
-        "content_sha256": "e6ef23d739614e001f16a553fdc147d8fcffa4f87aa19b94cb229f82cd6200f5"
+        "content_sha256": "bf4ffc7291b408b632cce9522f4545edeaa47b83531bcdcdb2e406ffc1a11338"
       },
       "provenance": {
         "adapter_id": "markdown-document",
@@ -473,7 +473,7 @@
       "title": "tests/refresh-config.test.ts",
       "locator": {
         "path": "tests/refresh-config.test.ts",
-        "content_sha256": "795c0c30bae0476d9db4cd004d3c100c9c71a55c1da1a02c1efdcb1781eb0a4f"
+        "content_sha256": "72e56564a1616cd0d637c5cbfd7473f7911e9f95ec1304f160241b974b0bf7e3"
       },
       "provenance": {
         "adapter_id": "typescript-test",

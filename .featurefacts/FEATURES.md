@@ -1,6 +1,6 @@
 # Feature register: FeatureFacts
 
-Scan `scan-54c6d6d4589e`. Candidates are not confirmed capabilities.
+Scan `scan-1c568586ee3b`. Candidates are not confirmed capabilities.
 
 | ID | Name | Recognition | Lifecycle | Availability | Docs | Tests | Observation |
 |---|---|---|---|---|---|---|---|

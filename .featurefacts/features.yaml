@@ -1,5 +1,5 @@
 schemaVersion: 0.2.0
-scan_id: scan-54c6d6d4589e
+scan_id: scan-1c568586ee3b
 product:
   name: FeatureFacts
   type: typescript-node
@@ -56,7 +56,7 @@ features:
       reason: No explicit test association. A similar test filename is only a proposal.
     observation:
       state: current
-      last_seen_scan_id: scan-54c6d6d4589e
+      last_seen_scan_id: scan-1c568586ee3b
       reason: Current source evidence is available.
     evidence:
       - id: cmd-check-capability
@@ -156,7 +156,7 @@ features:
       reason: No explicit test association. A similar test filename is only a proposal.
     observation:
       state: current
-      last_seen_scan_id: scan-54c6d6d4589e
+      last_seen_scan_id: scan-1c568586ee3b
       reason: Current source evidence is available.
     evidence:
       - id: cmd-init-capability
@@ -252,7 +252,7 @@ features:
       reason: A test file is named for this capability. Tests were not executed, and a matching filename is not an accepted link.
     observation:
       state: current
-      last_seen_scan_id: scan-54c6d6d4589e
+      last_seen_scan_id: scan-1c568586ee3b
       reason: Current source evidence is available.
     evidence:
       - id: cmd-refresh-config-capability
@@ -354,7 +354,7 @@ features:
       reason: No explicit test association. A similar test filename is only a proposal.
     observation:
       state: current
-      last_seen_scan_id: scan-54c6d6d4589e
+      last_seen_scan_id: scan-1c568586ee3b
       reason: Current source evidence is available.
     evidence:
       - id: cmd-report-capability
@@ -450,7 +450,7 @@ features:
       reason: No explicit test association. A similar test filename is only a proposal.
     observation:
       state: current
-      last_seen_scan_id: scan-54c6d6d4589e
+      last_seen_scan_id: scan-1c568586ee3b
       reason: Current source evidence is available.
     evidence:
       - id: cmd-review-capability
@@ -550,7 +550,7 @@ features:
       reason: No explicit test association. A similar test filename is only a proposal.
     observation:
       state: current
-      last_seen_scan_id: scan-54c6d6d4589e
+      last_seen_scan_id: scan-1c568586ee3b
       reason: Current source evidence is available.
     evidence:
       - id: cmd-scan-capability
@@ -648,7 +648,7 @@ features:
       reason: No explicit test association. A similar test filename is only a proposal.
     observation:
       state: current
-      last_seen_scan_id: scan-54c6d6d4589e
+      last_seen_scan_id: scan-1c568586ee3b
       reason: Current source evidence is available.
     evidence:
       - id: cmd-show-capability

@@ -1,9 +1,9 @@
 {
   "schemaVersion": "0.2.0",
-  "scan_id": "scan-54c6d6d4589e",
+  "scan_id": "scan-1c568586ee3b",
   "tool": "featurefacts",
   "tool_version": "0.2.6",
-  "generated_at": "2026-10-22T09:32:13.011-04:00",
+  "generated_at": "2026-10-22T09:36:01.390-04:00",
   "root": ".",
   "status": "complete",
   "scope": {
@@ -173,8 +173,8 @@
       },
       {
         "path": "README.md",
-        "sha256": "e6ef23d739614e001f16a553fdc147d8fcffa4f87aa19b94cb229f82cd6200f5",
-        "bytes": 9431,
+        "sha256": "bf4ffc7291b408b632cce9522f4545edeaa47b83531bcdcdb2e406ffc1a11338",
+        "bytes": 9474,
         "eligible_adapter_ids": [
           "typescript-tree",
           "markdown-document"
@@ -316,8 +316,8 @@
       },
       {
         "path": "src/commands/refresh-config.ts",
-        "sha256": "ffb426d232b9669a0d95c18e321f22ec87a8729891f00d5adb288e56c13df55d",
-        "bytes": 5357,
+        "sha256": "c9c65fad5d590340a8fe754ae8f23628cf7315e96c5906567fee94b7c76a1b7e",
+        "bytes": 5549,
         "eligible_adapter_ids": [
           "typescript-tree",
           "typescript-node-surface"
@@ -667,8 +667,8 @@
       },
       {
         "path": "tests/refresh-config.test.ts",
-        "sha256": "795c0c30bae0476d9db4cd004d3c100c9c71a55c1da1a02c1efdcb1781eb0a4f",
-        "bytes": 6149,
+        "sha256": "72e56564a1616cd0d637c5cbfd7473f7911e9f95ec1304f160241b974b0bf7e3",
+        "bytes": 6228,
         "eligible_adapter_ids": [
           "typescript-tree",
           "typescript-test"
@@ -1059,11 +1059,11 @@
   ],
   "rules_version": "featurefacts-core@0.2.0",
   "fingerprints": {
-    "source": "479484c05034215b41fdc2ede790a6afd9b153bdeba0b305ea654103c5b6eff3",
+    "source": "80dbda2ced44eefca2940319e312f45492eb3d00ee2202bdfc6023d88b1ba3b7",
     "config": "0778aff434cfcbd601f90006830e8eda97bd08acd9ccb215b657aadd1520a3ed",
     "adapters": "04d451e412ce42b8c594b784923933b2dba060dfc0acaafcafd74c212714058d",
     "rules": "c7f728a22bf07a27d20f2b0ba60c59d2528cf27f6b218a22272fcbbe465f8971",
-    "registry": "062a1101e7d2e0e782090b4c6180c64e3d1dc84dc8bbf30191d28111b1537a64",
+    "registry": "815d9e2fb4c9ba15f7f863c3ab4d8087bf014869334120a510a295bdd1d6374b",
     "projection": "f76bcd7c2dec68213a36cca06a7ea37721a327baf0218175d6d012b847fc948f"
   },
   "artifacts": [
@@ -1073,31 +1073,31 @@
     },
     {
       "path": ".featurefacts/docs-index.json",
-      "sha256": "99141327771c4d799afeae7f4272a2c86418402dc3332765b699ba64e6a72cfc"
+      "sha256": "2d18fc66e772548803120891c380c95c9d80a666749eb875c420558153dba5be"
     },
     {
       "path": ".featurefacts/features.json",
-      "sha256": "a807cc09be701a578f71cc6e67912f75a6b10345087ab1f0e69b5025b696e2ca"
+      "sha256": "a13fcb0d4c96c4ef1eb34c28800dfdf1fec456da8670361873c2c8144e33bb51"
     },
     {
       "path": ".featurefacts/FEATURES.md",
-      "sha256": "c236e60f3b5a4d7b6f171058d137aa0df11ba9a3ab316f0f3643ad0be1fdb764"
+      "sha256": "2cc58869a2d1b841d4130c3ad8cccdfb6dba0e03f11b08b3279784ac3b0026d4"
     },
     {
       "path": ".featurefacts/features.yaml",
-      "sha256": "c6ed4fa42fb1b18445edbb78e418bac2c690e53bbcbd02db36db9abbf76bc65b"
+      "sha256": "94f50e98fd439b9cad0c59e63d545222f43bdab0605a33da0cb67bff4f4236ea"
     },
     {
       "path": ".featurefacts/gaps.yaml",
-      "sha256": "7644c016aacf5f6d5383fa718fbea10f5fcad6af35b111257228fd0101027175"
+      "sha256": "2369ad38f5a7d651f3eafef40715518173630d91113bd8bc42417dbff7b6ee88"
     },
     {
       "path": ".featurefacts/surfaces.json",
-      "sha256": "dd10de05543aa9b046815b31a613033f09fdf63ff3936eb8459e62710e9fa4d6"
+      "sha256": "cfd5842977dff23b99d28a43c013ff62babbedc0bbc58061210960ae373d6b84"
     },
     {
       "path": ".featurefacts/test-index.json",
-      "sha256": "75ffe395e2b3fd256a6254b3da3aa7a84bd95004a3bfe91ac1fb23254b590cea"
+      "sha256": "930a4013931901639c7ee522b3dfeb15ca24e612beea315c0926684137e0661c"
     },
     {
       "path": "FEATURE_FACTS.md",
