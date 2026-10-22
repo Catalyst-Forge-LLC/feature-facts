@@ -1,6 +1,6 @@
 {
   "schemaVersion": "0.2.0",
-  "scan_id": "scan-1c568586ee3b",
+  "scan_id": "scan-b3bf51def6f6",
   "surfaces": [
     {
       "id": "cmd-check",
@@ -16,7 +16,7 @@
       },
       "provenance": {
         "adapter_id": "typescript-node-surface",
-        "adapter_version": "0.2.4",
+        "adapter_version": "0.2.5",
         "origin": "deterministic",
         "method": "argv-command"
       },
@@ -29,12 +29,12 @@
       "title": "featurefacts",
       "locator": {
         "path": "package.json",
-        "content_sha256": "a6e0b078bd8650580bc256c4a804153f18f2b7a4a5981f6f9f652d02b9eec92c",
+        "content_sha256": "c8de64eef68bda68f658793b0944c2775a50e2fa13ada1ded5598e917f616fdb",
         "symbol": "bin.featurefacts"
       },
       "provenance": {
         "adapter_id": "typescript-node-surface",
-        "adapter_version": "0.2.4",
+        "adapter_version": "0.2.5",
         "origin": "deterministic",
         "method": "package-json-bin"
       },
@@ -54,7 +54,7 @@
       },
       "provenance": {
         "adapter_id": "typescript-node-surface",
-        "adapter_version": "0.2.4",
+        "adapter_version": "0.2.5",
         "origin": "deterministic",
         "method": "argv-command"
       },
@@ -74,7 +74,7 @@
       },
       "provenance": {
         "adapter_id": "typescript-node-surface",
-        "adapter_version": "0.2.4",
+        "adapter_version": "0.2.5",
         "origin": "deterministic",
         "method": "argv-command"
       },
@@ -94,7 +94,7 @@
       },
       "provenance": {
         "adapter_id": "typescript-node-surface",
-        "adapter_version": "0.2.4",
+        "adapter_version": "0.2.5",
         "origin": "deterministic",
         "method": "argv-command"
       },
@@ -114,7 +114,7 @@
       },
       "provenance": {
         "adapter_id": "typescript-node-surface",
-        "adapter_version": "0.2.4",
+        "adapter_version": "0.2.5",
         "origin": "deterministic",
         "method": "argv-command"
       },
@@ -134,7 +134,7 @@
       },
       "provenance": {
         "adapter_id": "typescript-node-surface",
-        "adapter_version": "0.2.4",
+        "adapter_version": "0.2.5",
         "origin": "deterministic",
         "method": "argv-command"
       },
@@ -154,7 +154,7 @@
       },
       "provenance": {
         "adapter_id": "typescript-node-surface",
-        "adapter_version": "0.2.4",
+        "adapter_version": "0.2.5",
         "origin": "deterministic",
         "method": "argv-command"
       },
@@ -303,7 +303,7 @@
       "title": "README.md",
       "locator": {
         "path": "README.md",
-        "content_sha256": "bf4ffc7291b408b632cce9522f4545edeaa47b83531bcdcdb2e406ffc1a11338"
+        "content_sha256": "212a7f92997034815ecd9fdfec49ebd2fd54a517684e080d29a3b90131b7d519"
       },
       "provenance": {
         "adapter_id": "markdown-document",
@@ -355,6 +355,23 @@
       "locator": {
         "path": "tests/cli.test.ts",
         "content_sha256": "5942717bedc6bfe25d76d74fa506ccd6f0edef50286a05ae794694fb1749fab1"
+      },
+      "provenance": {
+        "adapter_id": "typescript-test",
+        "adapter_version": "0.2.0",
+        "origin": "deterministic",
+        "method": "test-filename"
+      },
+      "state": "current"
+    },
+    {
+      "id": "test-tests-comments-test",
+      "kind": "test",
+      "ref": "tests/comments.test.ts",
+      "title": "tests/comments.test.ts",
+      "locator": {
+        "path": "tests/comments.test.ts",
+        "content_sha256": "7993b1e3193407b01a8bf31184d81d65b5e94a7533dd704edb04c78f2287092d"
       },
       "provenance": {
         "adapter_id": "typescript-test",

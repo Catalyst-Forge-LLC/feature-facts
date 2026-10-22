@@ -1,6 +1,6 @@
 {
   "schemaVersion": "0.2.0",
-  "scan_id": "scan-1c568586ee3b",
+  "scan_id": "scan-b3bf51def6f6",
   "product": {
     "name": "FeatureFacts",
     "type": "typescript-node",
@@ -79,7 +79,7 @@
       },
       "observation": {
         "state": "current",
-        "last_seen_scan_id": "scan-1c568586ee3b",
+        "last_seen_scan_id": "scan-b3bf51def6f6",
         "reason": "Current source evidence is available."
       },
       "evidence": [
@@ -101,7 +101,7 @@
           },
           "provenance": {
             "adapter_id": "typescript-node-surface",
-            "adapter_version": "0.2.4",
+            "adapter_version": "0.2.5",
             "origin": "deterministic",
             "method": "surface-cluster"
           }
@@ -214,7 +214,7 @@
       },
       "observation": {
         "state": "current",
-        "last_seen_scan_id": "scan-1c568586ee3b",
+        "last_seen_scan_id": "scan-b3bf51def6f6",
         "reason": "Current source evidence is available."
       },
       "evidence": [
@@ -236,7 +236,7 @@
           },
           "provenance": {
             "adapter_id": "typescript-node-surface",
-            "adapter_version": "0.2.4",
+            "adapter_version": "0.2.5",
             "origin": "deterministic",
             "method": "surface-cluster"
           }
@@ -341,7 +341,7 @@
       },
       "observation": {
         "state": "current",
-        "last_seen_scan_id": "scan-1c568586ee3b",
+        "last_seen_scan_id": "scan-b3bf51def6f6",
         "reason": "Current source evidence is available."
       },
       "evidence": [
@@ -363,7 +363,7 @@
           },
           "provenance": {
             "adapter_id": "typescript-node-surface",
-            "adapter_version": "0.2.4",
+            "adapter_version": "0.2.5",
             "origin": "deterministic",
             "method": "surface-cluster"
           }
@@ -480,7 +480,7 @@
       },
       "observation": {
         "state": "current",
-        "last_seen_scan_id": "scan-1c568586ee3b",
+        "last_seen_scan_id": "scan-b3bf51def6f6",
         "reason": "Current source evidence is available."
       },
       "evidence": [
@@ -502,7 +502,7 @@
           },
           "provenance": {
             "adapter_id": "typescript-node-surface",
-            "adapter_version": "0.2.4",
+            "adapter_version": "0.2.5",
             "origin": "deterministic",
             "method": "surface-cluster"
           }
@@ -607,7 +607,7 @@
       },
       "observation": {
         "state": "current",
-        "last_seen_scan_id": "scan-1c568586ee3b",
+        "last_seen_scan_id": "scan-b3bf51def6f6",
         "reason": "Current source evidence is available."
       },
       "evidence": [
@@ -629,7 +629,7 @@
           },
           "provenance": {
             "adapter_id": "typescript-node-surface",
-            "adapter_version": "0.2.4",
+            "adapter_version": "0.2.5",
             "origin": "deterministic",
             "method": "surface-cluster"
           }
@@ -742,7 +742,7 @@
       },
       "observation": {
         "state": "current",
-        "last_seen_scan_id": "scan-1c568586ee3b",
+        "last_seen_scan_id": "scan-b3bf51def6f6",
         "reason": "Current source evidence is available."
       },
       "evidence": [
@@ -764,7 +764,7 @@
           },
           "provenance": {
             "adapter_id": "typescript-node-surface",
-            "adapter_version": "0.2.4",
+            "adapter_version": "0.2.5",
             "origin": "deterministic",
             "method": "surface-cluster"
           }
@@ -873,7 +873,7 @@
       },
       "observation": {
         "state": "current",
-        "last_seen_scan_id": "scan-1c568586ee3b",
+        "last_seen_scan_id": "scan-b3bf51def6f6",
         "reason": "Current source evidence is available."
       },
       "evidence": [
@@ -895,7 +895,7 @@
           },
           "provenance": {
             "adapter_id": "typescript-node-surface",
-            "adapter_version": "0.2.4",
+            "adapter_version": "0.2.5",
             "origin": "deterministic",
             "method": "surface-cluster"
           }
