@@ -85,7 +85,7 @@ function patternApplies(root: string, pattern: string, exclude: string[]): boole
 export function refreshConfigCommand(root: string, options: { write?: boolean; patterns?: string[] } = {}): RefreshConfigResult {
   const ws = workspaceAt(root);
   if (!existsSync(ws.configPath)) {
-    throw new Error('No .featurefacts/config.yaml found. Run featurefacts init or scan first.');
+    throw new Error('No .featurefacts/config.yaml found. Run featurefacts scan to write one.');
   }
   const config = loadYaml<Config>(ws.configPath);
   const include = Array.isArray(config.include) ? config.include : [];

@@ -76,7 +76,7 @@ test('init refuses to replace an existing register', () => {
   const root = oldLayoutProject();
   try {
     throws(() => initCommand(root), /already has a \.featurefacts\/ register/);
-    throws(() => refreshConfigCommand(mkdtempSync(join(tmpdir(), 'ff-none-'))), /No \.featurefacts\/config\.yaml/);
+    throws(() => refreshConfigCommand(mkdtempSync(join(tmpdir(), 'ff-none-'))), /No \.featurefacts\/config\.yaml found\. Run featurefacts scan/);
   } finally {
     rmSync(root, { recursive: true, force: true });
   }

@@ -44,7 +44,7 @@ When a candidate is no longer seen:
 
 ## Config
 
-`init` writes `.featurefacts/config.yaml`. The default include list is root `package.json`, `README.md`, `CHANGELOG.md`, root `*.js`, `*.mjs`, `*.cjs`, and `*.ts` files, and `src/`, `app/`, `apps/`, `packages/`, `lib/`, `bin/`, `client/`, `server/`, `web/`, `docs/`, `tests/`, `test/`. Root tool configs (`*.config.*` such as `vite.config.ts`, and `.eslintrc.*`) are excluded. A root `package.json` is not required; one under `web/` or `packages/` is enough.
+`init` writes `.featurefacts/config.yaml`; `scan` writes it when a register has none. The default include list is root `package.json`, `README.md`, `CHANGELOG.md`, root `*.js`, `*.mjs`, `*.cjs`, and `*.ts` files, and `src/`, `app/`, `apps/`, `packages/`, `lib/`, `bin/`, `client/`, `server/`, `web/`, `docs/`, `tests/`, `test/`. Root tool configs (`*.config.*` such as `vite.config.ts`, and `.eslintrc.*`) are excluded. A root `package.json` is not required; one under `web/` or `packages/` is enough.
 
 A config keeps its own include list when defaults change. To catch up an older config:
 

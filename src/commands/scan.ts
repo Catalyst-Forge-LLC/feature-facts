@@ -74,7 +74,8 @@ export function scanCommand(root: string): {
     registry,
     surfaces,
     date,
-    writeConfig: !prior,
+    // A register can predate its config (an older label helper wrote only features.yaml).
+    writeConfig: !prior || !existsSync(ws.configPath),
   });
   const manifest = buildManifest({
     scanId,

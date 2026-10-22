@@ -51,3 +51,18 @@ test('a missing manifest is named in check and report output', () => {
     rmSync(root, { recursive: true, force: true });
   }
 });
+
+test('scan writes a missing config next to an existing register', () => {
+  const root = project();
+  try {
+    const ws = workspaceAt(root);
+    scanCommand(root);
+    unlinkSync(ws.configPath);
+    const scan = scanCommand(root);
+    ok(existsSync(ws.configPath));
+    ok(scan.changed.includes('.featurefacts/config.yaml'));
+    equal(checkCommand(root).exit, 0);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
