@@ -77,6 +77,36 @@ function skipComment(text: string, start: number): number {
   return start;
 }
 
+/**
+ * The text with every // and block comment (JSDoc included) blanked to spaces, keeping newlines and
+ * offsets, so a command or route quoted in a comment is not read as code. String and template
+ * literals are kept: route and command names live in them. Annotations are read from the original
+ * text, because they are comments by design.
+ */
+export function blankComments(text: string): string {
+  let out = '';
+  let i = 0;
+  while (i < text.length) {
+    const ch = text[i]!;
+    if (ch === '"' || ch === "'" || ch === '`') {
+      const end = Math.min(skipQuoted(text, i), text.length);
+      out += text.slice(i, end);
+      i = end;
+      continue;
+    }
+    // A `/` after a backslash belongs to an escape, as in a regex literal; it starts no comment.
+    const past = i > 0 && text[i - 1] === '\\' ? i : skipComment(text, i);
+    if (past !== i) {
+      out += text.slice(i, past).replace(/[^\r\n]/g, ' ');
+      i = past;
+      continue;
+    }
+    out += ch;
+    i += 1;
+  }
+  return out;
+}
+
 /** Index just past the bracket that closes the one at `open`, or -1. */
 function matchBracket(text: string, open: number): number {
   const opener = text[open];
@@ -305,7 +335,8 @@ export function runSurface(ctx: ScanContext): SurfaceResult {
       }
     }
 
-    if (HANDLER_FILE.test(path) && HANDLER_EXPORT.test(content.text)) {
+    const code = blankComments(content.text);
+    if (HANDLER_FILE.test(path) && HANDLER_EXPORT.test(code)) {
       const next = appRoute(path);
       add({
         id: next?.id ?? kebabId(`file-${path.replace(/\.[^.]+$/, '')}`),
@@ -333,11 +364,11 @@ export function runSurface(ctx: ScanContext): SurfaceResult {
 
     ROUTE_CALL.lastIndex = 0;
     let match: RegExpExecArray | null;
-    const lines = content.text.split(/\r?\n/);
-    while ((match = ROUTE_CALL.exec(content.text))) {
+    const lines = code.split(/\r?\n/);
+    while ((match = ROUTE_CALL.exec(code))) {
       const method = match[1].toUpperCase();
       const route = match[2];
-      const start = content.text.slice(0, match.index).split(/\r?\n/).length;
+      const start = code.slice(0, match.index).split(/\r?\n/).length;
       add({
         id: kebabId(`route-${method}-${route}`),
         kind: 'route',
@@ -350,9 +381,9 @@ export function runSurface(ctx: ScanContext): SurfaceResult {
     }
 
     COMMAND_CALL.lastIndex = 0;
-    while ((match = COMMAND_CALL.exec(content.text))) {
+    while ((match = COMMAND_CALL.exec(code))) {
       const name = match[1].split(/[\s<[]/)[0];
-      const start = content.text.slice(0, match.index).split(/\r?\n/).length;
+      const start = code.slice(0, match.index).split(/\r?\n/).length;
       add({
         id: kebabId(`cmd-${name}`),
         kind: 'command',
@@ -364,15 +395,15 @@ export function runSurface(ctx: ScanContext): SurfaceResult {
       });
     }
 
-    if (content.text.includes('process.argv')) {
+    if (code.includes('process.argv')) {
       const seenCmd = new Set<string>();
       const hits: ArgvLabel[] = [];
       ARGV_EQ.lastIndex = 0;
       let chainHead: string | undefined;
       let chainEnd = -1;
-      while ((match = ARGV_EQ.exec(content.text))) {
-        // An `||` chain of argv equality checks (start or serve) names one command twice.
-        const chained = chainHead !== undefined && /^\s*\|\|\s*$/.test(content.text.slice(chainEnd, match.index));
+      while ((match = ARGV_EQ.exec(code))) {
+        // `cmd === 'start' || cmd === 'serve'` names one command twice.
+        const chained = chainHead !== undefined && /^\s*\|\|\s*$/.test(code.slice(chainEnd, match.index));
         if (chained && match[1] !== chainHead) hits.push({ name: match[1]!, index: match.index, aliasOf: chainHead });
         else if (!chained) {
           chainHead = match[1]!;
@@ -380,7 +411,7 @@ export function runSurface(ctx: ScanContext): SurfaceResult {
         }
         chainEnd = match.index + match[0].length;
       }
-      hits.push(...argvCaseLabels(content.text));
+      hits.push(...argvCaseLabels(code));
       // A name seen as a command of its own anywhere in the file is not an alias.
       const primaries = new Set(hits.filter((hit) => !hit.aliasOf).map((hit) => hit.name));
       for (const hit of hits) {
@@ -388,7 +419,7 @@ export function runSurface(ctx: ScanContext): SurfaceResult {
         const alias = hit.aliasOf && !primaries.has(name) ? hit.aliasOf : undefined;
         if (seenCmd.has(name)) continue;
         seenCmd.add(name);
-        const start = content.text.slice(0, hit.index).split(/\r?\n/).length;
+        const start = code.slice(0, hit.index).split(/\r?\n/).length;
         add({
           id: kebabId(`cmd-${name}`),
           kind: 'command',

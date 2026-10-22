@@ -33,7 +33,7 @@ npx @xfacts/featurefacts check  --root ../my-app
 - **Routes:** route calls whose path starts with `/`, SvelteKit `routes` files (`+server`, `+page`, `+page.server`, and pages with only `+page.svelte`), and `route.ts` files that export an HTTP handler such as `GET` (Next.js). A file named `server.ts` or `route.ts` is not a capability by name alone. A header lookup such as `.get('accept')` is not a route.
 - **Route IDs:** `route-` plus the URL path, without the HTTP verb, so `POST /plans/:id/accept` and `routes/plans/[id]/accept/+server.ts` are both `route-plans-id-accept`. A one-segment path or `/api/x` uses its last segment (`route-deck`). A row confirmed under an older verb ID such as `route-post-plans-id-accept` keeps it, with the path ID as an alias.
 - **Annotations** in source (not `package.json` prose) name or group capabilities explicitly.
-- **Not surfaces:** test code (`test/`, `tests/`, `__tests__/`, `fixtures/`, `e2e/`, `*.test.*`, `*.spec.*`) counts only as test evidence. Generated trees (`.svelte-kit`, `.next`, coverage) are skipped.
+- **Not surfaces:** commands and routes inside comments (line, block, and JSDoc); annotations are the only comments scan reads. Test code (`test/`, `tests/`, `__tests__/`, `fixtures/`, `e2e/`, `*.test.*`, `*.spec.*`) counts only as test evidence. Generated trees (`.svelte-kit`, `.next`, coverage) are skipped.
 
 When a candidate is no longer seen:
 

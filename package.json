@@ -10,7 +10,7 @@
     "build": "node scripts/build.mjs src/cli.ts",
     "prepack": "pnpm build",
     "featurefacts": "node bin/featurefacts.mjs",
-    "test": "pnpm build && tsx --test tests/cli.test.ts tests/surface.test.ts tests/curate.test.ts tests/label-freshness.test.ts tests/helm-repos.test.ts tests/product-title.test.ts tests/bin.test.ts tests/time.test.ts tests/render.test.ts tests/aliases.test.ts tests/manifest.test.ts tests/refresh-config.test.ts tests/route-ids.test.ts tests/stale.test.ts tests/names.test.ts",
+    "test": "pnpm build && tsx --test tests/cli.test.ts tests/surface.test.ts tests/curate.test.ts tests/label-freshness.test.ts tests/helm-repos.test.ts tests/product-title.test.ts tests/bin.test.ts tests/time.test.ts tests/render.test.ts tests/aliases.test.ts tests/manifest.test.ts tests/refresh-config.test.ts tests/route-ids.test.ts tests/stale.test.ts tests/names.test.ts tests/comments.test.ts",
     "typecheck": "tsc --noEmit",
     "verify": "pnpm typecheck && pnpm test",
     "preview": "node scripts/preview.mjs",
