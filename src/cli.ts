@@ -3,7 +3,7 @@ import { checkCommand } from './commands/check.ts';
 import { initCommand } from './commands/init.ts';
 import { reportCommand } from './commands/report.ts';
 import { scanCommand } from './commands/scan.ts';
-import { curateSelection, gitActor, reviewSnapshot } from './commands/curate.ts';
+import { curateSelection, gitActor, parseNames, reviewSnapshot } from './commands/curate.ts';
 import { showCommand } from './commands/show.ts';
 import { refreshConfigCommand } from './commands/refresh-config.ts';
 import { TOOL_NAME, TOOL_VERSION } from './version.ts';
@@ -22,7 +22,7 @@ Usage:
   featurefacts report [--root DIR]
   featurefacts show [feature-id] [--root DIR]
   featurefacts review [--root DIR]
-  featurefacts review --apply [--root DIR] [--actor NAME] [--source TEXT] [--id FEATURE]...
+  featurefacts review --apply [--root DIR] [--actor NAME] [--source TEXT] [--id FEATURE]... [--name FEATURE=NAME]...
   featurefacts check [--projection] [--root DIR]
   featurefacts refresh-config [--root DIR] [--include PATTERN]... [--write]
 
@@ -95,7 +95,8 @@ export async function run(argv: string[]): Promise<void> {
       if (rest.includes('--apply')) {
         const ids = argValues(rest, '--id');
         const actor = argValue(rest, '--actor') ?? gitActor(root);
-        const result = curateSelection(root, ids, actor, argValue(rest, '--source'));
+        const names = parseNames(argValues(rest, '--name'));
+        const result = curateSelection(root, ids, actor, argValue(rest, '--source'), names);
         process.stdout.write(
           result.selected.length
             ? `Label updated with ${result.selected.length} capabilities.\n`

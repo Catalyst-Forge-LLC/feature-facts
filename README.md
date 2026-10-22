@@ -34,10 +34,10 @@ After scanning, inspect the candidates. `review` prints them as JSON (ID, name, 
 `review --apply` is the approve step. Name the IDs for the label, in order, and who approved them:
 
 ```bash
-npx @xfacts/featurefacts review --apply --root ../my-app --actor "Your Name" --id cmd-scan --id cmd-serve
+npx @xfacts/featurefacts review --apply --root ../my-app --actor "Your Name" --id cmd-scan --id cmd-serve --name "cmd-serve=Read-only server"
 ```
 
-It marks each named capability `confirmed` (and `implemented` if its lifecycle was unknown) with a declared evidence item, sets `curation.selected_ids` (up to 12) and `curation.approval`, then refreshes `FEATURE_FACTS.md`. `--actor` defaults to `git config user.name`; FeatureFacts will not invent an approver. `--source` records where the review happened (default `featurefacts review`; the LocalHelm plugin passes its own name). Running it with no `--id` clears the selection and removes the label. Unnamed capabilities stay candidates in the register.
+It marks each named capability `confirmed` (and `implemented` if its lifecycle was unknown) with a declared evidence item, sets `curation.selected_ids` (up to 12) and `curation.approval`, then refreshes `FEATURE_FACTS.md`. `--actor` defaults to `git config user.name`; FeatureFacts will not invent an approver. `--source` records where the review happened (default `featurefacts review`; the LocalHelm plugin passes its own name). `--name ID=Display Name` (repeatable) sets the name shown on the label for a selected ID in `curation.overrides`; the register keeps the scan name, `--name ID=` removes the override, and overrides for other IDs are kept. Running it with no `--id` clears the selection and removes the label. Unnamed capabilities stay candidates in the register.
 
 To do the same by hand, set `recognition: confirmed` on a feature only when you can attach a declared evidence item: `actor`, `source`, and `recorded_at`. See [docs/CONTRACT.md](docs/CONTRACT.md). A candidate stays a candidate until that declaration exists.
 

@@ -66,12 +66,24 @@ export function gitActor(root: string): string {
   throw new Error('Set git user.name before confirming capabilities. FeatureFacts will not invent who approved them.');
 }
 
+/** Parse `ID=Display Name` values from `review --apply --name`. */
+export function parseNames(values: string[]): Record<string, string> {
+  const names: Record<string, string> = {};
+  for (const value of values) {
+    const at = value.indexOf('=');
+    if (at < 1) throw new Error(`--name takes ID=Display Name, got ${JSON.stringify(value)}.`);
+    names[value.slice(0, at).trim()] = value.slice(at + 1);
+  }
+  return names;
+}
+
 /** Tick the capabilities that belong on the label. Unticked rows stay in the register. */
 export function curateSelection(
   root: string,
   ids: string[],
   actor: string,
   source: string = DEFAULT_REVIEW_SOURCE,
+  names: Record<string, string> = {},
 ): { selected: string[]; wroteLabel: boolean } {
   const name = actor.trim();
   const from = source.trim() || DEFAULT_REVIEW_SOURCE;
@@ -86,6 +98,9 @@ export function curateSelection(
   const known = new Set(registry.features.map((feature) => feature.id));
   for (const id of unique) {
     if (!known.has(id)) throw new Error(`No capability ${id}. Run Scan, then review again.`);
+  }
+  for (const id of Object.keys(names)) {
+    if (!unique.includes(id)) throw new Error(`--name ${id} needs --id ${id}. A display name is for a capability on the label.`);
   }
   const recordedAt = localTimestamp();
   for (const feature of registry.features) {
@@ -102,6 +117,13 @@ export function curateSelection(
   }
   const config = loadConfig(ws);
   config.curation.selected_ids = unique;
+  // A display name for the label. An empty name removes the override, so the scan name shows again.
+  const overrides = { ...(config.curation.overrides ?? {}) };
+  for (const [id, display] of Object.entries(names)) {
+    if (display.trim()) overrides[id] = { name: display.trim() };
+    else delete overrides[id];
+  }
+  config.curation.overrides = overrides;
   config.curation.approval = { actor: name, source: from, recorded_at: recordedAt };
   writeYaml(ws.featuresPath, registry);
   writeYaml(ws.configPath, config);
