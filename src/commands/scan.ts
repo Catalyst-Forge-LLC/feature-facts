@@ -51,6 +51,9 @@ export function scanCommand(root: string): {
   const registry = prior ?? emptyRegistry(scanId, productNameFromRoot(root));
   registry.scan_id = scanId;
   applyProduct(registry, ctx.contents.get('package.json')?.text, productNameFromRoot(root), productTitle(root));
+  const failed = adapters.some((adapter) => adapter.state === 'failed');
+  const partial = adapters.some((adapter) => ['partial', 'unsupported'].includes(adapter.state));
+  const status = failed ? 'failed' : partial ? 'partial' : 'complete';
   registry.features = assembleFeatures({
     scanId,
     prior: registry.features,
@@ -58,11 +61,10 @@ export function scanCommand(root: string): {
     docs: docs.surfaces,
     tests: tests.surfaces,
     fileTexts: new Map([...ctx.contents.entries()].map(([path, value]) => [path, value.text])),
+    complete: status === 'complete',
+    keep: new Set([...(config.curation?.selected_ids ?? []), ...Object.keys(config.curation?.overrides ?? {})]),
   });
 
-  const failed = adapters.some((adapter) => adapter.state === 'failed');
-  const partial = adapters.some((adapter) => ['partial', 'unsupported'].includes(adapter.state));
-  const status = failed ? 'failed' : partial ? 'partial' : 'complete';
   const diagnostics: Diagnostic[] = adapters.flatMap((adapter) => adapter.diagnostics);
   const generatedAt = localTimestamp();
   const date = generatedAt.slice(0, 10);

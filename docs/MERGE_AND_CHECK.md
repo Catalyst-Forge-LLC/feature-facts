@@ -6,7 +6,7 @@ Match by the immutable feature ID or an explicitly approved alias. A unique revi
 
 Keep candidates separate from confirmed features. A grouping change, split, or merge requires an explicit reviewed migration. Retain old records and, for a merged identity, a redirect from the retired source to the retained target. A split retains the original retired record plus explicitly reviewed successor records. Do not reuse retired IDs for unrelated capabilities.
 
-The scanner can add current source observations, refresh assessment states, propose candidates, and mark old evidence stale. It cannot invent a maintainer declaration, overwrite approved publication permission, rename IDs, silently replace selected rows, or erase reviewed distinctions.
+The scanner can add current source observations, refresh assessment states, propose candidates, and mark old evidence stale. It cannot invent a maintainer declaration, overwrite approved publication permission, rename IDs, silently replace selected rows, or erase reviewed distinctions. It may drop an unconfirmed candidate that a complete scan no longer sees, because such a row holds no review; a confirmed row, an ID the config selects or renames, and a row with locked fields stay as stale.
 
 Preserve supported editorial locks. A current observation that conflicts with a locked declaration produces a conflict for review. The lock does not make the observation disappear or turn a stale locator into a current one. Automated evidence freshness and adapter outcomes are not lockable.
 

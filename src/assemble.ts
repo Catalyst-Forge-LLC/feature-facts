@@ -98,8 +98,13 @@ export function assembleFeatures(args: {
   docs: Surface[];
   tests: Surface[];
   fileTexts: Map<string, string>;
+  /** True when every adapter completed, so a candidate that was not seen is really gone. */
+  complete?: boolean;
+  /** IDs the config names (selected or renamed). They are kept even when unconfirmed. */
+  keep?: Set<string>;
 }): Feature[] {
   const { scanId, prior, surfaces, docs, tests, fileTexts } = args;
+  const keep = args.keep ?? new Set<string>();
   const byId = new Map<string, Feature>();
   for (const feature of prior) {
     byId.set(feature.id, structuredClone(feature));
@@ -378,12 +383,16 @@ export function assembleFeatures(args: {
     }
   }
 
-  // A candidate no scan ever located (for example a product-name row seeded from package.json by a
-  // label helper) only says the package exists. Once stale it is dropped; confirmed rows are kept.
+  // An unconfirmed candidate that was not seen holds nothing a maintainer reviewed, and a later scan
+  // proposes it again if its code returns. After a complete scan it is dropped. After a partial scan
+  // only a row no scan ever located (a product-name row seeded from package.json by a label helper)
+  // is dropped. Confirmed rows, IDs the config names, and rows with locked fields are kept.
   for (const [id, feature] of byId) {
-    if (seen.has(id) || feature.recognition === 'confirmed') continue;
-    if (feature.entry_points.length || feature.implements.length) continue;
-    if (feature.evidence.some((item) => item.locator)) continue;
+    if (seen.has(id) || feature.recognition === 'confirmed' || keep.has(id)) continue;
+    if (feature.editorial.locked.length) continue;
+    const located =
+      feature.entry_points.length > 0 || feature.implements.length > 0 || feature.evidence.some((item) => item.locator);
+    if (located && !args.complete) continue;
     byId.delete(id);
   }
 
