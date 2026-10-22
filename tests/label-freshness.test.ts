@@ -6,7 +6,9 @@ import { fileURLToPath } from 'node:url';
 import { test } from 'node:test';
 import { checkCommand } from '../src/commands/check.ts';
 import { curateSelection } from '../src/commands/curate.ts';
+import { reportCommand } from '../src/commands/report.ts';
 import { scanCommand } from '../src/commands/scan.ts';
+import { TOOL_VERSION } from '../src/version.ts';
 
 const here = dirname(fileURLToPath(import.meta.url));
 
@@ -46,6 +48,27 @@ test('build output, dependencies, and local secrets do not make a fresh clone lo
     rmSync(join(root, 'dist'), { recursive: true, force: true });
     rmSync(join(root, 'node_modules'), { recursive: true, force: true });
     rmSync(join(root, '.env'));
+    equal(checkCommand(root).messages.join('\n'), 'Check passed.');
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
+test('the tool reports the package version, and a label from an older version stays fresh', () => {
+  const pkg = JSON.parse(readFileSync(join(here, '..', 'package.json'), 'utf8')) as { version: string };
+  equal(TOOL_VERSION, pkg.version);
+  const root = mkdtempSync(join(tmpdir(), 'ff-label-version-'));
+  try {
+    cpSync(join(here, 'fixtures', 'workshop'), root, { recursive: true });
+    scanCommand(root);
+    curateSelection(root, ['resume-importer'], 'Ada Lovelace');
+    const labelPath = join(root, 'FEATURE_FACTS.md');
+    const older = readFileSync(labelPath, 'utf8').replace(/generator_version: .*/, 'generator_version: 0.2.0');
+    writeFileSync(labelPath, older);
+    equal(checkCommand(root).messages.join('\n'), 'Check passed.');
+    reportCommand(root);
+    scanCommand(root);
+    equal(readFileSync(labelPath, 'utf8'), older);
     equal(checkCommand(root).messages.join('\n'), 'Check passed.');
   } finally {
     rmSync(root, { recursive: true, force: true });
