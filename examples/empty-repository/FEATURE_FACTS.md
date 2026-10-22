@@ -53,9 +53,9 @@ No confirmed capabilities are eligible for this label.
 
 Within the eligible confirmed scope: 0 registered, 0 selected, and 0 not selected.
 
-Docs: 0 of 0 assessed capabilities have linked evidence. Of 0 eligible capabilities, 0 are partially assessed, 0 unassessed, 0 not applicable, and 0 undisclosed.
+Docs: no eligible capabilities.
 
-Tests: 0 of 0 assessed capabilities have linked evidence. Of 0 eligible capabilities, 0 are partially assessed, 0 unassessed, 0 not applicable, and 0 undisclosed.
+Tests: no eligible capabilities.
 
 Linked evidence is not a claim that tests pass or documentation is adequate.
 

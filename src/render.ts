@@ -10,6 +10,36 @@ function availability(row: LabelFrontmatter['features'][number]): string {
   return extra ? `conditional, ${extra}` : 'conditional';
 }
 
+function listJoin(items: string[]): string {
+  if (items.length <= 1) return items.join('');
+  if (items.length === 2) return `${items[0]} and ${items[1]}`;
+  return `${items.slice(0, -1).join(', ')}, and ${items[items.length - 1]}`;
+}
+
+/** One sentence per dimension, without "0 of 0" or "1 are". Zero buckets are left out. */
+export function rollupSentence(name: string, rollup: NonNullable<LabelFrontmatter['assessments']>['docs']): string {
+  if (rollup.eligible === 0) return `${name}: no eligible capabilities.`;
+  const assessed = `${rollup.assessed} assessed ${rollup.assessed === 1 ? 'capability' : 'capabilities'}`;
+  const lead =
+    rollup.assessed === 0
+      ? `${name}: no capability is fully assessed.`
+      : rollup.with_links === 0
+        ? `${name}: ${rollup.assessed === 1 ? 'the 1 assessed capability has no' : `none of the ${assessed} has`} linked evidence.`
+        : `${name}: ${rollup.with_links} of ${assessed} ${rollup.with_links === 1 ? 'has' : 'have'} linked evidence.`;
+  const rest = (
+    [
+      [rollup.partial, 'partially assessed'],
+      [rollup.unassessed, 'unassessed'],
+      [rollup.not_applicable, 'not applicable'],
+      [rollup.undisclosed, 'undisclosed'],
+    ] as const
+  )
+    .filter(([count]) => count > 0)
+    .map(([count, what]) => `${count} ${count === 1 ? 'is' : 'are'} ${what}`);
+  if (!rest.length) return lead;
+  return `${lead} Of ${rollup.eligible} eligible ${rollup.eligible === 1 ? 'capability' : 'capabilities'}, ${listJoin(rest)}.`;
+}
+
 export function renderLabelBody(label: LabelFrontmatter): string {
   const lines = [`# Feature Facts: ${esc(label.name)}`, '', 'What can this product do?', ''];
   if (!label.features.length) {
@@ -41,9 +71,7 @@ export function renderLabelBody(label: LabelFrontmatter): string {
       ['Docs', label.assessments.docs],
       ['Tests', label.assessments.tests],
     ] as const) {
-      lines.push(
-        `${name}: ${rollup.with_links} of ${rollup.assessed} assessed capabilities have linked evidence. Of ${rollup.eligible} eligible capabilities, ${rollup.partial} are partially assessed, ${rollup.unassessed} unassessed, ${rollup.not_applicable} not applicable, and ${rollup.undisclosed} undisclosed.`,
-      );
+      lines.push(rollupSentence(name, rollup));
     }
     lines.push('');
     lines.push('Linked evidence is not a claim that tests pass or documentation is adequate.');

@@ -66,8 +66,8 @@ Synthetic format example, not a scan or audit of a real product.
 
 Within the eligible confirmed scope: 1 registered, 1 selected, and 0 not selected.
 
-Docs: 1 of 1 assessed capabilities have linked evidence. Of 1 eligible capabilities, 0 are partially assessed, 0 unassessed, 0 not applicable, and 0 undisclosed.
+Docs: 1 of 1 assessed capability has linked evidence.
 
-Tests: 1 of 1 assessed capabilities have linked evidence. Of 1 eligible capabilities, 0 are partially assessed, 0 unassessed, 0 not applicable, and 0 undisclosed.
+Tests: 1 of 1 assessed capability has linked evidence.
 
 Linked evidence is not a claim that tests pass or documentation is adequate.
