@@ -1,4 +1,4 @@
-import { equal, match, throws } from 'node:assert/strict';
+import { doesNotMatch, equal, match, ok, throws } from 'node:assert/strict';
 import { existsSync, mkdtempSync, cpSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 import { test } from 'node:test';
 import { curateSelection, reviewSnapshot } from '../src/commands/curate.ts';
 import { scanCommand } from '../src/commands/scan.ts';
-import { loadLabel, loadRegistry } from '../src/workspace.ts';
+import { loadConfig, loadLabel, loadRegistry } from '../src/workspace.ts';
 import { workspaceAt } from '../src/workspace.ts';
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -41,6 +41,29 @@ test('review confirms the ticked capability and leaves the rest as candidates', 
     const again = loadRegistry(workspaceAt(root))!;
     equal(again.features.find((item) => item.id === 'resume-importer')?.recognition, 'confirmed');
     match(again.features.find((item) => item.id === 'resume-importer')?.description ?? '', /draft profile|Observed implementation/);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
+test('an approval records who ran the review: the CLI by default, or the named caller', () => {
+  const root = mkdtempSync(join(tmpdir(), 'ff-curate-source-'));
+  try {
+    cpSync(join(here, 'fixtures', 'workshop'), root, { recursive: true });
+    scanCommand(root);
+    curateSelection(root, ['resume-importer'], 'Ada Lovelace');
+    const ws = workspaceAt(root);
+    equal(loadConfig(ws).curation.approval?.source, 'featurefacts review');
+    const declared = loadRegistry(ws)!
+      .features.find((item) => item.id === 'resume-importer')!
+      .evidence.filter((item) => item.kind === 'declared' && item.declaration?.actor === 'Ada Lovelace');
+    ok(declared.length > 0);
+    for (const item of declared) {
+      equal(item.declaration?.source, 'featurefacts review');
+      doesNotMatch(item.assertion.claim, /LocalHelm/);
+    }
+    curateSelection(root, ['resume-importer'], 'Ada Lovelace', 'LocalHelm FeatureFacts review');
+    equal(loadConfig(ws).curation.approval?.source, 'LocalHelm FeatureFacts review');
   } finally {
     rmSync(root, { recursive: true, force: true });
   }

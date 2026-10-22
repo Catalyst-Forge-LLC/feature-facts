@@ -18,7 +18,7 @@ Usage:
   featurefacts report [--root DIR]
   featurefacts show [feature-id] [--root DIR]
   featurefacts review [--root DIR]
-  featurefacts review --apply [--root DIR] [--actor NAME] [--id FEATURE]...
+  featurefacts review --apply [--root DIR] [--actor NAME] [--source TEXT] [--id FEATURE]...
   featurefacts check [--projection] [--root DIR]
 
 Default scan does not execute target code, use the network, or call a model.
@@ -82,7 +82,7 @@ export async function run(argv: string[]): Promise<void> {
       if (rest.includes('--apply')) {
         const ids = argValues(rest, '--id');
         const actor = argValue(rest, '--actor') ?? gitActor(root);
-        const result = curateSelection(root, ids, actor);
+        const result = curateSelection(root, ids, actor, argValue(rest, '--source'));
         process.stdout.write(
           result.selected.length
             ? `Label updated with ${result.selected.length} capabilities.\n`

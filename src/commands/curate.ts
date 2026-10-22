@@ -5,7 +5,8 @@ import type { Feature } from '../types.ts';
 import { loadConfig, loadRegistry, workspaceAt, writeYaml } from '../workspace.ts';
 
 const LABEL_LIMIT = 12;
-const REVIEW_SOURCE = 'LocalHelm FeatureFacts review';
+/** Where an approval came from when the caller does not say. LocalHelm passes its own name. */
+export const DEFAULT_REVIEW_SOURCE = 'featurefacts review';
 
 export interface ReviewFeature {
   id: string;
@@ -65,8 +66,14 @@ export function gitActor(root: string): string {
 }
 
 /** Tick the capabilities that belong on the label. Unticked rows stay in the register. */
-export function curateSelection(root: string, ids: string[], actor: string): { selected: string[]; wroteLabel: boolean } {
+export function curateSelection(
+  root: string,
+  ids: string[],
+  actor: string,
+  source: string = DEFAULT_REVIEW_SOURCE,
+): { selected: string[]; wroteLabel: boolean } {
   const name = actor.trim();
+  const from = source.trim() || DEFAULT_REVIEW_SOURCE;
   if (!name) throw new Error('Set git user.name before confirming capabilities. FeatureFacts will not invent who approved them.');
   if (ids.length > LABEL_LIMIT) {
     throw new Error(`A label holds at most ${LABEL_LIMIT} capabilities. Untick down to ${LABEL_LIMIT}.`);
@@ -85,16 +92,16 @@ export function curateSelection(root: string, ids: string[], actor: string): { s
     feature.recognition = 'confirmed';
     // A scan cluster may only stay a candidate. Confirming it promotes the row to a feature.
     if (feature.type === 'surface-cluster') feature.type = 'feature';
-    ensureDeclared(feature, 'recognition', 'confirmed', name, recordedAt);
+    ensureDeclared(feature, 'recognition', 'confirmed', name, from, recordedAt);
     if (feature.lifecycle === 'unknown') {
       feature.lifecycle = 'implemented';
       delete feature.uncertainty_reasons.lifecycle;
-      ensureDeclared(feature, 'lifecycle', 'implemented', name, recordedAt);
+      ensureDeclared(feature, 'lifecycle', 'implemented', name, from, recordedAt);
     }
   }
   const config = loadConfig(ws);
   config.curation.selected_ids = unique;
-  config.curation.approval = { actor: name, source: REVIEW_SOURCE, recorded_at: recordedAt };
+  config.curation.approval = { actor: name, source: from, recorded_at: recordedAt };
   writeYaml(ws.featuresPath, registry);
   writeYaml(ws.configPath, config);
   const reported = reportCommand(root);
@@ -113,6 +120,7 @@ function ensureDeclared(
   field: 'recognition' | 'lifecycle',
   value: string,
   actor: string,
+  source: string,
   recordedAt: string,
 ): void {
   const existing = feature.evidence.find(
@@ -126,11 +134,11 @@ function ensureDeclared(
     assertion: {
       field,
       value,
-      claim: `Confirmed in LocalHelm as ${value}.`,
+      claim: `Confirmed as ${value} in ${source}.`,
     },
     declaration: {
       actor,
-      source: REVIEW_SOURCE,
+      source,
       recorded_at: recordedAt,
     },
   });

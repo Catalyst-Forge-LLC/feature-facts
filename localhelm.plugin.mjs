@@ -210,7 +210,15 @@ async function apply(action, ids = []) {
   if (action === 'review') {
     const row = repoById(ids[0]);
     const featureIds = ids.slice(1);
-    const result = await run(['review', '--apply', '--root', row.absPath, ...featureIds.flatMap((id) => ['--id', id])]);
+    const result = await run([
+      'review',
+      '--apply',
+      '--root',
+      row.absPath,
+      '--source',
+      'LocalHelm FeatureFacts review',
+      ...featureIds.flatMap((id) => ['--id', id]),
+    ]);
     if (result.status !== 0) {
       throw new Error(result.stderr.trim() || result.stdout.trim() || `featurefacts review failed (exit ${result.status})`);
     }
