@@ -23,7 +23,7 @@ npx @xfacts/featurefacts show  --root ../my-app
 npx @xfacts/featurefacts review --root ../my-app
 ```
 
-Default scan does not execute target code, use the network, or call a model. It records CLI subcommands (`.command()` calls, plus `cmd === 'x'` checks and `case 'x':` labels of a `switch` on an argv value in files that read `process.argv`; a `switch (method)` in an MCP or JSON-RPC handler is not a command), HTTP routes whose path starts with `/`, and SvelteKit `routes` files. A header lookup such as `.get('accept')` is not a route. Generated trees (`.svelte-kit`, `.next`, coverage) are skipped. The package `bin` is not its own capability when subcommands are visible.
+Default scan does not execute target code, use the network, or call a model. It records CLI subcommands (`.command()` calls, plus `cmd === 'x'` checks and `case 'x':` labels of a `switch` on an argv value in files that read `process.argv`; a `switch (method)` in an MCP or JSON-RPC handler is not a command), HTTP routes whose path starts with `/`, and SvelteKit `routes` files. A header lookup such as `.get('accept')` is not a route. Generated trees (`.svelte-kit`, `.next`, coverage) are skipped. Test code (`test/`, `tests/`, `__tests__/`, `fixtures/`, `e2e/`, `*.test.*`, `*.spec.*`) counts as test evidence, never as a surface, so sample commands and routes inside tests do not become candidates. Annotations are read from source, not from `package.json` prose. The package `bin` is not its own capability when subcommands are visible.
 
 ## From candidates to a label
 

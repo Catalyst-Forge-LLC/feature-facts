@@ -5,6 +5,13 @@ import type { AdapterMeta, ScanContext, Surface } from '../types.ts';
 import { findAnnotations } from './annotations.ts';
 
 const TS_EXT = /\.(ts|tsx|js|mjs|cjs)$/;
+/** Test code and fixtures describe other programs; their commands and routes are not this product's. */
+const TEST_DIR = /(?:^|\/)(?:tests?|__tests__|__mocks__|fixtures?|e2e)\//;
+const TEST_FILE = /\.(?:test|spec)\.[cm]?[jt]sx?$/;
+
+export function isTestPath(path: string): boolean {
+  return TEST_DIR.test(path) || TEST_FILE.test(path);
+}
 const ROUTE_FILE = /(?:^|\/)(?:route|server|\+server|\+page(?:\.server)?)\.(ts|js)$/;
 const ROUTE_CALL = /\.(get|post|put|patch|delete|options|head)\(\s*['"`](\/[^'"`]*)['"`]/g;
 const COMMAND_CALL = /\.command\(\s*['"`]([^'"`]+)['"`]/g;
@@ -155,6 +162,7 @@ function svelteRoute(path: string): { id: string; ref: string; title: string } |
 
 export function runSurface(ctx: ScanContext): SurfaceResult {
   const eligible = markEligible(ctx.files, ADAPTERS.surface.id, (path) => {
+    if (isTestPath(path)) return false;
     return path === 'package.json' || TS_EXT.test(path);
   });
 
@@ -294,7 +302,8 @@ export function runSurface(ctx: ScanContext): SurfaceResult {
       }
     }
 
-    for (const annotation of findAnnotations(content.text)) {
+    // package.json is data: a description such as "FeatureFacts: a compact ..." is prose, not an annotation.
+    for (const annotation of path.endsWith('package.json') ? [] : findAnnotations(content.text)) {
       add({
         id: kebabId(`ann-${annotation.id}-${path}`),
         kind: 'other',

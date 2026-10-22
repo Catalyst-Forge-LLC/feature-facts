@@ -146,3 +146,34 @@ export function handle(method: string) {
     rmSync(root, { recursive: true, force: true });
   }
 });
+
+test('test files, fixtures, and package.json prose are not product surfaces', () => {
+  const root = mkdtempSync(join(tmpdir(), 'ff-tests-not-surface-'));
+  try {
+    writeFileSync(join(root, 'package.json'), JSON.stringify({ name: 'demo', description: 'FeatureFacts: a sample package' }));
+    mkdirSync(join(root, 'src', '__tests__'), { recursive: true });
+    mkdirSync(join(root, 'tests', 'fixtures', 'app', 'src'), { recursive: true });
+    mkdirSync(join(root, 'test'), { recursive: true });
+    writeFileSync(
+      join(root, 'src', 'cli.ts'),
+      `const cmd = process.argv[2];
+if (cmd === 'real') {}
+`,
+    );
+    const sample = `const cmd = process.argv[2];
+if (cmd === 'fake') {}
+app.get('/fake-route', () => undefined);
+`;
+    writeFileSync(join(root, 'src', 'cli.test.ts'), `test('x', () => { write(\`${sample}\`); });\n`);
+    writeFileSync(join(root, 'src', 'cli.spec.mjs'), sample);
+    writeFileSync(join(root, 'src', '__tests__', 'more.ts'), sample);
+    writeFileSync(join(root, 'test', 'helper.ts'), sample);
+    writeFileSync(join(root, 'tests', 'fixtures', 'app', 'src', 'cli.ts'), sample);
+
+    scanCommand(root);
+    const ids = loadRegistry(workspaceAt(root))!.features.map((item) => item.id).sort();
+    equal(ids.join(','), 'cmd-real');
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
