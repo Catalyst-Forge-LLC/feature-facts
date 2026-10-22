@@ -49,6 +49,8 @@ Then edit `.featurefacts/config.yaml`:
 
 `npx @xfacts/featurefacts report --root ../my-app` refreshes `FEATURE_FACTS.md` when a selection exists, and removes that file when nothing is selected. `npx @xfacts/featurefacts check --root ../my-app` checks that the label matches the register and config, and that the register is fresh against source (`check --projection` skips the source part).
 
+Commit all of `.featurefacts/`, including `manifest.json`, together with `FEATURE_FACTS.md`. The manifest records the scanned scope and fingerprints; without it `check` cannot judge source freshness in a fresh clone or CI. `init` and `scan` write it, and say so the first time. `report` does not rescan, so it only warns when the manifest is missing.
+
 The internal label can link to `.featurefacts/FEATURES.md`. A public label is a separate target. Each public row needs `publication.scope: public` with its own attributed permission. The public label contains only approved fields and does not expose the private register or source locators. Do not upload `.featurefacts/` and do not add a public map link. See [docs/PUBLICATION_AND_SAFETY.md](docs/PUBLICATION_AND_SAFETY.md).
 
 ## One candidate becomes a useful label row

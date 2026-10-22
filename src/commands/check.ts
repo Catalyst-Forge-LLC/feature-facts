@@ -84,7 +84,9 @@ export function checkCommand(root: string, mode: 'full' | 'projection' = 'full')
       const manifest = loadManifest(ws);
       if (!manifest) {
         stale = true;
-        messages.push('Manifest is missing; source freshness cannot pass.');
+        messages.push(
+          '.featurefacts/manifest.json is missing, so source freshness cannot be checked. Run featurefacts scan, then commit .featurefacts/manifest.json with the rest of .featurefacts/.',
+        );
       } else {
         const baseline = sourceFingerprint(
           manifest.scope.files,

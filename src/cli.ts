@@ -7,6 +7,9 @@ import { curateSelection, gitActor, reviewSnapshot } from './commands/curate.ts'
 import { showCommand } from './commands/show.ts';
 import { TOOL_NAME, TOOL_VERSION } from './version.ts';
 
+const COMMIT_HINT =
+  'Commit .featurefacts/ (including manifest.json) together with FEATURE_FACTS.md; check reads the manifest for source freshness.';
+
 function help(): string {
   return `${TOOL_NAME} ${TOOL_VERSION}
 
@@ -60,11 +63,13 @@ export async function run(argv: string[]): Promise<void> {
     if (command === 'init') {
       const result = initCommand(root);
       process.stdout.write(`Initialized FeatureFacts register.${result.changed.length ? ` Wrote ${result.changed.length} files.` : ''}\n`);
+      process.stdout.write(`${COMMIT_HINT}\n`);
       return;
     }
     if (command === 'scan') {
       const result = scanCommand(root);
       process.stdout.write(`Scan ${result.scanId} ${result.status}. Changed ${result.changed.length} files.\n`);
+      if (result.manifestCreated) process.stdout.write(`${COMMIT_HINT}\n`);
       for (const item of result.diagnostics) process.stderr.write(`${item.severity}: ${item.message}\n`);
       if (result.status === 'failed') process.exitCode = 3;
       return;
@@ -72,6 +77,9 @@ export async function run(argv: string[]): Promise<void> {
     if (command === 'report') {
       const result = reportCommand(root);
       process.stdout.write(`Report refreshed.${result.changed.length ? ` Wrote ${result.changed.length} files.` : ' No semantic changes.'}\n`);
+      if (result.manifestMissing) {
+        process.stdout.write('No .featurefacts/manifest.json yet. Run featurefacts scan to record the scan basis; check needs it.\n');
+      }
       return;
     }
     if (command === 'show') {

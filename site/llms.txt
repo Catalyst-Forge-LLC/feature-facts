@@ -8,7 +8,7 @@
 - Register schemas: https://featurefacts.dev/schema/
 - Site: https://featurefacts.dev/
 - Root label: FEATURE_FACTS.md
-- Register: .featurefacts/
+- Register: .featurefacts/ (commit all of it, including manifest.json, with FEATURE_FACTS.md; check reads the manifest for source freshness)
 
 ## How to use a feature label
 

@@ -4,7 +4,7 @@ import { writeGenerated } from '../write-artifacts.ts';
 import { loadConfig, loadManifest, loadRegistry, loadSurfaces, workspaceAt } from '../workspace.ts';
 import { localDate, localDateOf } from '../time.ts';
 
-export function reportCommand(root: string): { changed: string[] } {
+export function reportCommand(root: string): { changed: string[]; manifestMissing: boolean } {
   const ws = workspaceAt(root);
   const config = loadConfig(ws);
   const registry = loadRegistry(ws);
@@ -25,5 +25,6 @@ export function reportCommand(root: string): { changed: string[] } {
     };
     writeJson(ws.manifestPath, next);
   }
-  return { changed: written.changed };
+  // report does not rescan, so it cannot write a missing manifest without claiming a scan basis.
+  return { changed: written.changed, manifestMissing: !prior };
 }

@@ -1,3 +1,4 @@
+import { existsSync } from 'node:fs';
 import { runDocument } from '../adapters/document.ts';
 import { runSurface } from '../adapters/surface-ts.ts';
 import { runTests } from '../adapters/test.ts';
@@ -26,7 +27,13 @@ function uniqueSurfaces(items: Surface[]): Surface[] {
   return out;
 }
 
-export function scanCommand(root: string): { scanId: string; status: string; changed: string[]; diagnostics: Diagnostic[] } {
+export function scanCommand(root: string): {
+  scanId: string;
+  status: string;
+  changed: string[];
+  diagnostics: Diagnostic[];
+  manifestCreated: boolean;
+} {
   const ws = workspaceAt(root);
   const config = loadConfig(ws);
   const prior = loadRegistry(ws);
@@ -81,6 +88,7 @@ export function scanCommand(root: string): { scanId: string; status: string; cha
     diagnostics,
     ecosystems: surface.ecosystemSupported ? ['typescript-node'] : [],
   });
-  writeJson(ws.manifestPath, manifest);
-  return { scanId, status, changed: written.changed, diagnostics };
+  const manifestCreated = !existsSync(ws.manifestPath);
+  if (writeJson(ws.manifestPath, manifest)) written.changed.push('.featurefacts/manifest.json');
+  return { scanId, status, changed: written.changed, diagnostics, manifestCreated };
 }
