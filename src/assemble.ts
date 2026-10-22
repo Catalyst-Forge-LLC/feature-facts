@@ -81,6 +81,16 @@ function routeLeaf(ref: string): string | null {
   return null;
 }
 
+/**
+ * A deeper route is named by its URL path alone: `POST /plans/:id/accept` and a SvelteKit
+ * `routes/plans/[id]/accept/+server.ts` are both `route-plans-id-accept`. The HTTP verb is not
+ * part of the ID, so the methods on one path are one capability.
+ */
+function routePathId(ref: string): string | null {
+  const path = ref.startsWith('/') ? ref : ref.match(/^[A-Z]+\s+(\/\S*)$/)?.[1];
+  return path ? kebabId(`route-${path}`) : null;
+}
+
 export function assembleFeatures(args: {
   scanId: string;
   prior: Feature[];
@@ -136,6 +146,7 @@ export function assembleFeatures(args: {
     }
   }
   const aliasesById = new Map([...canonicalByName.values()].map((item) => [item.id, item.aliases]));
+  const routeAliases = new Map<string, string[]>();
 
   for (const surface of surfaces) {
     if (surface.provenance.method === 'package-json-bin' && commandByLeaf.size > 0) continue;
@@ -174,6 +185,19 @@ export function assembleFeatures(args: {
         continue;
       }
       const id = leaf ? kebabId(`route-${leaf}`) : 'route-home';
+      const group = cluster(id);
+      group.entry.push(surface.id);
+      group.refs.push(surface.ref);
+      noteTitle(group, surface);
+      continue;
+    }
+    const pathId = surface.provenance.method === 'static-route-call' ? routePathId(surface.ref) : null;
+    if (pathId && pathId !== surface.id) {
+      // Before adapter 0.2.4 a deep route call kept its verb (`route-post-plans-id-accept`).
+      // A confirmed row under that ID stays the identity, with the path ID recorded as its alias.
+      const legacy = byId.get(surface.id)?.recognition === 'confirmed';
+      const id = legacy ? surface.id : pathId;
+      if (legacy) routeAliases.set(id, unique([...(routeAliases.get(id) ?? []), pathId]));
       const group = cluster(id);
       group.entry.push(surface.id);
       group.refs.push(surface.ref);
@@ -292,7 +316,7 @@ export function assembleFeatures(args: {
           )
         : emptyAssessment('No explicit test association. A similar test filename is only a proposal.', [ADAPTERS.test.id]);
 
-    const aliases = aliasesById.get(id) ?? [];
+    const aliases = [...(aliasesById.get(id) ?? []), ...(routeAliases.get(id) ?? [])];
     if (priorFeature) {
       if (aliases.length) {
         priorFeature.editorial.aliases = unique([...priorFeature.editorial.aliases, ...aliases]);
