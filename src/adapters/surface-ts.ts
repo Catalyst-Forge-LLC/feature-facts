@@ -371,7 +371,7 @@ export function runSurface(ctx: ScanContext): SurfaceResult {
       let chainHead: string | undefined;
       let chainEnd = -1;
       while ((match = ARGV_EQ.exec(content.text))) {
-        // `cmd === 'start' || cmd === 'serve'` names one command twice.
+        // An `||` chain of argv equality checks (start or serve) names one command twice.
         const chained = chainHead !== undefined && /^\s*\|\|\s*$/.test(content.text.slice(chainEnd, match.index));
         if (chained && match[1] !== chainHead) hits.push({ name: match[1]!, index: match.index, aliasOf: chainHead });
         else if (!chained) {
