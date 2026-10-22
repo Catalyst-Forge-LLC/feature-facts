@@ -283,7 +283,6 @@
     <section id="depths">
       <div class="wrap prose">
         <h2 class="section-title">Two reading depths</h2>
-        <p class="section-lead">A small label, then the register that can defend it.</p>
         <p>
           <strong>FEATURE_FACTS.md</strong> holds zero to 12 approved rows.
           Initialization leaves the selection empty. A scanner can propose
@@ -302,36 +301,34 @@
         <h2 class="section-title">Scan one TypeScript repo</h2>
         <p class="section-lead">Default scan does not execute target code, use the network, or call a model.</p>
         <div class="split">
-          <pre>npx @xfacts/featurefacts init  --root ../my-app
-npx @xfacts/featurefacts scan  --root ../my-app
-npx @xfacts/featurefacts show  --root ../my-app
-npx @xfacts/featurefacts review --apply --root ../my-app --actor "Your Name" --id cmd-scan
-npx @xfacts/featurefacts check --root ../my-app</pre>
+          <pre>npx @xfacts/featurefacts init   --root ../my-app
+npx @xfacts/featurefacts scan   --root ../my-app
+npx @xfacts/featurefacts review --root ../my-app
+npx @xfacts/featurefacts review --apply --root ../my-app \
+  --actor "Your Name" --id cmd-scan --name "cmd-scan=Scan"
+npx @xfacts/featurefacts check  --root ../my-app</pre>
           <div class="prose">
             <p>
-              Install <code>@xfacts/featurefacts</code> (Node 22.18 or newer).
-              It is not a runtime dependency of the app you scan.
-              Current scope: TypeScript/Node. Unsupported inputs report
-              <code>unsupported</code>, not a fabricated inventory.
+              Requires Node 22.18 or newer; it is not a runtime dependency of the app
+              you scan. Unsupported inputs report <code>unsupported</code>, not a
+              fabricated inventory.
             </p>
+            <ol>
+              <li><code>scan</code> proposes candidates; <code>review</code> lists them.</li>
+              <li><code>review --apply</code> confirms the IDs you name, records who approved
+                them, and writes the label (up to 12 rows). <code>--name</code> sets a row&rsquo;s
+                label name.</li>
+              <li><code>check</code> fails when the label, register, or source are out of date.</li>
+              <li>Commit all of <code>.featurefacts/</code>, including <code>manifest.json</code>,
+                with <code>FEATURE_FACTS.md</code>.</li>
+            </ol>
             <p>
-              After scanning, inspect the candidates (<code>review</code> lists them).
-              Confirm only supported capabilities: <code>review --apply</code> with the
-              IDs and an <code>--actor</code> records <code>recognition: confirmed</code> with
-              a declared actor, source, and time, sets <code>curation.selected_ids</code>
-              (up to 12) and <code>curation.approval</code>, and writes the label.
-              <code>--name ID=Display Name</code> sets the name a row shows on the label. You can also
-              edit <code>.featurefacts/features.yaml</code> and <code>config.yaml</code> by hand,
-              then run <code>report</code>. Finish with <code>check</code>, and commit all of
-              <code>.featurefacts/</code> (including <code>manifest.json</code>) with the label.
-              For a register made by an older version, <code>refresh-config</code> shows the default
-              include patterns it lacks that match the repo, plus app folders such as <code>ui/</code>
-              or <code>viewer/</code>, and <code>--write</code> adds them without touching the selection.
-              Root tool configs such as <code>vite.config.ts</code> stay out.
-              Selecting nothing can be the correct result; then no label file is written.
-              The internal label can link to its register. A public label contains only
-              approved fields and does not expose the private register or source locators.
-              See <code>docs/LABEL.md</code> and <code>docs/PUBLICATION_AND_SAFETY.md</code>.
+              Selecting nothing is a valid result; then no label file is written.
+              For a config from an older version, <code>refresh-config</code> lists the include
+              and exclude changes it needs, such as app folders like <code>viewer/</code>;
+              <code>--write</code> applies them and keeps the selection.
+              A public label carries only approved fields and never the register or source
+              locators. See <code>docs/LABEL.md</code> and <code>docs/PUBLICATION_AND_SAFETY.md</code>.
             </p>
             <ul>
               <li><a href="/examples/FEATURE_FACTS.md">Synthetic example label</a></li>
@@ -351,11 +348,10 @@ npx @xfacts/featurefacts check --root ../my-app</pre>
           <p>
             FeatureFacts was created by
             <a href="https://www.catalystforge.com/">Catalyst Forge</a> —
-            AI consulting for growing businesses. Find what matters. Forge it.
+            AI consulting for growing businesses.
           </p>
           <p>
-            Part of the <a href="https://xfacts.dev">xFacts</a> suite —
-            body, brain, toolbelt, hands, playbook, and terrain, all labeled.
+            Part of the <a href="https://xfacts.dev">xFacts</a> suite.
             Spec &amp; schema are <strong>CC0</strong>. Tooling is <strong>MIT</strong>.
           </p>
         </div>

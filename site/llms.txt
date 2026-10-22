@@ -19,11 +19,20 @@
 5. Unknown is not undisclosed. A skipped adapter is not evidence of absence.
 6. Default scan does not execute target code, use the network, or call a model.
 
-FeatureFacts answers “What can this product do?” It is not an AppFacts field, a test runner, or a coverage certificate.
+FeatureFacts is not a test runner or a coverage certificate.
 
 ## CLI
 
-`npx @xfacts/featurefacts <init|scan|show|review|report|check|refresh-config> --root <app>` (Node 22.18 or newer). `review --apply --actor <name> --id <feature>... [--name <feature>=<display name>]...` confirms and selects capabilities; `--name` sets the label name in `curation.overrides`. `refresh-config` lists default include patterns an older config lacks that match the repo, plus top-level app folders such as `ui/` or `viewer/`, and excludes root tool configs (`vite.config.*` and the like) from a root glob; `--write` adds them (or only the `--include` patterns named) and keeps the selection. `init` refuses to replace an existing register.
+`npx @xfacts/featurefacts <command> --root <app>` (Node 22.18 or newer):
+
+- `init`: create `.featurefacts/` where none exists.
+- `scan`: propose candidates and update the register.
+- `review`: list candidates as JSON.
+- `review --apply --actor <name> --id <feature>... [--name <feature>=<label name>]...`: confirm and select capabilities, then write the label.
+- `report`: rewrite FEATURE_FACTS.md from the register.
+- `show [feature]`: print the label or one record.
+- `check [--projection]`: fail when the label, register, or source are out of date.
+- `refresh-config [--write] [--include <pattern>]...`: list (or apply) the include and exclude changes an older config needs, such as app folders like `viewer/`.
 
 ## Spec (git)
 
