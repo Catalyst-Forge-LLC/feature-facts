@@ -27,6 +27,8 @@ switch (cmd) {
 }
 const home = 'http://example.com'; if (cmd === 'after-url') afterUrl();
 const re = /https?:\\/\\//; if (cmd === 'after-regex') afterRegex();
+const QUOTE = /['"\`]/g; // cmd === 'quoted-ghost'
+const half = 4 / 2 / 1; if (cmd === 'after-division') afterDivision();
 app.get('/live', () => undefined);
 `;
 
@@ -40,7 +42,7 @@ test('commands and routes inside comments are not candidates; code after a URL o
     writeFileSync(join(root, 'src', 'billing.ts'), `// ${tag}: billing\nexport const bill = 1;\n`);
     scanCommand(root);
     const ids = loadRegistry(workspaceAt(root))!.features.map((item) => item.id).sort();
-    deepEqual(ids, ['billing', 'cmd-after-regex', 'cmd-after-url', 'cmd-run', 'route-live']);
+    deepEqual(ids, ['billing', 'cmd-after-division', 'cmd-after-regex', 'cmd-after-url', 'cmd-run', 'route-live']);
   } finally {
     rmSync(root, { recursive: true, force: true });
   }
@@ -51,4 +53,6 @@ test('blanking comments keeps offsets, newlines, and string contents', () => {
   const out = blankComments(text);
   equal(out.length, text.length);
   equal(out, "a('//not')        \r\nb     \n      c");
+  const regex = "x = /['/]/; // gone";
+  equal(blankComments(regex), "x = /    /;        ");
 });

@@ -80,8 +80,9 @@ function skipComment(text: string, start: number): number {
 /**
  * The text with every // and block comment (JSDoc included) blanked to spaces, keeping newlines and
  * offsets, so a command or route quoted in a comment is not read as code. String and template
- * literals are kept: route and command names live in them. Annotations are read from the original
- * text, because they are comments by design.
+ * literals are kept: route and command names live in them. Regex literal bodies are blanked too, so a
+ * quote inside one (`/['"]/`) does not open a string. Annotations are read from the original text,
+ * because they are comments by design.
  */
 export function blankComments(text: string): string {
   let out = '';
@@ -101,10 +102,45 @@ export function blankComments(text: string): string {
       i = past;
       continue;
     }
+    if (ch === '/' && regexCanStart(out)) {
+      const end = skipRegex(text, i);
+      if (end > 0) {
+        out += '/' + ' '.repeat(end - i - 2) + '/';
+        i = end;
+        continue;
+      }
+    }
     out += ch;
     i += 1;
   }
   return out;
+}
+
+const REGEX_AFTER_WORD = /(?:^|[^\w$])(?:return|typeof|case|do|else|in|of|new|delete|void|throw|yield|await)$/;
+
+/** Whether a `/` here starts a regex literal rather than dividing, judged by the code before it. */
+function regexCanStart(before: string): boolean {
+  let end = before.length;
+  while (end > 0 && /\s/.test(before[end - 1]!)) end -= 1;
+  if (end === 0) return true;
+  if ('([{,;:=!&|?+-*%<>~^'.includes(before[end - 1]!)) return true;
+  return REGEX_AFTER_WORD.test(before.slice(Math.max(0, end - 12), end));
+}
+
+/** Index just past the regex literal that opens at `start`, or -1 when it does not close on its line. */
+function skipRegex(text: string, start: number): number {
+  let i = start + 1;
+  let inClass = false;
+  while (i < text.length) {
+    const ch = text[i];
+    if (ch === '\n' || ch === '\r') return -1;
+    if (ch === '\\') i += 1;
+    else if (ch === '[') inClass = true;
+    else if (ch === ']') inClass = false;
+    else if (ch === '/' && !inClass) return i + 1;
+    i += 1;
+  }
+  return -1;
 }
 
 /** Index just past the bracket that closes the one at `open`, or -1. */
