@@ -10,6 +10,108 @@ const ROUTE_CALL = /\.(get|post|put|patch|delete|options|head)\(\s*['"`](\/[^'"`
 const COMMAND_CALL = /\.command\(\s*['"`]([^'"`]+)['"`]/g;
 const ARGV_EQ = /\b(?:cmd|command|subcommand)\s*==+\s*['"`]([a-z][a-z0-9-]*)['"`]/g;
 const ARGV_CASE = /\bcase\s+['"`]([a-z][a-z0-9-]*)['"`]\s*:/g;
+const SWITCH_START = /\bswitch\s*\(/g;
+/** A switch on one of these reads a subcommand; `switch (method)` in a JSON-RPC handler does not. */
+const ARGV_NAMES = /^(?:cmd|command|subcommand|sub|verb)$/;
+const ARGV_EXPR = /\bargv\b|\bargs?\s*\[\s*0\s*\]|\bpositionals?\s*\[\s*0\s*\]/;
+
+export function isArgvDiscriminant(expr: string): boolean {
+  const text = expr.trim();
+  return ARGV_NAMES.test(text) || ARGV_EXPR.test(text);
+}
+
+/** Skip a string or template literal that starts at `start`; returns the index after it. */
+function skipQuoted(text: string, start: number): number {
+  const quote = text[start];
+  let i = start + 1;
+  while (i < text.length && text[i] !== quote) {
+    if (text[i] === '\\') i += 1;
+    i += 1;
+  }
+  return i + 1;
+}
+
+/** Skip a // or block comment that starts at `start`; returns `start` when there is none. */
+function skipComment(text: string, start: number): number {
+  if (text[start] !== '/') return start;
+  if (text[start + 1] === '/') {
+    const end = text.indexOf('\n', start);
+    return end < 0 ? text.length : end;
+  }
+  if (text[start + 1] === '*') {
+    const end = text.indexOf('*/', start + 2);
+    return end < 0 ? text.length : end + 2;
+  }
+  return start;
+}
+
+/** Index just past the bracket that closes the one at `open`, or -1. */
+function matchBracket(text: string, open: number): number {
+  const opener = text[open];
+  const closer = opener === '(' ? ')' : '}';
+  let depth = 0;
+  let i = open;
+  while (i < text.length) {
+    const ch = text[i];
+    if (ch === '"' || ch === "'" || ch === '`') {
+      i = skipQuoted(text, i);
+      continue;
+    }
+    const past = skipComment(text, i);
+    if (past !== i) {
+      i = past;
+      continue;
+    }
+    if (ch === opener) depth += 1;
+    if (ch === closer) {
+      depth -= 1;
+      if (depth === 0) return i + 1;
+    }
+    i += 1;
+  }
+  return -1;
+}
+
+/** `case 'x':` labels of switches whose discriminant reads argv, with their offsets. */
+export function argvCaseLabels(text: string): Array<{ name: string; index: number }> {
+  const out: Array<{ name: string; index: number }> = [];
+  SWITCH_START.lastIndex = 0;
+  let match: RegExpExecArray | null;
+  while ((match = SWITCH_START.exec(text))) {
+    const parenOpen = match.index + match[0].length - 1;
+    const parenClose = matchBracket(text, parenOpen);
+    if (parenClose < 0) continue;
+    if (!isArgvDiscriminant(text.slice(parenOpen + 1, parenClose - 1))) continue;
+    const braceOpen = text.indexOf('{', parenClose);
+    if (braceOpen < 0) continue;
+    const braceClose = matchBracket(text, braceOpen);
+    if (braceClose < 0) continue;
+    // Only labels at this switch's own depth; a nested switch is judged on its own.
+    let depth = 0;
+    let i = braceOpen + 1;
+    while (i < braceClose - 1) {
+      const ch = text[i];
+      if (ch === '"' || ch === "'" || ch === '`') {
+        i = skipQuoted(text, i);
+        continue;
+      }
+      const past = skipComment(text, i);
+      if (past !== i) {
+        i = past;
+        continue;
+      }
+      if (ch === '{') depth += 1;
+      else if (ch === '}') depth -= 1;
+      else if (depth === 0 && ch === 'c') {
+        ARGV_CASE.lastIndex = i;
+        const label = ARGV_CASE.exec(text);
+        if (label && label.index === i) out.push({ name: label[1]!, index: i });
+      }
+      i += 1;
+    }
+  }
+  return out.sort((a, b) => a.index - b.index);
+}
 
 export interface SurfaceResult {
   adapter: AdapterMeta;
@@ -171,23 +273,24 @@ export function runSurface(ctx: ScanContext): SurfaceResult {
 
     if (content.text.includes('process.argv')) {
       const seenCmd = new Set<string>();
-      for (const pattern of [ARGV_EQ, ARGV_CASE]) {
-        pattern.lastIndex = 0;
-        while ((match = pattern.exec(content.text))) {
-          const name = match[1];
-          if (seenCmd.has(name)) continue;
-          seenCmd.add(name);
-          const start = content.text.slice(0, match.index).split(/\r?\n/).length;
-          add({
-            id: kebabId(`cmd-${name}`),
-            kind: 'command',
-            ref: name,
-            title: name,
-            locator: { path, content_sha256: file.sha256, start_line: start, end_line: start, symbol: name },
-            provenance: provenance('argv-command'),
-            state: 'current',
-          });
-        }
+      const hits: Array<{ name: string; index: number }> = [];
+      ARGV_EQ.lastIndex = 0;
+      while ((match = ARGV_EQ.exec(content.text))) hits.push({ name: match[1]!, index: match.index });
+      hits.push(...argvCaseLabels(content.text));
+      for (const hit of hits) {
+        const name = hit.name;
+        if (seenCmd.has(name)) continue;
+        seenCmd.add(name);
+        const start = content.text.slice(0, hit.index).split(/\r?\n/).length;
+        add({
+          id: kebabId(`cmd-${name}`),
+          kind: 'command',
+          ref: name,
+          title: name,
+          locator: { path, content_sha256: file.sha256, start_line: start, end_line: start, symbol: name },
+          provenance: provenance('argv-command'),
+          state: 'current',
+        });
       }
     }
 

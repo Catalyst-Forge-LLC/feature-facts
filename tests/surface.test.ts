@@ -97,3 +97,52 @@ if (cmd === 'scan') {}
     rmSync(root, { recursive: true, force: true });
   }
 });
+
+test('only a switch on an argv value names commands; a JSON-RPC method switch does not', () => {
+  const root = mkdtempSync(join(tmpdir(), 'ff-switch-'));
+  try {
+    writeFileSync(join(root, 'package.json'), JSON.stringify({ name: 'demo', bin: { demo: 'dist/cli.js' } }));
+    mkdirSync(join(root, 'src'), { recursive: true });
+    writeFileSync(
+      join(root, 'src', 'cli.ts'),
+      `const [cmd, ...rest] = process.argv.slice(2);
+switch (cmd) {
+  case 'serve': {
+    switch (mode) {
+      case 'inner-mode':
+        break;
+    }
+    break;
+  }
+  // case 'commented-out':
+  case "pull":
+    console.log('case "not-a-label":');
+    break;
+}
+switch (process.argv[3]) {
+  case 'extra':
+    break;
+}
+`,
+    );
+    writeFileSync(
+      join(root, 'src', 'mcp.ts'),
+      `if (process.argv.includes('--help')) printHelp();
+export function handle(method: string) {
+  switch (method) {
+    case "initialize":
+      return init();
+    case "ping":
+      return {};
+  }
+}
+`,
+    );
+
+    scanCommand(root);
+    const ids = loadRegistry(workspaceAt(root))!.features.map((item) => item.id).sort();
+    equal(ids.join(','), 'cmd-extra,cmd-pull,cmd-serve');
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});

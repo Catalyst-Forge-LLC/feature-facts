@@ -5,7 +5,7 @@ export const RULE_SET = { rule_set: 'featurefacts-core', version: '0.2.0' } as c
 
 export const ADAPTERS = {
   tree: { id: 'typescript-tree', version: '0.2.0', kind: 'tree' },
-  surface: { id: 'typescript-node-surface', version: '0.2.1', kind: 'surface' },
+  surface: { id: 'typescript-node-surface', version: '0.2.2', kind: 'surface' },
   document: { id: 'markdown-document', version: '0.2.0', kind: 'document' },
   test: { id: 'typescript-test', version: '0.2.0', kind: 'test' },
 } as const;
