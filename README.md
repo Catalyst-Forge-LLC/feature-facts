@@ -2,7 +2,7 @@
 
 Know what a product can do, where the evidence lives, and which capabilities still need review.
 
-FeatureFacts is part of [xFacts](https://xfacts.dev). It keeps a register of a repo's capabilities in `.featurefacts/` and writes a short label, `FEATURE_FACTS.md`, from the ones a maintainer confirms. A scan only proposes candidates; nothing reaches the label until someone selects it. With nothing selected, no label is written.
+FeatureFacts is part of [xFacts](https://xfacts.dev), a sibling of AppFacts rather than an AppFacts field. It keeps a register of a repo's capabilities in `.featurefacts/` and writes a short label, `FEATURE_FACTS.md`, from the ones a maintainer confirms. A scan only proposes candidates; nothing reaches the label until someone selects it. With nothing selected, no label is written.
 
 Scope: TypeScript/Node repositories; other ecosystems report `unsupported` rather than a guessed inventory. Requires Node 22.18 or newer. It is not a runtime dependency of the app you scan.
 
@@ -117,7 +117,7 @@ pnpm ship       # wrangler deploy --config site/wrangler.jsonc
 localhelm enroll ../feature-facts --apply
 ```
 
-The plugin lists repos that have a register. **Add repos** finds repos in a folder; Init writes `.featurefacts/` into each ticked repo that has none. **Label** on a row shows `FEATURE_FACTS.md` and the checklist. Update label writes it.
+The plugin lists repos that have a register. **Add repos** finds repos in a folder; Init writes `.featurefacts/` into each ticked repo that has none. **Label** on a row shows `FEATURE_FACTS.md` and the checklist. Scan refreshes the list. Update label writes it.
 
 ## Spec
 

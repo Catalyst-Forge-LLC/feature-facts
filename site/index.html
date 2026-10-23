@@ -324,6 +324,8 @@ npx @xfacts/featurefacts check  --root ../my-app</pre>
             </ol>
             <p>
               Selecting nothing is a valid result; then no label file is written.
+              To curate by hand, edit <code>.featurefacts/features.yaml</code> and
+              <code>config.yaml</code>, then run <code>report</code>.
               For a config from an older version, <code>refresh-config</code> lists the include
               and exclude changes it needs, such as app folders like <code>viewer/</code>;
               <code>--write</code> applies them and keeps the selection.
