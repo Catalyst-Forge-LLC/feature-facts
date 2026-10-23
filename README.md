@@ -4,11 +4,12 @@ Know what a product can do, where the evidence lives, and which capabilities sti
 
 FeatureFacts is part of [xFacts](https://xfacts.dev). It keeps a register of a repo's capabilities in `.featurefacts/` and writes a short label, `FEATURE_FACTS.md`, from the ones a maintainer confirms. A scan only proposes candidates; nothing reaches the label until someone selects it. With nothing selected, no label is written.
 
-Scope: TypeScript/Node repositories. Requires Node 22.18 or newer. It is not a runtime dependency of the app you scan.
+Scope: TypeScript/Node repositories; other ecosystems report `unsupported` rather than a guessed inventory. Requires Node 22.18 or newer. It is not a runtime dependency of the app you scan.
 
 ## Workflow
 
 ```bash
+npx @xfacts/featurefacts --help                    # every command and option
 npx @xfacts/featurefacts init   --root ../my-app
 npx @xfacts/featurefacts scan   --root ../my-app
 npx @xfacts/featurefacts review --root ../my-app
@@ -22,7 +23,7 @@ npx @xfacts/featurefacts check  --root ../my-app
 3. `review` lists candidates as JSON: ID, name, recognition, docs and test signs, and whether each is on the label.
 4. `review --apply` confirms the IDs you name, in label order (up to 12), and writes the label. Confirm only capabilities you can stand behind.
 5. `check` fails when the label, register, or source are out of date. `check --projection` checks only the label against the register.
-6. Commit all of `.featurefacts/`, including `manifest.json`, with `FEATURE_FACTS.md`. Without the manifest, `check` cannot judge freshness in a fresh clone or CI.
+6. Commit all of `.featurefacts/`, including `manifest.json`, with `FEATURE_FACTS.md`. Without the manifest, `check` cannot judge freshness in a fresh clone or CI. `init` and `scan` write it and say so the first time; `report` does not rescan, so it only warns when the manifest is missing.
 
 `report` rewrites `FEATURE_FACTS.md` after a hand edit, and removes it when nothing is selected. `show` prints the label, or `show ID` one capability's record.
 

@@ -22,19 +22,28 @@ Commands:
   review            List candidates and the current selection as JSON.
   review --apply    Confirm capabilities and put them on the label:
     --id FEATURE          ID for the label, in order; repeat up to 12. No --id clears the label.
-    --name FEATURE=NAME   Name the row shows on the label; repeatable.
+    --name FEATURE=NAME   Name the row shows on the label; repeatable. FEATURE= removes it.
     --actor NAME          Who approved (default: git user.name).
     --source TEXT         Where the review happened (default: featurefacts review).
   report            Rewrite FEATURE_FACTS.md from the register and selection.
   show [FEATURE]    Print the label, or one capability's record.
   check             Fail when the label, register, or source are out of date.
     --projection          Check only the label against the register.
-  refresh-config    List include and exclude changes an older config needs.
-    --write               Apply them. Selections and other settings are kept.
+  refresh-config    List include and exclude changes an older config needs, such as app
+                    folders like viewer/. Prints only; nothing is written without --write.
+    --write               Apply them, keeping selections and other settings. Then run scan and report.
     --include PATTERN     Add only this pattern; repeatable.
+
+Example:
+  featurefacts init   --root ../my-app
+  featurefacts scan   --root ../my-app
+  featurefacts review --root ../my-app
+  featurefacts review --apply --root ../my-app --actor "Your Name" --id cmd-scan --name "cmd-scan=Scan"
+  featurefacts check  --root ../my-app
 
 Scan reads files only. It does not run code, use the network, or call a model.
 No FEATURE_FACTS.md is written until a capability is selected.
+Commit all of .featurefacts/, including manifest.json, with FEATURE_FACTS.md.
 `;
 }
 

@@ -22,3 +22,11 @@ test('packaged bin invokes init, scan, and check once', () => {
     rmSync(root, { recursive: true, force: true });
   }
 });
+
+test('help lists every command with an example run', () => {
+  const out = execFileSync(process.execPath, [bin, '--help'], { encoding: 'utf8' });
+  for (const command of ['init', 'scan', 'review --apply', 'report', 'show', 'check', 'refresh-config']) {
+    equal(out.includes(`  ${command}`), true, command);
+  }
+  equal(out.includes('featurefacts review --apply --root ../my-app'), true);
+});
