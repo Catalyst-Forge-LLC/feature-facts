@@ -4,7 +4,7 @@ name: FeatureFacts
 type: CLI tool
 status: active
 license: MIT
-version: 0.2.6
+version: 0.2.7
 repository: https://github.com/Catalyst-Forge-LLC/feature-facts
 stack:
   language: TypeScript
