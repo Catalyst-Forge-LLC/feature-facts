@@ -1,9 +1,9 @@
 {
   "schemaVersion": "0.2.0",
-  "scan_id": "scan-b3bf51def6f6",
+  "scan_id": "scan-ea123821a7fe",
   "tool": "featurefacts",
   "tool_version": "0.2.6",
-  "generated_at": "2026-10-22T13:50:17.594-04:00",
+  "generated_at": "2026-10-23T10:41:44.440-04:00",
   "root": ".",
   "status": "complete",
   "scope": {
@@ -173,8 +173,8 @@
       },
       {
         "path": "README.md",
-        "sha256": "212a7f92997034815ecd9fdfec49ebd2fd54a517684e080d29a3b90131b7d519",
-        "bytes": 9582,
+        "sha256": "c0ddd1688b920dbc5345b271c08809ba00bc924e40fc7e328d54b5d5d9d8f172",
+        "bytes": 9937,
         "eligible_adapter_ids": [
           "typescript-tree",
           "markdown-document"
@@ -264,8 +264,8 @@
       },
       {
         "path": "src/cli.ts",
-        "sha256": "2d1fb078e2096a8be9a6dcadcba2918c24d348605c5f70fb4c5de95686eb9872",
-        "bytes": 6699,
+        "sha256": "0523e97fc0577169ebf50653f61ddef79d613299e58252794e603c730ca62b65",
+        "bytes": 7205,
         "eligible_adapter_ids": [
           "typescript-tree",
           "typescript-node-surface"
@@ -563,8 +563,8 @@
       },
       {
         "path": "tests/bin.test.ts",
-        "sha256": "b5156ddc81a5c11aaee722e3d6f0c0efe828bbe552ae30dd1707778c9fc26a1c",
-        "bytes": 1056,
+        "sha256": "6058fb3b5f026f8e21e702c803c71755c4aa912a45869d0925a962f4a7c24c29",
+        "bytes": 1451,
         "eligible_adapter_ids": [
           "typescript-tree",
           "typescript-test"
@@ -1076,11 +1076,11 @@
   ],
   "rules_version": "featurefacts-core@0.2.0",
   "fingerprints": {
-    "source": "31ff2d9e73aebbb40f9428f0185f4fba63d88d59ffa4e34a303e373d32e86d08",
+    "source": "3101f3e13dfe4b3515da0d7b77f4781d9836f3c47e7863608e7d8d19b2c40509",
     "config": "0778aff434cfcbd601f90006830e8eda97bd08acd9ccb215b657aadd1520a3ed",
     "adapters": "bfa59a2c62e4f45e5bade6f848e11727f03db8c185a16f19beaa6f857876c223",
     "rules": "c7f728a22bf07a27d20f2b0ba60c59d2528cf27f6b218a22272fcbbe465f8971",
-    "registry": "8230f71ccc1ef9ca88f9f1576ef3185dbe1a3d8b256c1da844fc9fb0e86d404c",
+    "registry": "ba164271093551ea5be3cda934e0260750d09c5f6ffad939bf46723d56ee0134",
     "projection": "f76bcd7c2dec68213a36cca06a7ea37721a327baf0218175d6d012b847fc948f"
   },
   "artifacts": [
@@ -1090,31 +1090,31 @@
     },
     {
       "path": ".featurefacts/docs-index.json",
-      "sha256": "95e7a35aa72c795b028821fe79b804ce20aa6d16a5dee6d1627555c0cd7e5fbd"
+      "sha256": "c6268a36ccdcf63ed341a89a003546e88f88f08b9272203cd83c9153d343fd2a"
     },
     {
       "path": ".featurefacts/features.json",
-      "sha256": "0e58e48a31261af596419f3062df466fbebde588bb8f49b3f0bc6fc64a60a105"
+      "sha256": "96aa5ee8c51841f0355ac664983088ec2924c1600053e0d12b85ada4fbececc4"
     },
     {
       "path": ".featurefacts/FEATURES.md",
-      "sha256": "4903ae42af97e134db511dfa31866cd777afc80046ed702de7b04612a12ca15a"
+      "sha256": "72c4a14a73bbceb406b8667362f124db9c62cb835f643ca06adb5b76ca93e05d"
     },
     {
       "path": ".featurefacts/features.yaml",
-      "sha256": "6ef77f4b50f107d6d6540f0ea935edbd6c2c2e4e3d99d404bbde5d77f4ce4435"
+      "sha256": "212cbe1084d2e4299fb8e338336338a76b4a3429676fcaa582b524fa63732dae"
     },
     {
       "path": ".featurefacts/gaps.yaml",
-      "sha256": "db606764dec978c0e3e9e5235d4d4e67b2abb2a78ce2aa8e45dd8669bb651916"
+      "sha256": "7eae8c510152d0682268608de2b5ed209d272c886c8d3ab556aba94f26d63ae0"
     },
     {
       "path": ".featurefacts/surfaces.json",
-      "sha256": "f0d2de519e51027f0ac3bc0d97379979be9ce1aba0a9c7d36f6180b6e4bf0597"
+      "sha256": "caabfea809d32cbf2a32170d8b9eeb1f485c32e2a8b245369712c34c92f78cb3"
     },
     {
       "path": ".featurefacts/test-index.json",
-      "sha256": "c0e045fd30374146e33fad17c4e89a42035cfb2eea2e23e443c2251b42e59c6a"
+      "sha256": "e29b8889755dfbd8d67db0bdbcaf06f641ec3d6d031ce772a7a3db6a77ad462d"
     },
     {
       "path": "FEATURE_FACTS.md",

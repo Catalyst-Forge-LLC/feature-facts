@@ -1,6 +1,6 @@
 {
   "schemaVersion": "0.2.0",
-  "scan_id": "scan-b3bf51def6f6",
+  "scan_id": "scan-ea123821a7fe",
   "surfaces": [
     {
       "id": "cmd-check",
@@ -9,9 +9,9 @@
       "title": "check",
       "locator": {
         "path": "src/cli.ts",
-        "content_sha256": "2d1fb078e2096a8be9a6dcadcba2918c24d348605c5f70fb4c5de95686eb9872",
-        "start_line": 132,
-        "end_line": 132,
+        "content_sha256": "0523e97fc0577169ebf50653f61ddef79d613299e58252794e603c730ca62b65",
+        "start_line": 141,
+        "end_line": 141,
         "symbol": "check"
       },
       "provenance": {
@@ -47,9 +47,9 @@
       "title": "init",
       "locator": {
         "path": "src/cli.ts",
-        "content_sha256": "2d1fb078e2096a8be9a6dcadcba2918c24d348605c5f70fb4c5de95686eb9872",
-        "start_line": 71,
-        "end_line": 71,
+        "content_sha256": "0523e97fc0577169ebf50653f61ddef79d613299e58252794e603c730ca62b65",
+        "start_line": 80,
+        "end_line": 80,
         "symbol": "init"
       },
       "provenance": {
@@ -67,9 +67,9 @@
       "title": "refresh-config",
       "locator": {
         "path": "src/cli.ts",
-        "content_sha256": "2d1fb078e2096a8be9a6dcadcba2918c24d348605c5f70fb4c5de95686eb9872",
-        "start_line": 114,
-        "end_line": 114,
+        "content_sha256": "0523e97fc0577169ebf50653f61ddef79d613299e58252794e603c730ca62b65",
+        "start_line": 123,
+        "end_line": 123,
         "symbol": "refresh-config"
       },
       "provenance": {
@@ -87,9 +87,9 @@
       "title": "report",
       "locator": {
         "path": "src/cli.ts",
-        "content_sha256": "2d1fb078e2096a8be9a6dcadcba2918c24d348605c5f70fb4c5de95686eb9872",
-        "start_line": 85,
-        "end_line": 85,
+        "content_sha256": "0523e97fc0577169ebf50653f61ddef79d613299e58252794e603c730ca62b65",
+        "start_line": 94,
+        "end_line": 94,
         "symbol": "report"
       },
       "provenance": {
@@ -107,9 +107,9 @@
       "title": "review",
       "locator": {
         "path": "src/cli.ts",
-        "content_sha256": "2d1fb078e2096a8be9a6dcadcba2918c24d348605c5f70fb4c5de95686eb9872",
-        "start_line": 98,
-        "end_line": 98,
+        "content_sha256": "0523e97fc0577169ebf50653f61ddef79d613299e58252794e603c730ca62b65",
+        "start_line": 107,
+        "end_line": 107,
         "symbol": "review"
       },
       "provenance": {
@@ -127,9 +127,9 @@
       "title": "scan",
       "locator": {
         "path": "src/cli.ts",
-        "content_sha256": "2d1fb078e2096a8be9a6dcadcba2918c24d348605c5f70fb4c5de95686eb9872",
-        "start_line": 77,
-        "end_line": 77,
+        "content_sha256": "0523e97fc0577169ebf50653f61ddef79d613299e58252794e603c730ca62b65",
+        "start_line": 86,
+        "end_line": 86,
         "symbol": "scan"
       },
       "provenance": {
@@ -147,9 +147,9 @@
       "title": "show",
       "locator": {
         "path": "src/cli.ts",
-        "content_sha256": "2d1fb078e2096a8be9a6dcadcba2918c24d348605c5f70fb4c5de95686eb9872",
-        "start_line": 93,
-        "end_line": 93,
+        "content_sha256": "0523e97fc0577169ebf50653f61ddef79d613299e58252794e603c730ca62b65",
+        "start_line": 102,
+        "end_line": 102,
         "symbol": "show"
       },
       "provenance": {
@@ -303,7 +303,7 @@
       "title": "README.md",
       "locator": {
         "path": "README.md",
-        "content_sha256": "212a7f92997034815ecd9fdfec49ebd2fd54a517684e080d29a3b90131b7d519"
+        "content_sha256": "c0ddd1688b920dbc5345b271c08809ba00bc924e40fc7e328d54b5d5d9d8f172"
       },
       "provenance": {
         "adapter_id": "markdown-document",
@@ -337,7 +337,7 @@
       "title": "tests/bin.test.ts",
       "locator": {
         "path": "tests/bin.test.ts",
-        "content_sha256": "b5156ddc81a5c11aaee722e3d6f0c0efe828bbe552ae30dd1707778c9fc26a1c"
+        "content_sha256": "6058fb3b5f026f8e21e702c803c71755c4aa912a45869d0925a962f4a7c24c29"
       },
       "provenance": {
         "adapter_id": "typescript-test",

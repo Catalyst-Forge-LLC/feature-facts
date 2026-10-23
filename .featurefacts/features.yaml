@@ -1,5 +1,5 @@
 schemaVersion: 0.2.0
-scan_id: scan-b3bf51def6f6
+scan_id: scan-ea123821a7fe
 product:
   name: FeatureFacts
   type: typescript-node
@@ -56,7 +56,7 @@ features:
       reason: No explicit test association. A similar test filename is only a proposal.
     observation:
       state: current
-      last_seen_scan_id: scan-b3bf51def6f6
+      last_seen_scan_id: scan-ea123821a7fe
       reason: Current source evidence is available.
     evidence:
       - id: cmd-check-capability
@@ -68,9 +68,9 @@ features:
           claim: Static extraction found implementation surfaces. This is not confirmation.
         locator:
           path: src/cli.ts
-          content_sha256: 2d1fb078e2096a8be9a6dcadcba2918c24d348605c5f70fb4c5de95686eb9872
-          start_line: 132
-          end_line: 132
+          content_sha256: 0523e97fc0577169ebf50653f61ddef79d613299e58252794e603c730ca62b65
+          start_line: 141
+          end_line: 141
           symbol: check
         provenance:
           adapter_id: typescript-node-surface
@@ -156,7 +156,7 @@ features:
       reason: No explicit test association. A similar test filename is only a proposal.
     observation:
       state: current
-      last_seen_scan_id: scan-b3bf51def6f6
+      last_seen_scan_id: scan-ea123821a7fe
       reason: Current source evidence is available.
     evidence:
       - id: cmd-init-capability
@@ -168,9 +168,9 @@ features:
           claim: Static extraction found implementation surfaces. This is not confirmation.
         locator:
           path: src/cli.ts
-          content_sha256: 2d1fb078e2096a8be9a6dcadcba2918c24d348605c5f70fb4c5de95686eb9872
-          start_line: 71
-          end_line: 71
+          content_sha256: 0523e97fc0577169ebf50653f61ddef79d613299e58252794e603c730ca62b65
+          start_line: 80
+          end_line: 80
           symbol: init
         provenance:
           adapter_id: typescript-node-surface
@@ -252,7 +252,7 @@ features:
       reason: A test file is named for this capability. Tests were not executed, and a matching filename is not an accepted link.
     observation:
       state: current
-      last_seen_scan_id: scan-b3bf51def6f6
+      last_seen_scan_id: scan-ea123821a7fe
       reason: Current source evidence is available.
     evidence:
       - id: cmd-refresh-config-capability
@@ -264,9 +264,9 @@ features:
           claim: Static extraction found implementation surfaces. This is not confirmation.
         locator:
           path: src/cli.ts
-          content_sha256: 2d1fb078e2096a8be9a6dcadcba2918c24d348605c5f70fb4c5de95686eb9872
-          start_line: 114
-          end_line: 114
+          content_sha256: 0523e97fc0577169ebf50653f61ddef79d613299e58252794e603c730ca62b65
+          start_line: 123
+          end_line: 123
           symbol: refresh-config
         provenance:
           adapter_id: typescript-node-surface
@@ -354,7 +354,7 @@ features:
       reason: No explicit test association. A similar test filename is only a proposal.
     observation:
       state: current
-      last_seen_scan_id: scan-b3bf51def6f6
+      last_seen_scan_id: scan-ea123821a7fe
       reason: Current source evidence is available.
     evidence:
       - id: cmd-report-capability
@@ -366,9 +366,9 @@ features:
           claim: Static extraction found implementation surfaces. This is not confirmation.
         locator:
           path: src/cli.ts
-          content_sha256: 2d1fb078e2096a8be9a6dcadcba2918c24d348605c5f70fb4c5de95686eb9872
-          start_line: 85
-          end_line: 85
+          content_sha256: 0523e97fc0577169ebf50653f61ddef79d613299e58252794e603c730ca62b65
+          start_line: 94
+          end_line: 94
           symbol: report
         provenance:
           adapter_id: typescript-node-surface
@@ -450,7 +450,7 @@ features:
       reason: No explicit test association. A similar test filename is only a proposal.
     observation:
       state: current
-      last_seen_scan_id: scan-b3bf51def6f6
+      last_seen_scan_id: scan-ea123821a7fe
       reason: Current source evidence is available.
     evidence:
       - id: cmd-review-capability
@@ -462,9 +462,9 @@ features:
           claim: Static extraction found implementation surfaces. This is not confirmation.
         locator:
           path: src/cli.ts
-          content_sha256: 2d1fb078e2096a8be9a6dcadcba2918c24d348605c5f70fb4c5de95686eb9872
-          start_line: 98
-          end_line: 98
+          content_sha256: 0523e97fc0577169ebf50653f61ddef79d613299e58252794e603c730ca62b65
+          start_line: 107
+          end_line: 107
           symbol: review
         provenance:
           adapter_id: typescript-node-surface
@@ -550,7 +550,7 @@ features:
       reason: No explicit test association. A similar test filename is only a proposal.
     observation:
       state: current
-      last_seen_scan_id: scan-b3bf51def6f6
+      last_seen_scan_id: scan-ea123821a7fe
       reason: Current source evidence is available.
     evidence:
       - id: cmd-scan-capability
@@ -562,9 +562,9 @@ features:
           claim: Static extraction found implementation surfaces. This is not confirmation.
         locator:
           path: src/cli.ts
-          content_sha256: 2d1fb078e2096a8be9a6dcadcba2918c24d348605c5f70fb4c5de95686eb9872
-          start_line: 77
-          end_line: 77
+          content_sha256: 0523e97fc0577169ebf50653f61ddef79d613299e58252794e603c730ca62b65
+          start_line: 86
+          end_line: 86
           symbol: scan
         provenance:
           adapter_id: typescript-node-surface
@@ -648,7 +648,7 @@ features:
       reason: No explicit test association. A similar test filename is only a proposal.
     observation:
       state: current
-      last_seen_scan_id: scan-b3bf51def6f6
+      last_seen_scan_id: scan-ea123821a7fe
       reason: Current source evidence is available.
     evidence:
       - id: cmd-show-capability
@@ -660,9 +660,9 @@ features:
           claim: Static extraction found implementation surfaces. This is not confirmation.
         locator:
           path: src/cli.ts
-          content_sha256: 2d1fb078e2096a8be9a6dcadcba2918c24d348605c5f70fb4c5de95686eb9872
-          start_line: 93
-          end_line: 93
+          content_sha256: 0523e97fc0577169ebf50653f61ddef79d613299e58252794e603c730ca62b65
+          start_line: 102
+          end_line: 102
           symbol: show
         provenance:
           adapter_id: typescript-node-surface
